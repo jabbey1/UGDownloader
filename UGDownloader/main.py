@@ -25,3 +25,11 @@ artist = 'Radiohead'  # case-sensitive match
 driver.get('https://www.ultimate-guitar.com/search.php?search_type=bands&value=' + artist)
 driver.find_element(By.LINK_TEXT, artist).click()
 driver.find_element(By.LINK_TEXT, 'Guitar Pro').click()
+# create list of elements on page, referring to all the tabs by an artist. skip ones that are pro or official
+# class of each link: aPPf7 HT3w5 lBssT
+tabList = driver.find_elements(By.CLASS_NAME, 'LQUZJ')
+print(tabList)
+
+# download for each element, skipping pro or official
+
+# go to next page and repeat
