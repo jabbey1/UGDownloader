@@ -56,7 +56,6 @@ print('Found ' + str(len(tabList)) + ' Guitar Pro Files')
 for i in range(howManyTabs):
     tabList = driver.find_elements(By.CLASS_NAME, 'LQUZJ')
     tabList[:] = [x for x in tabList if x.text.__contains__('Guitar Pro')]
-    print(len(tabList))
     print(tabList[i].find_element(By.CSS_SELECTOR, '.HT3w5').get_attribute('href')) # print link
     tabList[i].find_element(By.CSS_SELECTOR, '.HT3w5').click()
     button = driver.find_element(By.CSS_SELECTOR, 'button.exTWY:nth-child(2)')
@@ -68,7 +67,6 @@ for i in range(howManyTabs):
     time.sleep(.1)
     # click download button, go back
     button.click()  # why is there a huge delay after this?
-    print('fdas')
     driver.back()
 
 # go to next page and repeat

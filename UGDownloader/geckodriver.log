@@ -1302,233 +1302,769 @@ JavaScript warning: , line 0: WebGL context was lost.
 [GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
 [GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
 [GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
-ar.com."
-console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.ultimate-guitar.com."
-JavaScript error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_es6/ug~runtime.21f1ba7c59e102baabd4e56e841dcc85.js, line 1: ChunkLoadError: Loading chunk 5487 failed.
-(error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_es6/202207/5487.3bc21fdaf66d32c64558fa4a7984ce8b.js)
-JavaScript error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_es6/ug~runtime.21f1ba7c59e102baabd4e56e841dcc85.js, line 1: ChunkLoadError: Loading chunk 3814 failed.
-(error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_es6/202207/3814.703a2c422a7874633248cf8043b28088.js)
-JavaScript error: , line 0: uncaught exception: Object
-1659408702331	Marionette	INFO	Stopped listening on port 58622
+[GFX1-]: RenderDJavaScript warning: , line 0: Script terminated by timeout at:
+EventHandlerNonNull*XtzAudioWorkletProcessor@https://tabs.ultimate-guitar.com/static/public/player/native/2.5.4-80487/xtz_audio_worklet_processor.js:25:53
+AudioWorkletProcessorConstructor*@https://tabs.ultimate-guitar.com/static/public/player/native/2.5.4-80487/xtz_audio_worklet_processor.js:162:18
+
+JavaScript warning: https://tabs.ultimate-guitar.com/static/public/player/native/2.5.4-80487/xtz_audio_worklet_processor.js, line 145: Script terminated by timeout at:
+process@https://tabs.ultimate-guitar.com/static/public/player/native/2.5.4-80487/xtz_audio_worklet_processor.js:145:12
+
+1659409121612	Marionette	INFO	Stopped listening on port 58106
 console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
-[Parent 12844, Main Thread] WARNING: ContentParent: id=2f07bda6500 - BlockShutdown: CanSend.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3595
-[Parent 12844, Main Thread] WARNING: ContentParent: id=2f07bda6500 - ShutDownProcess: Sent shutdown message.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1799
-[Parent 12844, Main Thread] WARNING: ContentParent: id=2f07bda6500 - ShutDownProcess: Closing channel.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1834
-[Parent 12844, Main Thread] WARNING: ContentParent: id=2f07bda6500 - RemoveShutdownBlockers: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3697
-[Parent 12844, IPC I/O Parent] WARNING: file /builds/worker/checkouts/gecko/ipc/chromium/src/base/process_util_win.cc:167
-1659408703583	geckodriver	INFO	Listening on 127.0.0.1:58681
-1659408706632	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "58682" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofile4JztXu"
-1659408706922	Marionette	INFO	Marionette enabled
-1659408706925	Marionette	INFO	Listening on port 58691
-WebDriver BiDi listening on ws://localhost:58682
-Read port: 58691
-1659408707020	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
-console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofile4JztXu\\search.json.mozlz4", (void 0)))
-DevTools listening on ws://localhost:58682/devtools/browser/d13d66b2-8a30-4235-b8fd-e49cdcb8473b
+[Parent 17308, Main Thread] WARNING: ContentParent: id=1d34a133600 - BlockShutdown: CanSend.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3595
+[Parent 17308, Main Thread] WARNING: ContentParent: id=1d34a133600 - ShutDownProcess: Sent shutdown message.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1799
+[Parent 17308, Main Thread] WARNING: ContentParent: id=1d34a133600 - ShutDownProcess: Closing channel.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1834
+[Parent 17308, Main Thread] WARNING: ContentParent: id=1d34a133600 - RemoveShutdownBlockers: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3697
+80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+[GFX1-]: RenderDXGITextureHost Failed to open shared texture, hr=0x80070057
+JavaScript warning: , line 0: WebGL warning: useProgram: `prog` is from a different (or lost) WebGL context.
+JavaScript warning: , line 0: WebGL warning: uniform setter: No active linked Program.
+JavaScript warning: , line 0: WebGL warning: uniform setter: No active linked Program.
+JavaScript warning: , line 0: WebGL warning: bindBuffer: `buffer` is from a different (or lost) WebGL context.
+JavaScript warning: , line 0: WebGL warning: vertexAttribI?Pointer: If ARRAY_BUFFER is null, byteOffset must be zero.
+JavaScript warning: , line 0: WebGL warning: vertexAttribI?Pointer: If ARRAY_BUFFER is null, byteOffset must be zero.
+JavaScript warning: , line 0: WebGL warning: vertexAttribI?Pointer: If ARRAY_BUFFER is null, byteOffset must be zero.
+JavaScript warning: , line 0: WebGL warning: bindBuffer: `buffer` is from a different (or lost) WebGL context.
+JavaScript warning: , line 0: WebGL warning: drawElementsInstanced: Index buffer not bound.
+JavaScript warning: , line 0: WebGL warning: useProgram: `prog` is from a different (or lost) WebGL context.
+JavaScript warning: , line 0: WebGL warning: uniform setter: No active linked Program.
+JavaScript warning: , line 0: WebGL warning: uniform setter: No active linked Program.
+JavaScript warning: , line 0: WebGL warning: bindTexture: `tex` is from a different (or lost) WebGL context.
+JavaScript warning: , line 0: WebGL warning: uniform setter: No active linked Program.
+JavaScript warning: , line 0: WebGL warning: bindBuffer: `buffer` is from a different (or lost) WebGL context.
+JavaScript warning: , line 0: WebGL warning: vertexAttribI?Pointer: If ARRAY_BUFFER is null, byteOffset must be zero.
+JavaScript warning: , line 0: WebGL warning: vertexAttribI?Pointer: If ARRAY_BUFFER is null, byteOffset must be zero.
+JavaScript warning: , line 0: WebGL warning: bindBuffer: `buffer` is from a different (or lost) WebGL context.
+JavaScript warning: , line 0: WebGL warning: drawElementsInstanced: Index buffer not bound.
+JavaScript warning: , line 0: WebGL warning: bindTexture: `tex` is from a different (or lost) WebGL context.
+JavaScript warning: , line 0: WebGL warning: uniform setter: No active linked Program.
+JavaScript warning: , line 0: WebGL warning: bindBuffer: `buffer` is from a different (or lost) WebGL context.
+JavaScript warning: , line 0: WebGL warning: vertexAttribI?Pointer: If ARRAY_BUFFER is null, byteOffset must be zero.
+JavaScript warning: , line 0: WebGL warning: vertexAttribI?Pointer: If ARRAY_BUFFER is null, byteOffset must be zero.
+JavaScript warning: , line 0: WebGL warning: bindBuffer: `buffer` is from a different (or lost) WebGL context.
+JavaScript warning: , line 0: WebGL warning: drawElementsInstanced: Index buffer not bound.
+JavaScript warning: , line 0: WebGL warning: bindTexture: `tex` is from a different (or lost) WebGL context.
+JavaScript warning: , line 0: WebGL warning: uniform setter: No active linked Program.
+JavaScript warning: , line 0: WebGL warning: bindBuffer: `buffer` is from a different (or lost) WebGL context.
+JavaScript warning: , line 0: WebGL warning: vertexAttribI?Pointer: If ARRAY_BUFFER is null, byteOffset must be zero.
+JavaScript warning: , line 0: WebGL warning: vertexAttribI?Pointer: If ARRAY_BUFFER is null, byteOffset must be zero.
+JavaScript warning: , line 0: WebGL warning: bindBuffer: `buffer` is from a different (or lost) WebGL context.
+JavaScript warning: , line 0: After reporting 32, no further warnings will be reported for this WebGL context.
+JavaScript error: , line 0: NotFoundError: No such JSWindowActor 'DevToolsFrame'
+JavaScript error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_es6/202207/8175.8efd02eb563d4ea4a99cb5668d0b33aa.js, line 2: TypeError: WebGLRenderingContext.getAttribLocation: Argument 1 is not an object.
+JavaScript warning: , line 0: Script terminated by timeout at:
+EventHandlerNonNull*XtzAudioWorkletProcessor@https://tabs.ultimate-guitar.com/static/public/player/native/2.5.4-80487/xtz_audio_worklet_processor.js:25:53
+AudioWorkletProcessorConstructor*@https://tabs.ultimate-guitar.com/static/public/player/native/2.5.4-80487/xtz_audio_worklet_processor.js:162:18
+
+JavaScript warning: https://tabs.ultimate-guitar.com/static/public/player/native/2.5.4-80487/xtz_audio_worklet_processor.js, line 145: Script terminated by timeout at:
+process@https://tabs.ultimate-guitar.com/static/public/player/native/2.5.4-80487/xtz_audio_worklet_processor.js:145:12
+
+JavaScript warning: , line 0: WebGL warning: drawElementsInstanced: Drawing to a destination rect smaller than the viewport rect. (This warning will only be given once)
+JavaScript error: resource://gre/modules/AsyncShutdown.jsm, line 576: NotFoundError: No such JSWindowActor 'DevToolsFrame'
+1659409118992	Marionette	INFO	Stopped listening on port 58018
+[Parent 12652, Main Thread] WARNING: ContentParent: id=22920acab00 - BlockShutdown: CanSend.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3595
+[Parent 12652, Main Thread] WARNING: ContentParent: id=22920acab00 - ShutDownProcess: Sent shutdown message.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1799
+[Parent 12652, Main Thread] WARNING: ContentParent: id=22920acab00 - ShutDownProcess: Closing channel.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1834
+[Parent 12652, Main Thread] WARNING: ContentParent: id=22920acab00 - RemoveShutdownBlockers: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3697
+[Parent 12652, IPC I/O Parent] WARNING: file /builds/worker/checkouts/gecko/ipc/chromium/src/base/process_util_win.cc:167
+1659409123702	geckodriver	INFO	Listening on 127.0.0.1:58794
+1659409126765	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "58795" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofileE8OP7s"
+1659409127060	Marionette	INFO	Marionette enabled
+1659409127064	Marionette	INFO	Listening on port 58804
+WebDriver BiDi listening on ws://localhost:58795
+Read port: 58804
+1659409127158	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofileE8OP7s\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:58795/devtools/browser/56850ee5-d3ef-469a-a967-988542dad38c
 JavaScript error: https://www.ultimate-guitar.com/artist/wormrot_28751, line 175: TypeError: registration.active is null
 JavaScript error: https://www.ultimate-guitar.com/artist/wormrot_28751?filter=guitar_pro, line 175: TypeError: registration.active is null
 console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.ultimate-guitar.com."
 console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.ultimate-guitar.com."
 JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
 console.warn: LoginRecipes: "Falling back to a synchronous message for: https://tabs.ultimate-guitar.com."
-1659408776252	Marionette	INFO	Stopped listening on port 58691
+1659409157238	Marionette	INFO	Stopped listening on port 58804
 console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
-[Parent 17828, Main Thread] WARNING: ContentParent: id=1f00eecb500 - BlockShutdown: CanSend.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3595
-[Parent 17828, Main Thread] WARNING: ContentParent: id=1f00eecb500 - ShutDownProcess: Sent shutdown message.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1799
-[Parent 17828, Main Thread] WARNING: ContentParent: id=1f00eecb500 - ShutDownProcess: Closing channel.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1834
-[Parent 17828, Main Thread] WARNING: ContentParent: id=1f00eecb500 - RemoveShutdownBlockers: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3697
+[Parent 13892, Main Thread] WARNING: ContentParent: id=29b55695400 - BlockShutdown: CanSend.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3595
+[Parent 13892, Main Thread] WARNING: ContentParent: id=29b55695400 - ShutDownProcess: Sent shutdown message.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1799
+[Parent 13892, Main Thread] WARNING: ContentParent: id=29b55695400 - ShutDownProcess: Closing channel.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1834
+[Parent 13892, Main Thread] WARNING: ContentParent: id=29b55695400 - RemoveShutdownBlockers: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3697
+[Parent 13892, IPC I/O Parent] WARNING: file /builds/worker/checkouts/gecko/ipc/chromium/src/base/process_util_win.cc:167
+1659409159032	geckodriver	INFO	Listening on 127.0.0.1:58878
+1659409161246	geckodriver	INFO	Listening on 127.0.0.1:58882
+1659409164313	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "58883" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofilev2rcNm"
+1659409164604	Marionette	INFO	Marionette enabled
+1659409164607	Marionette	INFO	Listening on port 58892
+WebDriver BiDi listening on ws://localhost:58883
+Read port: 58892
+1659409164702	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofilev2rcNm\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:58883/devtools/browser/6eeeb12b-de7b-4e14-88f4-8438e3521320
+JavaScript error: https://www.ultimate-guitar.com/artist/wormrot_28751, line 175: TypeError: registration.active is null
+JavaScript error: https://www.ultimate-guitar.com/artist/wormrot_28751?filter=guitar_pro, line 175: TypeError: registration.active is null
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.ultimate-guitar.com."
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.ultimate-guitar.com."
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+1659409233371	Marionette	INFO	Stopped listening on port 58892
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+[Parent 3356, Main Thread] WARNING: ContentParent: id=1f33c4d9900 - BlockShutdown: CanSend.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3595
+[Parent 3356, Main Thread] WARNING: ContentParent: id=1f33c4d9900 - ShutDownProcess: Shutdown already pending.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1815
+[Parent 3356, Main Thread] WARNING: ContentParent: id=1f33d6cb700 - BlockShutdown: CanSend.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3595
+[Parent 3356, Main Thread] WARNING: ContentParent: id=1f33d6cb700 - ShutDownProcess: Sent shutdown message.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1799
+[Parent 3356, Main Thread] WARNING: ContentParent: id=1f33c4d9900 - ShutDownProcess: Closing channel.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1834
+[Parent 3356, Main Thread] WARNING: ContentParent: id=1f33c4d9900 - RemoveShutdownBlockers: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3697
+[Parent 3356, Main Thread] WARNING: ContentParent: id=1f33d6cb700 - ShutDownProcess: Closing channel.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1834
+[Parent 3356, Main Thread] WARNING: ContentParent: id=1f33d6cb700 - RemoveShutdownBlockers: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3697
+1659409244600	geckodriver	INFO	Listening on 127.0.0.1:58982
+1659409247660	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "58983" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofilehf92tM"
+1659409247963	Marionette	INFO	Marionette enabled
+1659409247966	Marionette	INFO	Listening on port 58992
+WebDriver BiDi listening on ws://localhost:58983
+Read port: 58992
+1659409248062	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofilehf92tM\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:58983/devtools/browser/f43c43f7-40fa-4557-af35-d2f301c7d98e
+JavaScript error: https://www.ultimate-guitar.com/artist/wormrot_28751, line 175: TypeError: registration.active is null
+JavaScript error: https://www.ultimate-guitar.com/artist/wormrot_28751?filter=guitar_pro, line 175: TypeError: registration.active is null
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.ultimate-guitar.com."
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.ultimate-guitar.com."
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://tabs.ultimate-guitar.com."
+1659409273433	Marionette	INFO	Stopped listening on port 58992
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+[Parent 8872, Main Thread] WARNING: ContentParent: id=2d19dab7600 - BlockShutdown: CanSend.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3595
+[Parent 8872, Main Thread] WARNING: ContentParent: id=2d19dab7600 - ShutDownProcess: Sent shutdown message.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1799
+[Parent 8872, Main Thread] WARNING: ContentParent: id=2d19dab7600 - ShutDownProcess: Closing channel.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1834
+[Parent 8872, Main Thread] WARNING: ContentParent: id=2d19dab7600 - RemoveShutdownBlockers: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3697
+1659409278425	geckodriver	INFO	Listening on 127.0.0.1:59066
+1659409281492	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "59067" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofiledYQRXf"
+1659409281803	Marionette	INFO	Marionette enabled
+1659409281807	Marionette	INFO	Listening on port 59076
+WebDriver BiDi listening on ws://localhost:59067
+Read port: 59076
+1659409281939	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofiledYQRXf\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:59067/devtools/browser/317fdaf5-f5f7-40fe-b173-bce007d8c179
+JavaScript error: https://www.ultimate-guitar.com/artist/wormrot_28751, line 175: TypeError: registration.active is null
+JavaScript error: https://www.ultimate-guitar.com/artist/wormrot_28751?filter=guitar_pro, line 175: TypeError: registration.active is null
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.ultimate-guitar.com."
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.ultimate-guitar.com."
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://tabs.ultimate-guitar.com."
+1659409368122	Marionette	INFO	Stopped listening on port 59076
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+[Parent 20244, Main Thread] WARNING: ContentParent: id=2281362bc00 - BlockShutdown: CanSend.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3595
+[Parent 20244, Main Thread] WARNING: ContentParent: id=2281362bc00 - ShutDownProcess: Sent shutdown message.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1799
+[Parent 20244, Main Thread] WARNING: ContentParent: id=2281362bc00 - ShutDownProcess: Closing channel.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1834
+[Parent 20244, Main Thread] WARNING: ContentParent: id=2281362bc00 - RemoveShutdownBlockers: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3697
+1659409393613	geckodriver	INFO	Listening on 127.0.0.1:59153
+1659409396664	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "59154" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofile3umaJW"
+1659409396956	Marionette	INFO	Marionette enabled
+1659409396960	Marionette	INFO	Listening on port 59167
+WebDriver BiDi listening on ws://localhost:59154
+Read port: 59167
+1659409397056	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofile3umaJW\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:59154/devtools/browser/47a08462-373b-432d-a425-b7e830cc8e15
+JavaScript error: https://www.ultimate-guitar.com/artist/wormrot_28751, line 175: TypeError: registration.active is null
+JavaScript error: https://www.ultimate-guitar.com/artist/wormrot_28751?filter=guitar_pro, line 175: TypeError: registration.active is null
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.ultimate-guitar.com."
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.ultimate-guitar.com."
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+1659409430609	Marionette	INFO	Stopped listening on port 59167
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+[Parent 12640, Main Thread] WARNING: ContentParent: id=173afbe5800 - BlockShutdown: CanSend.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3595
+[Parent 12640, Main Thread] WARNING: ContentParent: id=173afbe5800 - ShutDownProcess: Sent shutdown message.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1799
+[Parent 12640, Main Thread] WARNING: ContentParent: id=173afbe5800 - ShutDownProcess: Closing channel.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1834
+[Parent 12640, Main Thread] WARNING: ContentParent: id=173afbe5800 - RemoveShutdownBlockers: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3697
+1659409431830	geckodriver	INFO	Listening on 127.0.0.1:59243
+1659409434879	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "59244" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofileGNEyr5"
+1659409435163	Marionette	INFO	Marionette enabled
+1659409435166	Marionette	INFO	Listening on port 59253
+WebDriver BiDi listening on ws://localhost:59244
+Read port: 59253
+1659409435263	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofileGNEyr5\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:59244/devtools/browser/92c9be18-ff57-49ee-80b7-11a29e89afbd
+JavaScript error: https://www.ultimate-guitar.com/artist/wormrot_28751, line 175: TypeError: registration.active is null
+JavaScript error: https://www.ultimate-guitar.com/artist/wormrot_28751?filter=guitar_pro, line 175: TypeError: registration.active is null
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.ultimate-guitar.com."
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.ultimate-guitar.com."
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+1659409497362	Marionette	INFO	Stopped listening on port 59251659409499348	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "59319" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofileAJ4X3a"
+1659409499657	Marionette	INFO	Marionette enabled
+1659409499660	Marionette	INFO	Listening on port 59331
+WebDriver BiDi listening on ws://localhost:59319
+Read port: 59331
+1659409499756	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofileAJ4X3a\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:59319/devtools/browser/cdf4cc9c-da30-409a-ade7-9d44f1db614a
+JavaScript error: https://www.ultimate-guitar.com/artist/wormrot_28751, line 175: TypeError: registration.active is null
+JavaScript error: https://www.ultimate-guitar.com/artist/wormrot_28751?filter=guitar_pro, line 175: TypeError: registration.active is null
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.ultimate-guitar.com."
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.ultimate-guitar.com."
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://tabs.ultimate-guitar.com."
+JavaScript error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_es6/ug~runtime.21f1ba7c59e102baabd4e56e841dcc85.js, line 1: ChunkLoadError: Loading chunk 3429 failed.
+(error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_es6/202207/3429.1b3f40ddea5574bb737058029d7423bd.js)
+1659409510659	Marionette	INFO	Stopped listening on port 59331
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+[Parent 19760, Main Thread] WARNING: ContentParent: id=210895ecd00 - BlockShutdown: CanSend.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3595
+[Parent 19760, Main Thread] WARNING: ContentParent: id=210895ecd00 - ShutDownProcess: Sent shutdown message.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1799
+[Parent 19760, IPC I/O Parent] WARNING: file /builds/worker/checkouts/gecko/ipc/chromium/src/base/process_util_win.cc:167
+[Parent 19760, Main Thread] WARNING: ContentParent: id=210895ecd00 - ShutDownProcess: Closing channel.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1834
+[Parent 19760, Main Thread] WARNING: ContentParent: id=210895ecd00 - RemoveShutdownBlockers: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3697
+1659409591132	geckodriver	INFO	Listening on 127.0.0.1:59398
+1659409594185	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "59399" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofile6jja8V"
+1659409594473	Marionette	INFO	Marionette enabled
+1659409594477	Marionette	INFO	Listening on port 59408
+WebDriver BiDi listening on ws://localhost:59399
+Read port: 59408
+1659409594572	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofile6jja8V\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:59399/devtools/browser/116c1377-3ef1-4204-885a-6d22311bf5e3
+JavaScript error: https://www.ultimate-guitar.com/artist/wormrot_28751, line 175: TypeError: registration.active is null
+JavaScript error: https://www.ultimate-guitar.com/artist/wormrot_28751?filter=guitar_pro, line 175: TypeError: registration.active is null
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.ultimate-guitar.com."
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.ultimate-guitar.com."
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://tabs.ultimate-guitar.com."
+1659409864482	Marionette	INFO	Stopped listening on port 59408
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+[Parent 11996, Main Thread] WARNING: ContentParent: id=2165a584b00 - BlockShutdown: CanSend.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3595
+[Parent 11996, Main Thread] WARNING: ContentParent: id=2165a584b00 - ShutDownProcess: Sent shutdown message.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1799
+[Parent 11996, Main Thread] WARNING: ContentParent: id=2165a584b00 - ShutDownProcess: Closing channel.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1834
+[Parent 11996, Main Thread] WARNING: ContentParent: id=2165a584b00 - RemoveShutdownBlockers: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3697
+devtools/browser/b8510322-d0aa-44d9-8dfc-f432d73dc500
+JavaScript error: https://www.ultimate-guitar.com/artist/wormrot_28751, line 175: TypeError: registration.active is null
+JavaScript error: https://www.ultimate-guitar.com/artist/wormrot_28751?filter=guitar_pro, line 175: TypeError: registration.active is null
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.ultimate-guitar.com."
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.ultimate-guitar.com."
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://tabs.ultimate-guitar.com."
+1659409862286	Marionette	INFO	Stopped listening on port 59489
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+[Parent 13344, Main Thread] WARNING: ContentParent: id=2314f26b000 - BlockShutdown: CanSend.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3595
+[Parent 13344, Main Thread] WARNING: ContentParent: id=2314f26b000 - ShutDownProcess: Sent shutdown message.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1799
+[Parent 13344, Main Thread] WARNING: ContentParent: id=2314f26b000 - ShutDownProcess: Closing channel.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1834
+[Parent 13344, Main Thread] WARNING: ContentParent: id=2314f26b000 - RemoveShutdownBlockers: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3697
+[Parent 13344, IPC I/O Parent] WARNING: file /builds/worker/checkouts/gecko/ipc/chromium/src/base/process_util_win.cc:167
+1659409865991	geckodriver	INFO	Listening on 127.0.0.1:59579
+1659409869051	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "59580" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofileJvbeel"
+1659409869342	Marionette	INFO	Marionette enabled
+1659409869346	Marionette	INFO	Listening on port 59589
+WebDriver BiDi listening on ws://localhost:59580
+Read port: 59589
+1659409869442	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofileJvbeel\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:59580/devtools/browser/c5eca9c8-cfbd-4c7b-b52f-f88837776073
+JavaScript error: https://www.ultimate-guitar.com/artist/wormrot_28751, line 175: TypeError: registration.active is null
+JavaScript error: https://www.ultimate-guitar.com/artist/wormrot_28751?filter=guitar_pro, line 175: TypeError: registration.active is null
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.ultimate-guitar.com."
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.ultimate-guitar.com."
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://tabs.ultimate-guitar.com."
+1659410014749	Marionette	INFO	Stopped listening on port 59589
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+[Parent 6840, Main Thread] WARNING: ContentParent: id=20cfa211600 - BlockShutdown: CanSend.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3595
+[Parent 6840, Main Thread] WARNING: ContentParent: id=20cfa211600 - ShutDownProcess: Sent shutdown message.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1799
+[Parent 6840, Main Thread] WARNING: ContentParent: id=20cfa211600 - ShutDownProcess: Closing channel.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1834
+[Parent 6840, Main Thread] WARNING: ContentParent: id=20cfa211600 - RemoveShutdownBlockers: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3697
+1659410016740	geckodriver	INFO	Listening on 127.0.0.1:59670
+1659410019800	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "59671" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofileshBFlt"
+1659410020092	Marionette	INFO	Marionette enabled
+1659410020095	Marionette	INFO	Listening on port 59680
+WebDriver BiDi listening on ws://localhost:59671
+Read port: 59680
+1659410020193	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofileshBFlt\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:59671/devtools/browser/cd59581c-8fba-4bef-b81a-af81dfbdef6f
+JavaScript error: https://www.ultimate-guitar.com/artist/wormrot_28751, line 175: TypeError: registration.active is null
+JavaScript error: https://www.ultimate-guitar.com/artist/wormrot_28751?filter=guitar_pro, line 175: TypeError: registration.active is null
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.ultimate-guitar.com."
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.ultimate-guitar.com."
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://tabs.ultimate-guitar.com."
+1659410544336	Marionette	INFO	Stopped listening on port 59680
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+[Parent 16964, Main Thread] WARNING: ContentParent: id=2c022eb0700 - BlockShutdown: CanSend.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3595
+[Parent 16964, Main Thread] WARNING: ContentParent: id=2c022eb0700 - ShutDownProcess: Sent shutdown message.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1799
+[Parent 16964, Main Thread] WARNING: ContentParent: id=2c022eb0700 - ShutDownProcess: Closing channel.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1834
+[Parent 16964, Main Thread] WARNING: ContentParent: id=2c022eb0700 - RemoveShutdownBlockers: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3697
+1659410601804	geckodriver	INFO	Listening on 127.0.0.1:59784
+1659410604864	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "59785" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofileqrx9la"
+1659410605150	Marionette	INFO	Marionette enabled
+1659410605153	Marionette	INFO	Listening on port 59795
+WebDriver BiDi listening on ws://localhost:59785
+Read port: 59795
+1659410605251	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofileqrx9la\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:59785/devtools/browser/9777baa1-4cb8-4a71-9adc-d11fe5e9887f
+JavaScript error: https://www.ultimate-guitar.com/artist/wormrot_28751, line 175: TypeError: registration.active is null
+JavaScript error: https://www.ultimate-guitar.com/artist/wormrot_28751?filter=guitar_pro, line 175: TypeError: registration.active is null
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.ultimate-guitar.com."
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.ultimate-guitar.com."
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://tabs.ultimate-guitar.com."
+1659410634594	Marionette	INFO	Stopped listening on port 59795
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+[Parent 9976, Main Thread] WARNING: ContentParent: id=232c51dfe00 - BlockShutdown: CanSend.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3595
+[Parent 9976, Main Thread] WARNING: ContentParent: id=232c51dfe00 - ShutDownProcess: Sent shutdown message.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1799
+[Parent 9976, Main Thread] WARNING: ContentParent: id=232c51dfe00 - ShutDownProcess: Closing channel.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1834
+[Parent 9976, Main Thread] WARNING: ContentParent: id=232c51dfe00 - RemoveShutdownBlockers: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3697
+1659411065862	geckodriver	INFO	Listening on 127.0.0.1:59897
+1659411068917	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "59898" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofileB3qdVz"
+1659411069202	Marionette	INFO	Marionette enabled
+1659411069205	Marionette	INFO	Listening on port 59907
+WebDriver BiDi listening on ws://localhost:59898
+Read port: 59907
+1659411069301	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofileB3qdVz\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:59898/devtools/browser/79231571-062f-47c6-831d-5adb857dc036
+JavaScript error: https://www.ultimate-guitar.com/artist/wormrot_28751, line 175: TypeError: registration.active is null
+JavaScript error: https://www.ultimate-guitar.com/artist/wormrot_28751?filter=guitar_pro, line 175: TypeError: registration.active is null
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.ultimate-guitar.com."
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.ultimate-guitar.com."
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://tabs.ultimate-guitar.com."
+JavaScript error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_es6/ug~runtime.21f1ba7c59e102baabd4e56e841dcc85.js, line 1: ChunkLoadError: Loading chunk 3429 failed.
+(error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_es6/202207/3429.1b3f40ddea5574bb737058029d7423bd.js)
+1659411196904	Marionette	INFO	Stopped listening on port 59907
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+[Parent 8464, Main Thread] WARNING: ContentParent: id=2731efcad00 - BlockShutdown: CanSend.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3595
+[Parent 8464, Main Thread] WARNING: ContentParent: id=2731efcad00 - ShutDownProcess: Sent shutdown message.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1799
+[Parent 8464, Main Thread] WARNING: ContentParent: id=2731efcad00 - ShutDownProcess: Closing channel.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1834
+[Parent 8464, Main Thread] WARNING: ContentParent: id=2731efcad00 - RemoveShutdownBlockers: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3697
+1659411198297	geckodriver	INFO	Listening on 127.0.0.1:59983
+1659411201353	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "59984" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofiletYa9K8"
+1659411201643	Marionette	INFO	Marionette enabled
+1659411201647	Marionette	INFO	Listening on port 59993
+WebDriver BiDi listening on ws://localhost:59984
+Read port: 59993
+1659411201742	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofiletYa9K8\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:59984/devtools/browser/41a605a5-2a7a-49c1-9ddd-747125339f5c
+JavaScript error: https://www.ultimate-guitar.com/artist/wormrot_28751, line 175: TypeError: registration.active is null
+JavaScript error: https://www.ultimate-guitar.com/artist/wormrot_28751?filter=guitar_pro, line 175: TypeError: registration.active is null
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.ultimate-guitar.com."
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.ultimate-guitar.com."
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://tabs.ultimate-guitar.com."
+1659411289149	Marionette	INFO	Stopped listening on port 59993
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+[Parent 7576, Main Thread] WARNING: ContentParent: id=1a3368db100 - BlockShutdown: CanSend.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3595
+[Parent 7576, Main Thread] WARNING: ContentParent: id=1a3368db100 - ShutDownProcess: Sent shutdown message.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1799
+[Parent 7576, Main Thread] WARNING: ContentParent: id=1a3368db100 - ShutDownProcess: Closing channel.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1834
+[Parent 7576, Main Thread] WARNING: ContentParent: id=1a3368db100 - RemoveShutdownBlockers: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3697
+1659411290580	geckodriver	INFO	Listening on 127.0.0.1:60070
+1659411293639	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "60071" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofileIV2nE1"
+1659411293929	Marionette	INFO	Marionette enabled
+1659411293933	Marionette	INFO	Listening on port 60081
+WebDriver BiDi listening on ws://localhost:60071
+Read port: 60081
+1659411294026	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofileIV2nE1\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:60071/devtools/browser/f5ac6f97-5525-46ec-b442-bad15e74ea1d
+JavaScript error: https://www.ultimate-guitar.com/artist/wormrot_28751, line 175: TypeError: registration.active is null
+JavaScript error: https://www.ultimate-guitar.com/artist/wormrot_28751?filter=guitar_pro, line 175: TypeError: registration.active is null
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.ultimate-guitar.com."
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.ultimate-guitar.com."
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://tabs.ultimate-guitar.com."
+JavaScript error: resource://gre/modules/AsyncShutdown.jsm, line 576: NotFoundError: No such JSWindowActor 'DevToolsFrame'
+1659411355485	Marionette	INFO	Stopped listening on port 60081
+[Parent 17580, Main Thread] WARNING: ContentParent: id=1ef0a8fc700 - BlockShutdown: CanSend.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3595
+[Parent 17580, Main Thread] WARNING: ContentParent: id=1ef0a8fc700 - ShutDownProcess: Sent shutdown message.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1799
+[Parent 17580, Main Thread] WARNING: ContentParent: id=1ef0a8fc700 - ShutDownProcess: Closing channel.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1834
+[Parent 17580, Main Thread] WARNING: ContentParent: id=1ef0a8fc700 - RemoveShutdownBlockers: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3697
+[Parent 17580, IPC I/O Parent] WARNING: file /builds/worker/checkouts/gecko/ipc/chromium/src/base/process_util_win.cc:167
+1659411356739	geckodriver	INFO	Listening on 127.0.0.1:60155
+1659411359788	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "60156" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofileSDaAwh"
+1659411360082	Marionette	INFO	Marionette enabled
+1659411360085	Marionette	INFO	Listening on port 60165
+WebDriver BiDi listening on ws://localhost:60156
+Read port: 60165
+1659411360180	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofileSDaAwh\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:60156/devtools/browser/f9b280de-c9c3-4457-aa31-44c31508fa9b
+JavaScript error: https://www.ultimate-guitar.com/artist/wormrot_28751, line 175: TypeError: registration.active is null
+JavaScript error: https://www.ultimate-guitar.com/artist/wormrot_28751?filter=guitar_pro, line 175: TypeError: registration.active is null
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.ultimate-guitar.com."
+1659411364510	Marionette	WARN	Ignoring event 'pageshow' because document has an invalid readyState of 'uninitialized'.
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.ultimate-guitar.com."
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://tabs.ultimate-guitar.com."
+1659411377190	Marionette	WARN	Ignoring event 'pageshow' because document has an invalid readyState of 'uninitialized'.
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+1659411388799	Marionette	WARN	Ignoring event 'pageshow' because document has an invalid readyState of 'uninitialized'.
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+1659411397562	Marionette	INFO	Stopped listening on port 60165
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+[Parent 12984, Main Thread] WARNING: ContentParent: id=235a5ed6e00 - BlockShutdown: CanSend.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3595
+[Parent 12984, Main Thread] WARNING: ContentParent: id=235a5ed6e00 - ShutDownProcess: Shutdown already pending.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1815
+[Parent 12984, Main Thread] WARNING: ContentParent: id=235a912b900 - BlockShutdown: CanSend.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3595
+[Parent 12984, Main Thread] WARNING: ContentParent: id=235a912b900 - ShutDownProcess: Sent shutdown message.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1799
+[Parent 12984, Main Thread] WARNING: ContentParent: id=235a5ed6e00 - ShutDownProcess: Closing channel.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1834
+[Parent 12984, Main Thread] WARNING: ContentParent: id=235a5ed6e00 - RemoveShutdownBlockers: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3697
+[Parent 12984, Main Thread] WARNING: ContentParent: id=235a912b900 - ShutDownProcess: Closing channel.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1834
+[Parent 12984, Main Thread] WARNING: ContentParent: id=235a912b900 - RemoveShutdownBlockers: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3697
+1659411448795	geckodriver	INFO	Listening on 127.0.0.1:60248
+1659411451856	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "60249" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofile2HoaAE"
+1659411452147	Marionette	INFO	Marionette enabled
+1659411452150	Marionette	INFO	Listening on port 60258
+WebDriver BiDi listening on ws://localhost:60249
+Read port: 60258
+1659411452245	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofile2HoaAE\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:60249/devtools/browser/54a80a3e-4638-4933-9e85-6cb5d0f1c484
+JavaScript error: https://www.ultimate-guitar.com/artist/wormrot_28751, line 175: TypeError: registration.active is null
+JavaScript error: https://www.ultimate-guitar.com/artist/wormrot_28751?filter=guitar_pro, line 175: TypeError: registration.active is null
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.ultimate-guitar.com."
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.ultimate-guitar.com."
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://tabs.ultimate-guitar.com."
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+1659411497869	Marionette	INFO	Stopped listening on port 60258
+[Parent 18664, Main Thread] WARNING: ContentParent: id=17c509d9100 - BlockShutdown: CanSend.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3595
+[Parent 18664, Main Thread] WARNING: ContentParent: id=17c509d9100 - ShutDownProcess: Shutdown already pending.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1815
+[Parent 18664, Main Thread] WARNING: ContentParent: id=17c53b59400 - BlockShutdown: CanSend.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3595
+[Parent 18664, Main Thread] WARNING: ContentParent: id=17c53b59400 - ShutDownProcess: Sent shutdown message.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1799
+[Parent 18664, Main Thread] WARNING: ContentParent: id=17c53b59400 - ShutDownProcess: Closing channel.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1834
+[Parent 18664, Main Thread] WARNING: ContentParent: id=17c53b59400 - RemoveShutdownBlockers: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3697
+[Parent 18664, Main Thread] WARNING: ContentParent: id=17c509d9100 - ShutDownProcess: Closing channel.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1834
+[Parent 18664, Main Thread] WARNING: ContentParent: id=17c509d9100 - RemoveShutdownBlockers: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3697
+[Parent 18664, IPC I/O Parent] WARNING: file /builds/worker/checkouts/gecko/ipc/chromium/src/base/process_util_win.cc:167
