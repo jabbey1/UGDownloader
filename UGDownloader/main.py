@@ -49,12 +49,17 @@ driver.find_element(By.CSS_SELECTOR, 'button.RwBUh:nth-child(1) > svg:nth-child(
 
 tabList = driver.find_elements(By.CLASS_NAME, 'LQUZJ')
 tabList[:] = [x for x in tabList if x.text.__contains__('Guitar Pro')]
+howManyTabs = len(tabList)
 print('Found ' + str(len(tabList)) + ' Guitar Pro Files')
 
 # download for each element, skipping pro or official
-for x in tabList:
-    print(x.find_element(By.CSS_SELECTOR, '.HT3w5').get_attribute('href')) # print link
-    x.find_element(By.CSS_SELECTOR, '.HT3w5').click()
+for i in range(howManyTabs):
+    # time.sleep(5)
+    tabList = driver.find_elements(By.CLASS_NAME, 'LQUZJ')
+    tabList[:] = [x for x in tabList if x.text.__contains__('Guitar Pro')]
+    print(len(tabList))
+    print(tabList[i].find_element(By.CSS_SELECTOR, '.HT3w5').get_attribute('href')) # print link
+    tabList[i].find_element(By.CSS_SELECTOR, '.HT3w5').click()
     button = driver.find_element(By.CSS_SELECTOR, 'button.exTWY:nth-child(2)')
     time.sleep(.1)
     driver.execute_script("window.stop();")  # stop their player from loading
@@ -63,10 +68,11 @@ for x in tabList:
     driver.execute_script("window.scrollTo(0,document.body.scrollHeight)")  # would be nice to get rid of browser bounce
     time.sleep(.1)
     # click download button, go back
-    button.click()
-    # driver.back()
-    driver.execute_script("window.history.go(-1)")
+    button.click()  # why is there a huge delay after this?
     print('fdas')
+    driver.back()
+    # driver.execute_script("window.history.go(-1)")
+
 
 
 # go to next page and repeat
