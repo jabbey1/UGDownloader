@@ -54,7 +54,6 @@ print('Found ' + str(len(tabList)) + ' Guitar Pro Files')
 
 # download for each element, skipping pro or official
 for i in range(howManyTabs):
-    # time.sleep(5)
     tabList = driver.find_elements(By.CLASS_NAME, 'LQUZJ')
     tabList[:] = [x for x in tabList if x.text.__contains__('Guitar Pro')]
     print(len(tabList))
@@ -71,9 +70,6 @@ for i in range(howManyTabs):
     button.click()  # why is there a huge delay after this?
     print('fdas')
     driver.back()
-    # driver.execute_script("window.history.go(-1)")
-
-
 
 # go to next page and repeat
 
