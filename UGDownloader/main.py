@@ -53,23 +53,20 @@ print('Found ' + str(len(tabList)) + ' Guitar Pro Files')
 
 # download for each element, skipping pro or official
 for x in tabList:
-    # print(x.find_element(By.CSS_SELECTOR, '.HT3w5').get_attribute('href')) # print link
+    print(x.find_element(By.CSS_SELECTOR, '.HT3w5').get_attribute('href')) # print link
     x.find_element(By.CSS_SELECTOR, '.HT3w5').click()
-    # button = WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'button.exTWY:nth-child(2)')))
-    # button.click() # button.exTWY:nth-child(2)
     button = driver.find_element(By.CSS_SELECTOR, 'button.exTWY:nth-child(2)')
     time.sleep(.1)
     driver.execute_script("window.stop();")  # stop their player from loading
     driver.execute_script("window.scrollTo(0,document.body.scrollHeight)")  # scroll to bottom of page to see button
     time.sleep(.1)
-    driver.execute_script("window.scrollTo(0,document.body.scrollHeight)")
+    driver.execute_script("window.scrollTo(0,document.body.scrollHeight)")  # would be nice to get rid of browser bounce
     time.sleep(.1)
-    button.click()
-
-    # ActionChains(driver).move_to_element(button).click(button).perform()
-
     # click download button, go back
-
+    button.click()
+    # driver.back()
+    driver.execute_script("window.history.go(-1)")
+    print('fdas')
 
 
 # go to next page and repeat
