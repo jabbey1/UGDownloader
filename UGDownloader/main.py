@@ -66,7 +66,8 @@ for i in range(howManyTabs):
     driver.execute_script("window.scrollTo(0,document.body.scrollHeight)")  # would be nice to get rid of browser bounce
     time.sleep(.1)
     # click download button, go back
-    button.click()  # why is there a huge delay after this?
+    # comment below line out for testing
+    # button.click()  # why is there a huge delay after this?
     driver.back()
 
 # go to next page and repeat
