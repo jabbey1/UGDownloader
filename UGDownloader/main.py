@@ -58,16 +58,11 @@ for x in tabList:
     # button = WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'button.exTWY:nth-child(2)')))
     # button.click() # button.exTWY:nth-child(2)
     button = driver.find_element(By.CSS_SELECTOR, 'button.exTWY:nth-child(2)')
-    time.sleep(.25)
-    driver.execute_script("window.stop();")
-    print('fdsa')
-    driver.execute_script("window.scrollTo(0,document.body.scrollHeight)")  # javascript
-    time.sleep(.25)
-    driver.execute_script("window.scrollTo(0,document.body.scrollHeight)")
-    time.sleep(.25)
-    print('999')
+    time.sleep(.1)
+    driver.execute_script("window.stop();")  # stop their player from loading
+    driver.execute_script("window.scrollTo(0,document.body.scrollHeight)")  # scroll to bottom of page to see button
+    time.sleep(.2)
     ActionChains(driver).move_to_element(button).click(button).perform()
-    print('after AC')
 
     # click download button, go back
 
