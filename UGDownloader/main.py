@@ -12,7 +12,7 @@ driver = webdriver.Firefox()  # create instance of browser
 
 # get artist text input here
 # TODO: build out gui here, get artist, username, password
-artist = 'Wormrot'  # case-sensitive match
+artist = 'Descendents'  # case-sensitive match
 # navigate to site, go to artist page, then filter out text tabs
 driver.get('https://www.ultimate-guitar.com/search.php?search_type=bands&value=' + artist)
 driver.find_element(By.LINK_TEXT, artist).click()
@@ -31,32 +31,14 @@ driver.find_element(By.CSS_SELECTOR, 'button.RwBUh:nth-child(1) > svg:nth-child(
 # create list of elements on page, referring to all the tabs by an artist. skip ones that are pro or official
 
 # todo put the downloading functionality in it's own class
-d_loader = DLoader.DLoader()
-d_loader.get_tabs(driver)
+# d_loader = DLoader
+# d_loader.get_tabs(driver)
 
-# tabList = driver.find_elements(By.CLASS_NAME, 'LQUZJ')
-# tabList[:] = [x for x in tabList if x.text.__contains__('Guitar Pro')]
-# howManyTabs = len(tabList)
-# print('Found ' + str(len(tabList)) + ' Guitar Pro Files')
-#
-# # download for each element, skipping pro or official
-# for i in range(howManyTabs):
-#     tabList = driver.find_elements(By.CLASS_NAME, 'LQUZJ')
-#     tabList[:] = [x for x in tabList if x.text.__contains__('Guitar Pro')]
-#     print(tabList[i].find_element(By.CSS_SELECTOR, '.HT3w5').get_attribute('href')) # print link
-#     tabList[i].find_element(By.CSS_SELECTOR, '.HT3w5').click()
-#     button = driver.find_element(By.CSS_SELECTOR, 'button.exTWY:nth-child(2)')
-#     time.sleep(.1)
-#     driver.execute_script("window.stop();")  # stop their player from loading
-#     driver.execute_script("window.scrollTo(0,document.body.scrollHeight)")  # scroll to bottom of page to see button
-#     time.sleep(.1)
-#     driver.execute_script("window.scrollTo(0,document.body.scrollHeight)")  # would be nice to get rid of browser bounce
-#     time.sleep(.1)
-#     # click download button, go back
-#     # todo comment below line out for testing
-#     # button.click()  # TODO: why is there a huge delay after this?
-#     driver.back()
-#
-# # todo go to next page and repeat
+# todo go to next page and repeat, put above lines in while loop
+# while driver.find_elements()
 
-driver.close()
+# driver.close()
+
+driver.find_element(By.CLASS_NAME, 'BvSfz').click()
+driver.find_element(By.CLASS_NAME, 'BvSfz')
+
