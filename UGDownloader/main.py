@@ -1,10 +1,16 @@
+import selenium
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
-import selenium
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+import selenium.webdriver
 import time
 
+
 driver = webdriver.Firefox()  # create instance of browser
+
 
 # driver.get("http://www.python.org")  # Navigate to a webpage
 # assert "Python" in driver.title  # The next line is an assertion to confirm that title has “Python” word in it:???
@@ -24,23 +30,46 @@ driver = webdriver.Firefox()  # create instance of browser
 
 # get artist text input here
 artist = 'Wormrot'  # case-sensitive match
+
+
 driver.get('https://www.ultimate-guitar.com/search.php?search_type=bands&value=' + artist)
 driver.find_element(By.LINK_TEXT, artist).click()
 driver.find_element(By.LINK_TEXT, 'Guitar Pro').click()
-# create list of elements on page, referring to all the tabs by an artist. skip ones that are pro or official
-# class of each link: aPPf7 HT3w5 lBssT
-# print(driver.find_element(By.CSS_SELECTOR, '.HT3w5').get_attribute('href'))
-tabList = driver.find_elements(By.CLASS_NAME, 'LQUZJ')
-# print(tabList[2].find_element(By.CSS_SELECTOR, '.HT3w5'))
-# print(tabList[2].find_element(By.CSS_SELECTOR, '.HT3w5').get_attribute('href'))
-# download for each element, skipping pro or official
 
+# Login required...
+driver.find_element(By.CSS_SELECTOR, '.exTWY > span:nth-child(1)').click()  # login button
+usernameTextbox = driver.find_element(By.CSS_SELECTOR, '.wzvZg > div:nth-child(1) > input:nth-child(1)')
+passwordTextbox = driver.find_element(By.CSS_SELECTOR, '.wlfii > div:nth-child(1) > input:nth-child(1)')
+usernameTextbox.send_keys('jake.c.abbey')
+passwordTextbox.send_keys('!bRD3*@erWRZ54')
+passwordTextbox.send_keys(Keys.RETURN)
+print('logged in hopefully')
+driver.find_element(By.CSS_SELECTOR, 'button.RwBUh:nth-child(1) > svg:nth-child(1) > path:nth-child(1)').click()
+# create list of elements on page, referring to all the tabs by an artist. skip ones that are pro or official
+
+tabList = driver.find_elements(By.CLASS_NAME, 'LQUZJ')
 tabList[:] = [x for x in tabList if x.text.__contains__('Guitar Pro')]
 print('Found ' + str(len(tabList)) + ' Guitar Pro Files')
 
-
+# download for each element, skipping pro or official
 for x in tabList:
-    print(x.find_element(By.CSS_SELECTOR, '.HT3w5').get_attribute('href'))
+    # print(x.find_element(By.CSS_SELECTOR, '.HT3w5').get_attribute('href')) # print link
+    x.find_element(By.CSS_SELECTOR, '.HT3w5').click()
+    # button = WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'button.exTWY:nth-child(2)')))
+    # button.click() # button.exTWY:nth-child(2)
+    button = driver.find_element(By.CSS_SELECTOR, 'button.exTWY:nth-child(2)')
+    time.sleep(.25)
+    driver.execute_script("window.stop();")
+    print('fdsa')
+    driver.execute_script("window.scrollTo(0,document.body.scrollHeight)")  # javascript
+    time.sleep(.25)
+    driver.execute_script("window.scrollTo(0,document.body.scrollHeight)")
+    time.sleep(.25)
+    print('999')
+    ActionChains(driver).move_to_element(button).click(button).perform()
+    print('after AC')
+
+    # click download button, go back
 
 
 
