@@ -29,19 +29,19 @@ driver.find_element(By.LINK_TEXT, artist).click()
 driver.find_element(By.LINK_TEXT, 'Guitar Pro').click()
 # create list of elements on page, referring to all the tabs by an artist. skip ones that are pro or official
 # class of each link: aPPf7 HT3w5 lBssT
-driver.find_element(By.CSS_SELECTOR, '.HT3w5').click()
+# print(driver.find_element(By.CSS_SELECTOR, '.HT3w5').get_attribute('href'))
 tabList = driver.find_elements(By.CLASS_NAME, 'LQUZJ')
-
-
+# print(tabList[2].find_element(By.CSS_SELECTOR, '.HT3w5'))
+# print(tabList[2].find_element(By.CSS_SELECTOR, '.HT3w5').get_attribute('href'))
 # download for each element, skipping pro or official
 
-# tabList[:] = [x for x in tabList if x.text.__contains__('Guitar Pro')]
-# print('Found ' + str(len(tabList)) + ' Guitar Pro Files')
-# tabList[1].find_element(By.XPATH, ".//p[@class='aPPf7 HT3w5 lBssT']")
-#
-# for x in tabList:
-#
-#     x.click()
+tabList[:] = [x for x in tabList if x.text.__contains__('Guitar Pro')]
+print('Found ' + str(len(tabList)) + ' Guitar Pro Files')
+
+
+for x in tabList:
+    print(x.find_element(By.CSS_SELECTOR, '.HT3w5').get_attribute('href'))
+
 
 
 # go to next page and repeat
