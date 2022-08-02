@@ -3,3 +3,4 @@ class Downloader:
         self.artist = artist
         self.driver = driver
 
+def gettabs():

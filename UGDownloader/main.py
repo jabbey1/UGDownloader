@@ -5,37 +5,17 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-import selenium.webdriver
 import time
-
 
 driver = webdriver.Firefox()  # create instance of browser
 
-
-# driver.get("http://www.python.org")  # Navigate to a webpage
-# assert "Python" in driver.title  # The next line is an assertion to confirm that title has “Python” word in it:???
-# elem = driver.find_element(By.NAME, "q")  # finding element by its name attribute
-# elem.clear()  # clear prepopulated text
-# elem.send_keys("pycon")  # send keys to element
-# elem.send_keys(Keys.RETURN)  # hit return with keys
-# assert "No results found." not in driver.page_source
-# driver.close()
-
-# driver.get("https://www.ultimate-guitar.com/")  # Manually go to homepage and search
-# searchElem = driver.find_element(By.NAME, "value")
-# searchElem.clear()
-# searchElem.send_keys("radiohead")
-# searchElem.send_keys(Keys.RETURN)
-
-
 # get artist text input here
+# TODO: build out gui here, get artist, username, password
 artist = 'Wormrot'  # case-sensitive match
-
-
+# navigate to site, go to artist page, then filter out text tabs
 driver.get('https://www.ultimate-guitar.com/search.php?search_type=bands&value=' + artist)
 driver.find_element(By.LINK_TEXT, artist).click()
 driver.find_element(By.LINK_TEXT, 'Guitar Pro').click()
-
 # Login required...
 driver.find_element(By.CSS_SELECTOR, '.exTWY > span:nth-child(1)').click()  # login button
 usernameTextbox = driver.find_element(By.CSS_SELECTOR, '.wzvZg > div:nth-child(1) > input:nth-child(1)')
@@ -44,9 +24,12 @@ usernameTextbox.send_keys('jake.c.abbey')
 passwordTextbox.send_keys('!bRD3*@erWRZ54')
 passwordTextbox.send_keys(Keys.RETURN)
 print('logged in hopefully')
+# todo if found element of the login area still around, then login failed
+# todo is below the popup?
 driver.find_element(By.CSS_SELECTOR, 'button.RwBUh:nth-child(1) > svg:nth-child(1) > path:nth-child(1)').click()
 # create list of elements on page, referring to all the tabs by an artist. skip ones that are pro or official
 
+# todo put the downloading functionality in it's own class
 tabList = driver.find_elements(By.CLASS_NAME, 'LQUZJ')
 tabList[:] = [x for x in tabList if x.text.__contains__('Guitar Pro')]
 howManyTabs = len(tabList)
@@ -66,10 +49,10 @@ for i in range(howManyTabs):
     driver.execute_script("window.scrollTo(0,document.body.scrollHeight)")  # would be nice to get rid of browser bounce
     time.sleep(.1)
     # click download button, go back
-    # comment below line out for testing
-    # button.click()  # why is there a huge delay after this?
+    # todo comment below line out for testing
+    # button.click()  # TODO: why is there a huge delay after this?
     driver.back()
 
-# go to next page and repeat
+# todo go to next page and repeat
 
 driver.close()
