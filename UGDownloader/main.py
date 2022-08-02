@@ -61,8 +61,12 @@ for x in tabList:
     time.sleep(.1)
     driver.execute_script("window.stop();")  # stop their player from loading
     driver.execute_script("window.scrollTo(0,document.body.scrollHeight)")  # scroll to bottom of page to see button
-    time.sleep(.2)
-    ActionChains(driver).move_to_element(button).click(button).perform()
+    time.sleep(.1)
+    driver.execute_script("window.scrollTo(0,document.body.scrollHeight)")
+    time.sleep(.1)
+    button.click()
+
+    # ActionChains(driver).move_to_element(button).click(button).perform()
 
     # click download button, go back
 
