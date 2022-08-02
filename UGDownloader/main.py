@@ -31,8 +31,8 @@ driver.find_element(By.CSS_SELECTOR, 'button.RwBUh:nth-child(1) > svg:nth-child(
 # create list of elements on page, referring to all the tabs by an artist. skip ones that are pro or official
 
 # todo put the downloading functionality in it's own class
-downloader = downloader
-downloader.gettabs()
+d_loader = DLoader.DLoader()
+d_loader.get_tabs(driver)
 
 # tabList = driver.find_elements(By.CLASS_NAME, 'LQUZJ')
 # tabList[:] = [x for x in tabList if x.text.__contains__('Guitar Pro')]
