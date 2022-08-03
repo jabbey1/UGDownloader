@@ -13,7 +13,7 @@ driver = webdriver.Firefox()  # create instance of browser
 
 # get artist text input here
 # TODO: build out gui here, get artist, username, password
-artist = 'Wormrot'  # case-sensitive match
+artist = 'Descendents'  # case-sensitive match
 # navigate to site, go to artist page, then filter out text tabs
 driver.get('https://www.ultimate-guitar.com/search.php?search_type=bands&value=' + artist)
 driver.find_element(By.LINK_TEXT, artist).click()
