@@ -6,13 +6,14 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-import time
+
+
 # TODO go through styleguide with my program
 driver = webdriver.Firefox()  # create instance of browser
 
 # get artist text input here
 # TODO: build out gui here, get artist, username, password
-artist = 'Descendents'  # case-sensitive match
+artist = 'Wormrot'  # case-sensitive match
 # navigate to site, go to artist page, then filter out text tabs
 driver.get('https://www.ultimate-guitar.com/search.php?search_type=bands&value=' + artist)
 driver.find_element(By.LINK_TEXT, artist).click()
@@ -30,15 +31,15 @@ print('logged in hopefully')
 driver.find_element(By.CSS_SELECTOR, 'button.RwBUh:nth-child(1) > svg:nth-child(1) > path:nth-child(1)').click()
 # create list of elements on page, referring to all the tabs by an artist. skip ones that are pro or official
 
-# todo put the downloading functionality in it's own class
-# d_loader = DLoader
-# d_loader.get_tabs(driver)
 
-# todo go to next page and repeat, put above lines in while loop
-# while driver.find_elements()
+while True:
+    DLoader.get_tabs(driver)
+    if driver.find_elements(By.CLASS_NAME, 'BvSfz'):
+        print("There's another page")
+        driver.find_element(By.CLASS_NAME, 'BvSfz').click()
+        continue
+    else:
+        break
 
-# driver.close()
-
-driver.find_element(By.CLASS_NAME, 'BvSfz').click()
-driver.find_element(By.CLASS_NAME, 'BvSfz')
+driver.close()
 
