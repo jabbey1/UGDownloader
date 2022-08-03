@@ -29,14 +29,15 @@ print('logged in hopefully')
 # todo if found element of the login area still around, then login failed
 # todo is below the popup?
 driver.find_element(By.CSS_SELECTOR, 'button.RwBUh:nth-child(1) > svg:nth-child(1) > path:nth-child(1)').click()
-# create list of elements on page, referring to all the tabs by an artist. skip ones that are pro or official
-
+current_page = driver.current_url
 
 while True:
     DLoader.get_tabs(driver)
+    driver.get(current_page)
     if driver.find_elements(By.CLASS_NAME, 'BvSfz'):
         print("There's another page")
         driver.find_element(By.CLASS_NAME, 'BvSfz').click()
+        current_page = driver.current_url
         continue
     else:
         break
