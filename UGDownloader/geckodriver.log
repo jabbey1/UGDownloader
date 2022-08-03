@@ -2961,3 +2961,159 @@ console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkErr
 [Parent 17784, Main Thread] WARNING: ContentParent: id=1de15fbc300 - ShutDownProcess: Sent shutdown message.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1799
 [Parent 17784, Main Thread] WARNING: ContentParent: id=1de15fbc300 - ShutDownProcess: Closing channel.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1834
 [Parent 17784, Main Thread] WARNING: ContentParent: id=1de15fbc300 - RemoveShutdownBlockers: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3697
+1659558406719	geckodriver	INFO	Listening on 127.0.0.1:56996
+1659558409776	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "56997" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofile3AANzr"
+1659558410191	Marionette	INFO	Marionette enabled
+1659558410195	Marionette	INFO	Listening on port 57006
+WebDriver BiDi listening on ws://localhost:56997
+Read port: 57006
+1659558410307	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofile3AANzr\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:56997/devtools/browser/e48d95f1-88d3-4dcd-aab0-325f7c426c4d
+JavaScript error: https://www.ultimate-guitar.com/artist/descendents_1575, line 175: TypeError: registration.active is null
+JavaScript error: https://www.ultimate-guitar.com/artist/descendents_1575?filter=guitar_pro, line 175: TypeError: registration.active is null
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.ultimate-guitar.com."
+1659558423728	Marionette	INFO	Stopped listening on port 57006
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+[Parent 19136, Main Thread] WARNING: ContentParent: id=2cecffe9300 - BlockShutdown: CanSend.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3595
+[Parent 19136, Main Thread] WARNING: ContentParent: id=2cecffe9300 - ShutDownProcess: Sent shutdown message.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1799
+[Parent 19136, Main Thread] WARNING: ContentParent: id=2cecffe9300 - ShutDownProcess: Closing channel.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1834
+[Parent 19136, Main Thread] WARNING: ContentParent: id=2cecffe9300 - RemoveShutdownBlockers: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3697
+1659558437081	geckodriver	INFO	Listening on 127.0.0.1:57062
+1659558440135	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "57063" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofiletk8deY"
+1659558440415	Marionette	INFO	Marionette enabled
+1659558440418	Marionette	INFO	Listening on port 57072
+WebDriver BiDi listening on ws://localhost:57063
+Read port: 57072
+1659558440510	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofiletk8deY\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:57063/devtools/browser/1d6e120d-b532-443f-ab11-a76e04e605ea
+JavaScript error: https://www.ultimate-guitar.com/artist/descendents_1575, line 175: TypeError: registration.active is null
+JavaScript error: https://www.ultimate-guitar.com/artist/descendents_1575?filter=guitar_pro, line 175: TypeError: registration.active is null
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.ultimate-guitar.com."
+1659558452205	Marionette	INFO	Stopped listening on port 57072
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+[Parent 13420, Main Thread] WARNING: ContentParent: id=241066df600 - BlockShutdown: CanSend.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3595
+[Parent 13420, Main Thread] WARNING: ContentParent: id=241066df600 - ShutDownProcess: Sent shutdown message.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1799
+[Parent 13420, Main Thread] WARNING: ContentParent: id=241066df600 - ShutDownProcess: Closing channel.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1834
+[Parent 13420, Main Thread] WARNING: ContentParent: id=241066df600 - RemoveShutdownBlockers: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3697
+1659558614577	geckodriver	INFO	Listening on 127.0.0.1:57136
+1659558617635	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "57137" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofilen9OgqR"
+1659558617918	Marionette	INFO	Marionette enabled
+1659558617921	Marionette	INFO	Listening on port 57146
+WebDriver BiDi listening on ws://localhost:57137
+Read port: 57146
+1659558618015	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofilen9OgqR\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:57137/devtools/browser/4c399ee0-8f52-4dc4-a2fa-5726f647c3af
+JavaScript error: https://www.ultimate-guitar.com/artist/descendents_1575, line 175: TypeError: registration.active is null
+JavaScript error: https://www.ultimate-guitar.com/artist/descendents_1575?filter=guitar_pro, line 175: TypeError: registration.active is null
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.ultimate-guitar.com."
+1659558773517	Marionette	INFO	Stopped listening on port 57146
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+[Parent 8212, Main Thread] WARNING: ContentParent: id=24da1ed6b00 - BlockShutdown: CanSend.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3595
+[Parent 8212, Main Thread] WARNING: ContentParent: id=24da1ed6b00 - ShutDownProcess: Sent shutdown message.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1799
+[Parent 8212, Main Thread] WARNING: ContentParent: id=24da1ed6b00 - ShutDownProcess: Closing channel.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1834
+[Parent 8212, Main Thread] WARNING: ContentParent: id=24da1ed6b00 - RemoveShutdownBlockers: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3697
+208/devtools/browser/f46b986d-8331-4850-a1be-d6e0443dcc4e
+JavaScript error: https://www.ultimate-guitar.com/artist/descendents_1575, line 175: TypeError: registration.active is null
+JavaScript error: https://www.ultimate-guitar.com/artist/descendents_1575?filter=guitar_pro, line 175: TypeError: registration.active is null
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.ultimate-guitar.com."
+1659558772321	Marionette	INFO	Stopped listening on port 57217
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+[Parent 20600, Main Thread] WARNING: ContentParent: id=225b47ccb00 - BlockShutdown: CanSend.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3595
+[Parent 20600, Main Thread] WARNING: ContentParent: id=225b47ccb00 - ShutDownProcess: Sent shutdown message.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1799
+[Parent 20600, Main Thread] WARNING: ContentParent: id=225b47ccb00 - ShutDownProcess: Closing channel.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1834
+[Parent 20600, Main Thread] WARNING: ContentParent: id=225b47ccb00 - RemoveShutdownBlockers: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3697
+1659558817772	geckodriver	INFO	Listening on 127.0.0.1:57275
+1659558820830	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "57276" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofilethCaM6"
+1659558821111	Marionette	INFO	Marionette enabled
+1659558821114	Marionette	INFO	Listening on port 57285
+WebDriver BiDi listening on ws://localhost:57276
+Read port: 57285
+1659558821206	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofilethCaM6\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:57276/devtools/browser/587795f4-e1e0-42b5-9964-4de8a2662847
+JavaScript error: https://www.ultimate-guitar.com/artist/descendents_1575, line 175: TypeError: registration.active is null
+JavaScript error: https://www.ultimate-guitar.com/artist/descendents_1575?filter=guitar_pro, line 175: TypeError: registration.active is null
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.ultimate-guitar.com."
+JavaScript error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_es6/ug~runtime.569d84dbbdcbd8c543354b9b9dd0ed99.js, line 1: ChunkLoadError: Loading chunk 3814 failed.
+(error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_es6/202208/3814.59fb47074aeb11679c8f2ca57c2e28a6.js)
+JavaScript error: , line 0: uncaught exception: Object
+JavaScript error: https://tabs.ultimate-guitar.com/tab/descendents/anchor-grill-guitar-pro-4087948, line 82: TypeError: registration.active is null
+JavaScript error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_es6/ug~runtime.569d84dbbdcbd8c543354b9b9dd0ed99.js, line 1: ChunkLoadError: Loading chunk 5487 failed.
+(error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_es6/202208/5487.fd510fae7a974223a0c1361ae727c67c.js)
+JavaScript error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_es6/ug~runtime.569d84dbbdcbd8c543354b9b9dd0ed99.js, line 1: ChunkLoadError: Loading chunk 3814 failed.
+(error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_es6/202208/3814.59fb47074aeb11679c8f2ca57c2e28a6.js)
+JavaScript error: https://tabs.ultimate-guitar.com/tab/descendents/beyond-the-music-guitar-pro-3609533, line 82: TypeError: registration.active is null
+JavaScript error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_es6/ug~runtime.569d84dbbdcbd8c543354b9b9dd0ed99.js, line 1: ChunkLoadError: Loading chunk 5487 failed.
+(error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_es6/202208/5487.fd510fae7a974223a0c1361ae727c67c.js)
+JavaScript error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_es6/ug~runtime.569d84dbbdcbd8c543354b9b9dd0ed99.js, line 1: ChunkLoadError: Loading chunk 3814 failed.
+(error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_es6/202208/3814.59fb47074aeb11679c8f2ca57c2e28a6.js)
+JavaScript error: https://tabs.ultimate-guitar.com/tab/descendents/bikeage-guitar-pro-1166264, line 82: TypeError: registration.active is null
+JavaScript error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_es6/ug~runtime.569d84dbbdcbd8c543354b9b9dd0ed99.js, line 1: ChunkLoadError: Loading chunk 3814 failed.
+(error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_es6/202208/3814.59fb47074aeb11679c8f2ca57c2e28a6.js)
+JavaScript error: https://tabs.ultimate-guitar.com/tab/descendents/bikeage-guitar-pro-1666723, line 82: TypeError: registration.active is null
+JavaScript error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_es6/ug~runtime.569d84dbbdcbd8c543354b9b9dd0ed99.js, line 1: ChunkLoadError: Loading chunk 3814 failed.
+(error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_es6/202208/3814.59fb47074aeb11679c8f2ca57c2e28a6.js)
+JavaScript error: , line 0: uncaught exception: Object
+JavaScript error: https://tabs.ultimate-guitar.com/tab/descendents/bikeage-guitar-pro-2099475, line 82: TypeError: registration.active is null
+JavaScript error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_es6/ug~runtime.569d84dbbdcbd8c543354b9b9dd0ed99.js, line 1: ChunkLoadError: Loading chunk 3814 failed.
+(error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_es6/202208/3814.59fb47074aeb11679c8f2ca57c2e28a6.js)
+JavaScript error: https://tabs.ultimate-guitar.com/tab/descendents/blast-off-guitar-pro-4087924, line 82: TypeError: registration.active is null
+JavaScript error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_es6/ug~runtime.569d84dbbdcbd8c543354b9b9dd0ed99.js, line 1: ChunkLoadError: Loading chunk 3814 failed.
+(error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_es6/202208/3814.59fb47074aeb11679c8f2ca57c2e28a6.js)
+JavaScript error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_es6/ug~runtime.569d84dbbdcbd8c543354b9b9dd0ed99.js, line 1: ChunkLoadError: Loading chunk 3814 failed.
+(error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_es6/202208/3814.59fb47074aeb11679c8f2ca57c2e28a6.js)
+JavaScript error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_es6/ug~runtime.569d84dbbdcbd8c543354b9b9dd0ed99.js, line 1: ChunkLoadError: Loading chunk 5487 failed.
+(error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_es6/202208/5487.fd510fae7a974223a0c1361ae727c67c.js)
+JavaScript error: , line 0: uncaught exception: Object
+JavaScript error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_es6/ug~runtime.569d84dbbdcbd8c543354b9b9dd0ed99.js, line 1: ChunkLoadError: Loading chunk 5487 failed.
+(error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_es6/202208/5487.fd510fae7a974223a0c1361ae727c67c.js)
+JavaScript error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_es6/ug~runtime.569d84dbbdcbd8c543354b9b9dd0ed99.js, line 1: ChunkLoadError: Loading chunk 3814 failed.
+(error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_es6/202208/3814.59fb47074aeb11679c8f2ca57c2e28a6.js)
+JavaScript error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_es6/ug~runtime.569d84dbbdcbd8c543354b9b9dd0ed99.js, line 1: ChunkLoadError: Loading chunk 3814 failed.
+(error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_es6/202208/3814.59fb47074aeb11679c8f2ca57c2e28a6.js)
+JavaScript error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_es6/ug~runtime.569d84dbbdcbd8c543354b9b9dd0ed99.js, line 1: ChunkLoadError: Loading chunk 5487 failed.
+(error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_es6/202208/5487.fd510fae7a974223a0c1361ae727c67c.js)
+1659558838978	Marionette	INFO	Stopped listening on port 57285
+[Parent 17276, Main Thread] WARNING: ContentParent: id=20fd76d5c00 - BlockShutdown: CanSend.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3595
+[Parent 17276, Main Thread] WARNING: ContentParent: id=20fd76d5c00 - ShutDownProcess: Shutdown already pending.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1815
+[Parent 17276, Main Thread] WARNING: ContentParent: id=20fda73b100 - BlockShutdown: CanSend.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3595
+[Parent 17276, Main Thread] WARNING: ContentParent: id=20fda73b100 - ShutDownProcess: Sent shutdown message.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1799
+[Parent 17276, Main Thread] WARNING: ContentParent: id=20fd76d5c00 - ShutDownProcess: Closing channel.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1834
+[Parent 17276, Main Thread] WARNING: ContentParent: id=20fd76d5c00 - RemoveShutdownBlockers: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3697
+[Parent 17276, Main Thread] WARNING: ContentParent: id=20fda73b100 - ShutDownProcess: Closing channel.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1834
+[Parent 17276, Main Thread] WARNING: ContentParent: id=20fda73b100 - RemoveShutdownBlockers: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3697
+[Parent 17276, IPC I/O Parent] WARNING: file /builds/worker/checkouts/gecko/ipc/chromium/src/base/process_util_win.cc:167
+1659559065940	geckodriver	INFO	Listening on 127.0.0.1:57352
+1659559068992	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "57353" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofile8dZOnm"
+1659559069279	Marionette	INFO	Marionette enabled
+1659559069283	Marionette	INFO	Listening on port 57362
+WebDriver BiDi listening on ws://localhost:57353
+Read port: 57362
+1659559069376	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofile8dZOnm\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:57353/devtools/browser/d24b21ba-b0e8-4c04-b15c-f1dbb856c652
+JavaScript error: https://www.ultimate-guitar.com/artist/descendents_1575, line 175: TypeError: registration.active is null
+JavaScript error: https://www.ultimate-guitar.com/artist/descendents_1575?filter=guitar_pro, line 175: TypeError: registration.active is null
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.ultimate-guitar.com."
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://tabs.ultimate-guitar.com."
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+1659559130541	Marionette	INFO	Stopped listening on port 57362
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+[Parent 19300, Main Thread] WARNING: ContentParent: id=260828d5600 - BlockShutdown: CanSend.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3595
+[Parent 19300, Main Thread] WARNING: ContentParent: id=260828d5600 - ShutDownProcess: Shutdown already pending.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1815
+[Parent 19300, Main Thread] WARNING: ContentParent: id=26085c7fb00 - BlockShutdown: CanSend.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3595
+[Parent 19300, Main Thread] WARNING: ContentParent: id=26085c7fb00 - ShutDownProcess: Sent shutdown message.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1799
+[Parent 19300, Main Thread] WARNING: ContentParent: id=26085c7fb00 - ShutDownProcess: Closing channel.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1834
+[Parent 19300, Main Thread] WARNING: ContentParent: id=26085c7fb00 - RemoveShutdownBlockers: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3697
+[Parent 19300, Main Thread] WARNING: ContentParent: id=260828d5600 - ShutDownProcess: Closing channel.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1834
+[Parent 19300, Main Thread] WARNING: ContentParent: id=260828d5600 - RemoveShutdownBlockers: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3697
