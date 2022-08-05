@@ -7,6 +7,7 @@ from line_profiler_pycharm import profile
 class DLoader:
 
     def __init__(self, artist, dl_path):
+        # not necessary?
         self.artist = artist
         self.dl_path = dl_path
 
@@ -32,9 +33,12 @@ def get_tabs(driver):
 
 
 def create_artist_folder(dl_path):
-    # todo error handling for directory already existing
-    os.mkdir(dl_path)
-    print("Folder created at " + dl_path)
+    try:
+        os.mkdir(dl_path)
+    except OSError as error:
+        print(error)
+    else:
+        print("Folder created at " + dl_path)
 
 
 def scroll_to_bottom(driver):

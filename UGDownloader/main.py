@@ -24,6 +24,7 @@ dl_path = str(Path.cwd())
 dl_path += '\\Tabs\\'
 dl_path += artist
 DLoader.create_artist_folder(dl_path)
+# setup browser options
 options = Options()
 options.set_preference("browser.download.folderList", 2)
 options.set_preference("browser.download.manager.showWhenStarting", False)
@@ -36,7 +37,7 @@ driver = webdriver.Firefox(options=options)  # create instance of browser
 driver.get('https://www.ultimate-guitar.com/search.php?search_type=bands&value=' + artist)
 driver.find_element(By.LINK_TEXT, artist).click()
 driver.find_element(By.LINK_TEXT, 'Guitar Pro').click()
-# Login required...
+# Login required... todo make own method in gui?
 driver.find_element(By.CSS_SELECTOR, '.exTWY > span:nth-child(1)').click()  # login button
 usernameTextbox = driver.find_element(By.CSS_SELECTOR, '.wzvZg > div:nth-child(1) > input:nth-child(1)')
 passwordTextbox = driver.find_element(By.CSS_SELECTOR, '.wlfii > div:nth-child(1) > input:nth-child(1)')
@@ -64,5 +65,5 @@ while True:
         # driver.close()
         break
 
-# todo organize downloads after, or download them to specific location
+
 driver.close()
