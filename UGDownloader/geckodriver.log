@@ -4137,3 +4137,45 @@ DevTools listening on ws://localhost:52296/devtools/browser/887b26b8-86a6-46d3-a
 [Parent 9972, Main Thread] WARNING: ContentParent: id=26b365d5400 - ShutDownProcess: Closing channel.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1834
 [Parent 9972, Main Thread] WARNING: ContentParent: id=26b365d5400 - RemoveShutdownBlockers: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3697
 [Parent 9972, IPC I/O Parent] WARNING: file /builds/worker/checkouts/gecko/ipc/chromium/src/base/process_util_win.cc:167
+1659658267412	geckodriver	INFO	Listening on 127.0.0.1:52362
+1659658270455	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "52363" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofilehlQFc4"
+1659658270765	Marionette	INFO	Marionette enabled
+1659658270770	Marionette	INFO	Listening on port 52377
+WebDriver BiDi listening on ws://localhost:52363
+Read port: 52377
+1659658270908	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+1659659147835	geckodriver	INFO	Listening on 127.0.0.1:52428
+1659659150891	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "52429" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofileNc02CH"
+1659659151189	Marionette	INFO	Marionette enabled
+1659659151193	Marionette	INFO	Listening on port 52438
+WebDriver BiDi listening on ws://localhost:52429
+Read port: 52438
+1659659151287	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofileNc02CH\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:52429/devtools/browser/0bbd426b-868e-4b21-843c-9c3862e932f4
+1659659154390	Marionette	INFO	Stopped listening on port 52438
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+[Parent 8112, Main Thread] WARNING: ContentParent: id=212d8b25500 - BlockShutdown: CanSend.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3595
+[Parent 8112, Main Thread] WARNING: ContentParent: id=212d8b25500 - ShutDownProcess: Sent shutdown message.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1799
+[Parent 8112, Main Thread] WARNING: ContentParent: id=212d8b25500 - ShutDownProcess: Closing channel.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1834
+[Parent 8112, Main Thread] WARNING: ContentParent: id=212d8b25500 - RemoveShutdownBlockers: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3697
+[Parent 8112, IPC I/O Parent] WARNING: file /builds/worker/checkouts/gecko/ipc/chromium/src/base/process_util_win.cc:167
+1659659160426	geckodriver	INFO	Listening on 127.0.0.1:52487
+1659659163462	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "52488" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofileVmek9O"
+1659659163788	Marionette	INFO	Marionette enabled
+1659659163792	Marionette	INFO	Listening on port 52497
+WebDriver BiDi listening on ws://localhost:52488
+Read port: 52497
+1659659163893	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofileVmek9O\\search.json.mozlz4", (void 0)))
+1659659165487	Marionette	INFO	Stopped listening on port 52497
+1659659165495	CDP	WARN	Failed to remove undefined (Could not parse path (undefined): NS_ERROR_FILE_UNRECOGNIZED_PATH)
+console.warn: services.settings: main/query-stripping sync interrupted by shutdown
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+1659659781224	geckodriver	INFO	Listening on 127.0.0.1:52624
+1659659784275	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "52625" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofileR3GhmP"
+1659659784587	Marionette	INFO	Marionette enabled
+1659659784592	Marionette	INFO	Listening on port 52634
+WebDriver BiDi listening on ws://localhost:52625
+Read port: 52634
+1659659784732	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
