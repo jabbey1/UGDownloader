@@ -3827,3 +3827,313 @@ console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkErr
 [Parent 20228, Main Thread] WARNING: ContentParent: id=17fe12cd600 - RemoveShutdownBlockers: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3697
 [Parent 20228, Main Thread] WARNING: ContentParent: id=17fe00dad00 - ShutDownProcess: Closing channel.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1834
 [Parent 20228, Main Thread] WARNING: ContentParent: id=17fe00dad00 - RemoveShutdownBlockers: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3697
+1659650341796	geckodriver	INFO	Listening on 127.0.0.1:50637
+1659650344856	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "50638" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofilefL9KZb"
+1659650345163	Marionette	INFO	Marionette enabled
+1659650345168	Marionette	INFO	Listening on port 50647
+WebDriver BiDi listening on ws://localhost:50638
+Read port: 50647
+1659650345276	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofilefL9KZb\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:50638/devtools/browser/962f3097-3477-4438-9754-0c72e3827f90
+JavaScript error: https://www.ultimate-guitar.com/artist/descendents_1575, line 175: TypeError: registration.active is null
+1659650349655	Marionette	INFO	Stopped listening on port 50647
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+[Parent 12576, Main Thread] WARNING: ContentParent: id=2342a7d1c00 - BlockShutdown: CanSend.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3595
+[Parent 12576, Main Thread] WARNING: ContentParent: id=2342a7d1c00 - ShutDownProcess: Sent shutdown message.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1799
+[Parent 12576, Main Thread] WARNING: ContentParent: id=2342a7d1c00 - ShutDownProcess: Closing channel.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1834
+[Parent 12576, Main Thread] WARNING: ContentParent: id=2342a7d1c00 - RemoveShutdownBlockers: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3697
+1659650587682	geckodriver	INFO	Listening on 127.0.0.1:50738
+1659650590719	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "50739" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofiletQHJfP"
+1659650591036	Marionette	INFO	Marionette enabled
+1659650591040	Marionette	INFO	Listening on port 50748
+WebDriver BiDi listening on ws://localhost:50739
+Read port: 50748
+1659650591133	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofiletQHJfP\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:50739/devtools/browser/494b2ac4-5d28-4dff-81b7-67a2130bbda8
+1659650594771	Marionette	INFO	Stopped listening on port 50748
+JavaScript error: resource:///modules/FaviconLoader.jsm, line 593: InvalidStateError: JSWindowActorChild.sendAsyncMessage: JSWindowActorChild cannot send at the moment
+JavaScript error: resource:///modules/FaviconLoader.jsm, line 593: InvalidStateError: JSWindowActorChild.sendAsyncMessage: JSWindowActorChild cannot send at the moment
+[Parent 9640, Main Thread] WARNING: ContentParent: id=21b0fcbf400 - BlockShutdown: CanSend.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3595
+[Parent 9640, Main Thread] WARNING: ContentParent: id=21b0fcbf400 - ShutDownProcess: Sent shutdown message.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1799
+[Parent 9640, Main Thread] WARNING: ContentParent: id=21b12ed3500 - BlockShutdown: CanSend.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3595
+[Parent 9640, Main Thread] WARNING: ContentParent: id=21b12ed3500 - ShutDownProcess: Sent shutdown message.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1799
+[Parent 9640, Main Thread] WARNING: ContentParent: id=21b0fcbf400 - ShutDownProcess: Closing channel.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1834
+[Parent 9640, Main Thread] WARNING: ContentParent: id=21b0fcbf400 - RemoveShutdownBlockers: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3697
+[Parent 9640, Main Thread] WARNING: ContentParent: id=21b12ed3500 - ShutDownProcess: Closing channel.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1834
+[Parent 9640, Main Thread] WARNING: ContentParent: id=21b12ed3500 - RemoveShutdownBlockers: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3697
+1659650850374	geckodriver	INFO	Listening on 127.0.0.1:50805
+1659650853420	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "50806" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofile6wSbXl"
+1659650853726	Marionette	INFO	Marionette enabled
+1659650853730	Marionette	INFO	Listening on port 50815
+WebDriver BiDi listening on ws://localhost:50806
+Read port: 50815
+1659650853827	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofile6wSbXl\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:50806/devtools/browser/e171395e-ccba-49dc-a40d-cb298b7270a0
+JavaScript error: https://www.ultimate-guitar.com/artist/descendents_1575, line 175: TypeError: registration.active is null
+JavaScript error: https://www.ultimate-guitar.com/artist/descendents_1575?filter=guitar_pro, line 175: TypeError: registration.active is null
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.ultimate-guitar.com."
+1659650860528	Marionette	INFO	Stopped listening on port 50815
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+[Parent 6404, Main Thread] WARNING: ContentParent: id=25cb5258b00 - BlockShutdown: CanSend.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3595
+[Parent 6404, Main Thread] WARNING: ContentParent: id=25cb5258b00 - ShutDownProcess: Sent shutdown message.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1799
+[Parent 6404, Main Thread] WARNING: ContentParent: id=25cb5258b00 - ShutDownProcess: Closing channel.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1834
+[Parent 6404, Main Thread] WARNING: ContentParent: id=25cb5258b00 - RemoveShutdownBlockers: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3697
+1659651936592	geckodriver	INFO	Listening on 127.0.0.1:50936
+1659651939655	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "50937" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofileeXtG3j"
+1659651939951	Marionette	INFO	Marionette enabled
+1659651939955	Marionette	INFO	Listening on port 50946
+WebDriver BiDi listening on ws://localhost:50937
+Read port: 50946
+1659651940050	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofileeXtG3j\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:50937/devtools/browser/0035297c-11d3-4adc-8efd-815fdc6f6057
+JavaScript error: https://www.ultimate-guitar.com/artist/descendents_1575, line 175: TypeError: registration.active is null
+JavaScript error: https://www.ultimate-guitar.com/artist/descendents_1575?filter=guitar_pro, line 175: TypeError: registration.active is null
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.ultimate-guitar.com."
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_es6/ug~runtime.f8d163c2cc2c3b61c0e13d3275ae4bb1.js, line 1: ChunkLoadError: Loading chunk 3429 failed.
+(error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_es6/202208/3429.42cd4625e719571da04cd53620052fad.js)
+JavaScript error: https://tabs.ultimate-guitar.com/tab/descendents/anchor-grill-guitar-pro-4087948, line 82: TypeError: registration.active is null
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript error: resource:///modules/FaviconLoader.jsm, line 593: InvalidStateError: JSWindowActorChild.sendAsyncMessage: JSWindowActorChild cannot send at the moment
+JavaScript error: resource:///modules/FaviconLoader.jsm, line 593: InvalidStateError: JSWindowActorChild.sendAsyncMessage: JSWindowActorChild cannot send at the moment
+1659651952319	Marionette	INFO	Stopped listening on port 50946
+[Parent 15780, Main Thread] WARNING: ContentParent: id=22b8b8cd200 - BlockShutdown: CanSend.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3595
+[Parent 15780, Main Thread] WARNING: ContentParent: id=22b8b8cd200 - ShutDownProcess: Sent shutdown message.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1799
+[Parent 15780, Main Thread] WARNING: ContentParent: id=22b8b8cd200 - ShutDownProcess: Closing channel.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1834
+[Parent 15780, Main Thread] WARNING: ContentParent: id=22b8b8cd200 - RemoveShutdownBlockers: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3697
+[Parent 15780, IPC I/O Parent] WARNING: file /builds/worker/checkouts/gecko/ipc/chromium/src/base/process_util_win.cc:167
+1659652320555	geckodriver	INFO	Listening on 127.0.0.1:51023
+1659652323599	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "51024" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofilexPxgzD"
+1659652323901	Marionette	INFO	Marionette enabled
+1659652323905	Marionette	INFO	Listening on port 51033
+WebDriver BiDi listening on ws://localhost:51024
+Read port: 51033
+1659652324000	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofilexPxgzD\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:51024/devtools/browser/e4ed5e28-4a6b-4d26-8d3b-09a4acae0916
+JavaScript error: https://www.ultimate-guitar.com/artist/descendents_1575, line 175: TypeError: registration.active is null
+JavaScript error: https://www.ultimate-guitar.com/artist/descendents_1575?filter=guitar_pro, line 175: TypeError: registration.active is null
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.ultimate-guitar.com."
+1659652329844	Marionette	INFO	Stopped listening on port 51033
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+[Parent 15368, Main Thread] WARNING: ContentParent: id=19ad65e5800 - BlockShutdown: CanSend.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3595
+[Parent 15368, Main Thread] WARNING: ContentParent: id=19ad65e5800 - ShutDownProcess: Sent shutdown message.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1799
+[Parent 15368, Main Thread] WARNING: ContentParent: id=19ad65e5800 - ShutDownProcess: Closing channel.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1834
+[Parent 15368, Main Thread] WARNING: ContentParent: id=19ad65e5800 - RemoveShutdownBlockers: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3697
+1659652378242	geckodriver	INFO	Listening on 127.0.0.1:51095
+1659652381292	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "51096" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofileug8or4"
+1659652381592	Marionette	INFO	Marionette enabled
+1659652381596	Marionette	INFO	Listening on port 51105
+WebDriver BiDi listening on ws://localhost:51096
+Read port: 51105
+1659652381690	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofileug8or4\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:51096/devtools/browser/ccf15d63-bad7-47ef-a01b-adb26b0417ed
+JavaScript error: https://www.ultimate-guitar.com/artist/descendents_1575, line 175: TypeError: registration.active is null
+1659652385569	Marionette	INFO	Stopped listening on port 51105
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+[Parent 988, Main Thread] WARNING: ContentParent: id=28cabac2a00 - BlockShutdown: CanSend.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3595
+[Parent 988, Main Thread] WARNING: ContentParent: id=28cabac2a00 - ShutDownProcess: Sent shutdown message.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1799
+[Parent 988, Main Thread] WARNING: ContentParent: id=28cabac2a00 - ShutDownProcess: Closing channel.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1834
+[Parent 988, Main Thread] WARNING: ContentParent: id=28cabac2a00 - RemoveShutdownBlockers: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3697
+1659652435354	geckodriver	INFO	Listening on 127.0.0.1:51166
+1659652438394	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "51167" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofileAAtM1V"
+1659652438696	Marionette	INFO	Marionette enabled
+1659652438700	Marionette	INFO	Listening on port 51176
+WebDriver BiDi listening on ws://localhost:51167
+Read port: 51176
+1659652438794	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofileAAtM1V\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:51167/devtools/browser/694f3631-50ec-4aca-b9f5-d56d050d22e4
+JavaScript error: https://www.ultimate-guitar.com/artist/descendents_1575, line 175: TypeError: registration.active is null
+JavaScript error: https://www.ultimate-guitar.com/artist/descendents_1575?filter=guitar_pro, line 175: TypeError: registration.active is null
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.ultimate-guitar.com."
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://tabs.ultimate-guitar.com."
+JavaScript error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_es6/ug~runtime.f8d163c2cc2c3b61c0e13d3275ae4bb1.js, line 1: ChunkLoadError: Loading chunk 3429 failed.
+(error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_es6/202208/3429.42cd4625e719571da04cd53620052fad.js)
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+1659652467614	Marionette	INFO	Stopped listening on port 51176
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+[Parent 6048, Main Thread] WARNING: ContentParent: id=25ac37e2500 - BlockShutdown: CanSend.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3595
+[Parent 6048, Main Thread] WARNING: ContentParent: id=25ac37e2500 - ShutDownProcess: Shutdown already pending.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1815
+[Parent 6048, Main Thread] WARNING: ContentParent: id=25ac4815d00 - BlockShutdown: CanSend.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3595
+[Parent 6048, Main Thread] WARNING: ContentParent: id=25ac4815d00 - ShutDownProcess: Sent shutdown message.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1799
+[Parent 6048, Main Thread] WARNING: ContentParent: id=25ac37e2500 - ShutDownProcess: Closing channel.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1834
+[Parent 6048, Main Thread] WARNING: ContentParent: id=25ac37e2500 - RemoveShutdownBlockers: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3697
+[Parent 6048, Main Thread] WARNING: ContentParent: id=25ac4815d00 - ShutDownProcess: Closing channel.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1834
+[Parent 6048, Main Thread] WARNING: ContentParent: id=25ac4815d00 - RemoveShutdownBlockers: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3697
+1659652530715	geckodriver	INFO	Listening on 127.0.0.1:51243
+1659652771382	geckodriver	INFO	Listening on 127.0.0.1:51312
+1659652774453	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "51313" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofileB6WGqd"
+1659652774799	Marionette	INFO	Marionette enabled
+1659652774804	Marionette	INFO	Listening on port 51322
+WebDriver BiDi listening on ws://localhost:51313
+Read port: 51322
+1659652775021	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofileB6WGqd\\search.json.mozlz4", (void 0)))
+1659652776655	Marionette	INFO	Stopped listening on port 51322
+1659652776661	CDP	WARN	Failed to remove undefined (Could not parse path (undefined): NS_ERROR_FILE_UNRECOGNIZED_PATH)
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+1659654034211	geckodriver	INFO	Listening on 127.0.0.1:51489
+1659654037268	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "51490" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofileFCsDdn"
+1659654037569	Marionette	INFO	Marionette enabled
+1659654037573	Marionette	INFO	Listening on port 51499
+WebDriver BiDi listening on ws://localhost:51490
+Read port: 51499
+1659654037677	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofileFCsDdn\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:51490/devtools/browser/5b1aca66-ef6e-4e54-b421-38c34532ac9f
+JavaScript error: https://www.ultimate-guitar.com/artist/descendents_1575, line 175: TypeError: registration.active is null
+JavaScript error: https://www.ultimate-guitar.com/artist/descendents_1575?filter=guitar_pro, line 175: TypeError: registration.active is null
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.ultimate-guitar.com."
+1659654043662	Marionette	INFO	Stopped listening on port 51499
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+[Parent 7560, Main Thread] WARNING: ContentParent: id=20b6b7c6400 - BlockShutdown: CanSend.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3595
+[Parent 7560, Main Thread] WARNING: ContentParent: id=20b6b7c6400 - ShutDownProcess: Sent shutdown message.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1799
+[Parent 7560, Main Thread] WARNING: ContentParent: id=20b6b7c6400 - ShutDownProcess: Closing channel.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1834
+[Parent 7560, Main Thread] WARNING: ContentParent: id=20b6b7c6400 - RemoveShutdownBlockers: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3697
+1659654094388	geckodriver	INFO	Listening on 127.0.0.1:51560
+1659654097444	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "51561" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofile91oeDl"
+1659654097739	Marionette	INFO	Marionette enabled
+1659654097743	Marionette	INFO	Listening on port 51570
+WebDriver BiDi listening on ws://localhost:51561
+Read port: 51570
+1659654097838	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofile91oeDl\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:51561/devtools/browser/4b2334be-572c-4a51-841b-cafc9d442d55
+JavaScript error: https://www.ultimate-guitar.com/artist/descendents_1575, line 175: TypeError: registration.active is null
+JavaScript error: https://www.ultimate-guitar.com/artist/descendents_1575?filter=guitar_pro, line 175: TypeError: registration.active is null
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.ultimate-guitar.com."
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://tabs.ultimate-guitar.com."
+1659654117443	Marionette	INFO	Stopped listening on port 51570
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+[Parent 8768, Main Thread] WARNING: ContentParent: id=16cd364a900 - BlockShutdown: CanSend.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3595
+[Parent 8768, Main Thread] WARNING: ContentParent: id=16cd364a900 - ShutDownProcess: Sent shutdown message.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1799
+[Parent 8768, Main Thread] WARNING: ContentParent: id=16cd364a900 - ShutDownProcess: Closing channel.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1834
+[Parent 8768, Main Thread] WARNING: ContentParent: id=16cd364a900 - RemoveShutdownBlockers: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3697
+1659654441674	geckodriver	INFO	Listening on 127.0.0.1:51662
+1659654444721	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "51663" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofileYkOYJ2"
+1659654445028	Marionette	INFO	Marionette enabled
+1659654445031	Marionette	INFO	Listening on port 51672
+WebDriver BiDi listening on ws://localhost:51663
+Read port: 51672
+1659654445125	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofileYkOYJ2\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:51663/devtools/browser/76d538ab-7d2d-48b5-8c2e-df8e96721116
+JavaScript error: https://www.ultimate-guitar.com/artist/descendents_1575, line 175: TypeError: registration.active is null
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.ultimate-guitar.com."
+JavaScript error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_es6/ug~runtime.f8d163c2cc2c3b61c0e13d3275ae4bb1.js, line 1: ChunkLoadError: Loading chunk 3814 failed.
+(error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_es6/202208/3814.59fb47074aeb11679c8f2ca57c2e28a6.js)
+JavaScript error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_es6/ug~runtime.f8d163c2cc2c3b61c0e13d3275ae4bb1.js, line 1: ChunkLoadError: Loading chunk 5487 failed.
+(error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_es6/202208/5487.34be2fe5059502c28e3d189cbae51f43.js)
+JavaScript error: , line 0: uncaught exception: Object
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://tabs.ultimate-guitar.com."
+JavaScript error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_es6/ug~runtime.f8d163c2cc2c3b61c0e13d3275ae4bb1.js, line 1: ChunkLoadError: Loading chunk 3429 failed.
+(error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_es6/202208/3429.42cd4625e719571da04cd53620052fad.js)
+JavaScript error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_es6/202208/9537.2b82ea4b64723f0904960eb41e553854.js, line 1: TypeError: s.xtzAudioWorkletNode is null
+JavaScript error: , line 0: AbortError: The operation was aborted. 
+JavaScript error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_es6/ug~runtime.f8d163c2cc2c3b61c0e13d3275ae4bb1.js, line 1: ChunkLoadError: Loading chunk 3429 failed.
+(error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_es6/202208/3429.42cd4625e719571da04cd53620052fad.js)
+1659654468027	Marionette	INFO	Stopped listening on port 51672
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+[Parent 968, Main Thread] WARNING: ContentParent: id=13be5fe5d00 - BlockShutdown: CanSend.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3595
+[Parent 968, Main Thread] WARNING: ContentParent: id=13be5fe5d00 - ShutDownProcess: Shutdown already pending.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1815
+[Parent 968, Main Thread] WARNING: ContentParent: id=13be93fb600 - BlockShutdown: CanSend.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3595
+[Parent 968, Main Thread] WARNING: ContentParent: id=13be93fb600 - ShutDownProcess: Sent shutdown message.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1799
+[Parent 968, Main Thread] WARNING: ContentParent: id=13be5fe5d00 - ShutDownProcess: Closing channel.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1834
+[Parent 968, Main Thread] WARNING: ContentParent: id=13be5fe5d00 - RemoveShutdownBlockers: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3697
+[Parent 968, Main Thread] WARNING: ContentParent: id=13be93fb600 - ShutDownProcess: Closing channel.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1834
+[Parent 968, Main Thread] WARNING: ContentParent: id=13be93fb600 - RemoveShutdownBlockers: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3697
+1659654885692	geckodriver	INFO	Listening on 127.0.0.1:51790
+1659654888732	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "51791" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofileb0cJod"
+1659654889038	Marionette	INFO	Marionette enabled
+1659654889041	Marionette	INFO	Listening on port 51800
+WebDriver BiDi listening on ws://localhost:51791
+Read port: 51800
+1659654889134	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofileb0cJod\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:51791/devtools/browser/30ee5324-eda7-4040-b5f8-d1e88030f7dc
+JavaScript error: https://www.ultimate-guitar.com/artist/descendents_1575, line 175: TypeError: registration.active is null
+JavaScript error: https://www.ultimate-guitar.com/artist/descendents_1575?filter=guitar_pro, line 175: TypeError: registration.active is null
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.ultimate-guitar.com."
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://tabs.ultimate-guitar.com."
+1659654905225	Marionette	INFO	Stopped listening on port 51800
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+[Parent 15692, Main Thread] WARNING: ContentParent: id=26147fd1100 - BlockShutdown: CanSend.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3595
+[Parent 15692, Main Thread] WARNING: ContentParent: id=26147fd1100 - ShutDownProcess: Sent shutdown message.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1799
+[Parent 15692, Main Thread] WARNING: ContentParent: id=26147fd1100 - ShutDownProcess: Closing channel.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1834
+[Parent 15692, Main Thread] WARNING: ContentParent: id=26147fd1100 - RemoveShutdownBlockers: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3697
+1659655114500	geckodriver	INFO	Listening on 127.0.0.1:51891
+1659655117539	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "51892" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofileJPF7ae"
+1659655117836	Marionette	INFO	Marionette enabled
+1659655117839	Marionette	INFO	Listening on port 51901
+WebDriver BiDi listening on ws://localhost:51892
+Read port: 51901
+1659655117933	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofileJPF7ae\\search.json.mozlz4", (void 0)))
+1659655119490	Marionette	INFO	Stopped listening on port 51901
+1659655119496	CDP	WARN	Failed to remove undefined (Could not parse path (undefined): NS_ERROR_FILE_UNRECOGNIZED_PATH)
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+1659656445084	geckodriver	INFO	Listening on 127.0.0.1:52023
+1659656448130	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "52024" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofilei6HZzv"
+1659656448430	Marionette	INFO	Marionette enabled
+1659656448434	Marionette	INFO	Listening on port 52033
+WebDriver BiDi listening on ws://localhost:52024
+Read port: 52033
+1659656448528	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofilei6HZzv\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:52024/devtools/browser/1e81f226-32ad-451d-a4ab-90c2e7d24099
+JavaScript error: https://www.ultimate-guitar.com/artist/descendents_1575, line 175: TypeError: registration.active is null
+JavaScript error: https://www.ultimate-guitar.com/artist/descendents_1575?filter=guitar_pro, line 175: TypeError: registration.active is null
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.ultimate-guitar.com."
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://tabs.ultimate-guitar.com."
+JavaScript error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_es6/ug~runtime.f8d163c2cc2c3b61c0e13d3275ae4bb1.js, line 1: ChunkLoadError: Loading chunk 3429 failed.
+(error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_es6/202208/3429.42cd4625e719571da04cd53620052fad.js)
+1659656464941	Marionette	INFO	Stopped listening on port 52033
+JavaScript error: resource:///modules/FaviconLoader.jsm, line 593: InvalidStateError: JSWindowActorChild.sendAsyncMessage: JSWindowActorChild cannot send at the moment
+JavaScript error: resource:///modules/FaviconLoader.jsm, line 593: InvalidStateError: JSWindowActorChild.sendAsyncMessage: JSWindowActorChild cannot send at the moment
+[Parent 15484, Main Thread] WARNING: ContentParent: id=279fe7c6e00 - BlockShutdown: CanSend.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3595
+[Parent 15484, Main Thread] WARNING: ContentParent: id=279fe7c6e00 - ShutDownProcess: Sent shutdown message.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1799
+[Parent 15484, Main Thread] WARNING: ContentParent: id=279fe7c6e00 - ShutDownProcess: Closing channel.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1834
+[Parent 15484, Main Thread] WARNING: ContentParent: id=279fe7c6e00 - RemoveShutdownBlockers: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3697
+1659658090117	geckodriver	INFO	Listening on 127.0.0.1:52273
+1659658093166	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "52274" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofile9bCnVv"
+1659658093471	Marionette	INFO	Marionette enabled
+1659658093475	Marionette	INFO	Listening on port 52284
+WebDriver BiDi listening on ws://localhost:52274
+Read port: 52284
+1659658093570	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofile9bCnVv\\search.json.mozlz4", (void 0)))
+1659658095035	Marionette	INFO	Stopped listening on port 52284
+1659658095040	CDP	WARN	Failed to remove undefined (Could not parse path (undefined): NS_ERROR_FILE_UNRECOGNIZED_PATH)
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+1659658188530	geckodriver	INFO	Listening on 127.0.0.1:52295
+1659658191584	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "52296" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofilescgO5n"
+1659658191895	Marionette	INFO	Marionette enabled
+1659658191899	Marionette	INFO	Listening on port 52305
+WebDriver BiDi listening on ws://localhost:52296
+Read port: 52305
+1659658191999	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofilescgO5n\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:52296/devtools/browser/887b26b8-86a6-46d3-a69e-2c798c1349bb
+1659658196210	Marionette	INFO	Stopped listening on port 52305
+[Parent 9972, Main Thread] WARNING: ContentParent: id=26b332e5f00 - BlockShutdown: CanSend.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3595
+[Parent 9972, Main Thread] WARNING: ContentParent: id=26b332e5f00 - ShutDownProcess: Sent shutdown message.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1799
+[Parent 9972, Main Thread] WARNING: ContentParent: id=26b365d5400 - BlockShutdown: CanSend.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3595
+[Parent 9972, Main Thread] WARNING: ContentParent: id=26b365d5400 - ShutDownProcess: Sent shutdown message.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1799
+[Parent 9972, Main Thread] WARNING: ContentParent: id=26b332e5f00 - ShutDownProcess: Closing channel.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1834
+[Parent 9972, Main Thread] WARNING: ContentParent: id=26b332e5f00 - RemoveShutdownBlockers: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3697
+[Parent 9972, Main Thread] WARNING: ContentParent: id=26b365d5400 - ShutDownProcess: Closing channel.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1834
+[Parent 9972, Main Thread] WARNING: ContentParent: id=26b365d5400 - RemoveShutdownBlockers: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3697
+[Parent 9972, IPC I/O Parent] WARNING: file /builds/worker/checkouts/gecko/ipc/chromium/src/base/process_util_win.cc:167

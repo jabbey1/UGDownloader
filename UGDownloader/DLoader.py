@@ -1,10 +1,14 @@
 import time
+import os
 from selenium.webdriver.common.by import By
 from line_profiler_pycharm import profile
 
 
 class DLoader:
-    pass
+
+    def __init__(self, artist, dl_path):
+        self.artist = artist
+        self.dl_path = dl_path
 
 
 @profile
@@ -24,7 +28,13 @@ def get_tabs(driver):
         scroll_to_bottom(driver)
         # todo comment below line out for testing
         # todo why does button click take so long?
-        # button.click()
+        button.click()
+
+
+def create_artist_folder(dl_path):
+    # todo error handling for directory already existing
+    os.mkdir(dl_path)
+    print("Folder created at " + dl_path)
 
 
 def scroll_to_bottom(driver):
