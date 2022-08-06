@@ -25,7 +25,8 @@ class GUI:
         # start layout
         left_column = [
             [sg.Text(text='Artist', size=(10, 1)), sg.Input(size=(25, 1), pad=(0, 10), key="-ARTIST-")],
-            [sg.Text(text='Username', size=(10, 1)), sg.Input(size=(25, 1), pad=(0, 10), key="-USERNAME-")],
+            [sg.Text(text='Username', size=(10, 1)), sg.Input(size=(25, 1), pad=(0, 10), key="-USERNAME-"),
+             sg.Button(button_text='Autofill')],
             [sg.Text(text='Password', size=(10, 1)), sg.Input(size=(25, 1), pad=(0, 10), key="-PASSWORD-"),
              sg.Button(button_text='Download')],
             # [sg.HSeparator()],
@@ -41,6 +42,9 @@ class GUI:
                      text="-Files will be downloaded to the folder this program is in.")],
             [sg.Text(size=(30, 5), justification='center',
                      text="-Ultimate Guitar requires a login to download tabs.")],
+            [sg.Text(size=(30, 5), justification='center',
+                     text="-Autofill will automatically enter a dummy account, but no guarantees for how long"
+                          "this will work for.")],
             [sg.HSeparator()],
             [sg.Text()],
             # [sg.HSeparator()],
@@ -61,12 +65,20 @@ class GUI:
         # todo move gui logic to main?
         while True:
             event, values = window.read()
+            if event == "Autofill":
+                # dummy account: user=mygoodusername, pass=passyword
+                window["-USERNAME-"].update('mygoodusername')
+                window["-PASSWORD-"].update('passyword')
             if event == "Download":
-                # todo create download folder, set options. download dir,
-                # todo remove placeholder artist, login input
-                artist = 'Wormrot'
-                user = 'jake.c.abbey5555'
+                # todo remove placeholder artist
+                # artist = 'Wormrot'
+                user = 'jake.c.abbey'
                 password = '!bRD3*@erWRZ54'
+
+                # todo ugh captcha
+                artist = values['-ARTIST-']
+                # user = values['-USERNAME-']
+                # password = values['-PASSWORD-']
                 driver = start_browser(artist)
                 start_download(driver, artist, user, password)
 
@@ -110,10 +122,12 @@ def start_download(driver, artist, user, password):
     password_textbox.send_keys(password)
     password_textbox.send_keys(Keys.RETURN)
     print('logged in hopefully')
+    # todo wait for captcha solved by person?
     if driver.find_element(By.CSS_SELECTOR, '.IqBxG'):
         sg.popup_error(title='Login Error')
         print('login error')
         return
+        # not perfect
     # todo if found element of the login area still around, then login failed
     # Click out of annoying popup
     driver.find_element(By.CSS_SELECTOR,
