@@ -64,9 +64,11 @@ class GUI:
             if event == "Download":
                 # todo create download folder, set options. download dir,
                 # todo remove placeholder artist, login input
-                artist = 'Descendents'
+                artist = 'Wormrot'
+                user = 'jake.c.abbey5555'
+                password = '!bRD3*@erWRZ54'
                 driver = start_browser(artist)
-                start_download(driver, artist)
+                start_download(driver, artist, user, password)
 
             if event == "Exit" or event == sg.WIN_CLOSED:
                 break
@@ -95,19 +97,23 @@ def start_browser(artist):
 
 
 # deal with placeholder user/pass input
-def start_download(driver, artist):
+def start_download(driver, artist, user, password):
     # navigate to site, go to artist page, then filter out text tabs
     driver.get('https://www.ultimate-guitar.com/search.php?search_type=bands&value=' + artist)
     driver.find_element(By.LINK_TEXT, artist).click()
     driver.find_element(By.LINK_TEXT, 'Guitar Pro').click()
-    # Login required... todo make own method in gui?
+    # Login required...
     driver.find_element(By.CSS_SELECTOR, '.exTWY > span:nth-child(1)').click()  # login button
-    usernameTextbox = driver.find_element(By.CSS_SELECTOR, '.wzvZg > div:nth-child(1) > input:nth-child(1)')
-    passwordTextbox = driver.find_element(By.CSS_SELECTOR, '.wlfii > div:nth-child(1) > input:nth-child(1)')
-    usernameTextbox.send_keys('jake.c.abbey')
-    passwordTextbox.send_keys('!bRD3*@erWRZ54')
-    passwordTextbox.send_keys(Keys.RETURN)
+    username_textbox = driver.find_element(By.CSS_SELECTOR, '.wzvZg > div:nth-child(1) > input:nth-child(1)')
+    password_textbox = driver.find_element(By.CSS_SELECTOR, '.wlfii > div:nth-child(1) > input:nth-child(1)')
+    username_textbox.send_keys(user)
+    password_textbox.send_keys(password)
+    password_textbox.send_keys(Keys.RETURN)
     print('logged in hopefully')
+    if driver.find_element(By.CSS_SELECTOR, '.IqBxG'):
+        sg.popup_error(title='Login Error')
+        print('login error')
+        return
     # todo if found element of the login area still around, then login failed
     # Click out of annoying popup
     driver.find_element(By.CSS_SELECTOR,
