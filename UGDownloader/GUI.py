@@ -106,7 +106,7 @@ def start_browser(artist):
     options.set_preference("browser.download.dir", dl_path)
     options.set_preference("browser.helperApps.neverAsk.saveToDisk", "application/x-gzip")
     options.headless = True
-    driver = webdriver.Firefox(options=options)  # create instance of browser
+    driver = webdriver.Firefox(options=options, executable_path='geckodriver.exe')  # create instance of browser
     return driver
 
 

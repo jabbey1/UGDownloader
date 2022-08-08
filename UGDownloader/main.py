@@ -1,6 +1,5 @@
 import GUI
 
-# GUI here
 
 gui = GUI.GUI()
 
