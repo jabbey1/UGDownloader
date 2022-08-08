@@ -20,6 +20,7 @@ from selenium.webdriver.common.by import By
 
 class GUI:
 
+    # noinspection PyBroadException
     def __init__(self):
 
         # start layout
@@ -41,7 +42,9 @@ class GUI:
             [sg.Text(size=(30, 5), justification='center',
                      text="-Files will be downloaded to the folder this program is in.")],
             [sg.Text(size=(30, 5), justification='center',
-                     text="-Ultimate Guitar requires a login to download tabs.")],
+                     text="-Ultimate Guitar requires a login to download tabs. If you just created an account, "
+                          "you may have to wait a day or two for the captcha to stop appearing (this program won't"
+                          "work while that's appearing).")],
             [sg.Text(size=(30, 5), justification='center',
                      text="-Autofill will automatically enter a dummy account, but no guarantees for how long"
                           "this will work for.")],
@@ -62,7 +65,6 @@ class GUI:
         # end layout
 
         window = sg.Window("Ultimate Guitar Downloader", layout)
-        # todo move gui logic to main?
         while True:
             event, values = window.read()
             if event == "Autofill":
@@ -70,18 +72,18 @@ class GUI:
                 window["-USERNAME-"].update('mygoodusername')
                 window["-PASSWORD-"].update('passyword')
             if event == "Download":
-                # todo remove placeholder artist
-                # artist = 'Wormrot'
-                user = 'jake.c.abbey'
-                password = '!bRD3*@erWRZ54'
-
-                # todo ugh captcha
-                # todo add if empty validator
                 artist = values['-ARTIST-']
                 user = values['-USERNAME-']
                 password = values['-PASSWORD-']
+                if not validate(artist, user, password):
+                    continue
                 driver = start_browser(artist)
-                start_download(driver, artist, user, password)
+                try:
+                    start_download(driver, artist, user, password)
+                except:  # could track down each failure point to add exceptions for each
+                    driver.close()
+                    sg.popup_error("Something went wrong with the download. Try again- check that the"
+                                   "artist you entered is on the site, and has guitar pro tabs available.")
 
             if event == "Exit" or event == sg.WIN_CLOSED:
                 break
@@ -89,8 +91,7 @@ class GUI:
         window.close()
 
 
-# todo check validity of all text entries
-
+# todo chrome option in start browser?
 def start_browser(artist):
     # find path of Tabs folder, and set browser options
     dl_path = str(Path.cwd())
@@ -103,12 +104,10 @@ def start_browser(artist):
     options.set_preference("browser.download.manager.showWhenStarting", False)
     options.set_preference("browser.download.dir", dl_path)
     options.set_preference("browser.helperApps.neverAsk.saveToDisk", "application/x-gzip")
-    # todo return the driver object
     driver = webdriver.Firefox(options=options)  # create instance of browser
     return driver
 
 
-# todo deal with placeholder user/pass input
 def start_download(driver, artist, user, password):
     # navigate to site, go to artist page, then filter out text tabs
     driver.get('https://www.ultimate-guitar.com/search.php?search_type=bands&value=' + artist)
@@ -137,15 +136,32 @@ def login(driver, user, password):
     password_textbox.send_keys(password)
     password_textbox.send_keys(Keys.RETURN)
     time.sleep(.2)
-    driver.find_element(By.CSS_SELECTOR,
+    driver.find_element(By.CSS_SELECTOR,  # clicks out of popup
                         'button.RwBUh:nth-child(1) > svg:nth-child(1) > path:nth-child(1)').click()
 
     print('logged in hopefully')
     # todo wait for captcha solved by person?
-    if driver.find_element(By.CSS_SELECTOR, '.IqBxG'):
-        sg.popup_error(title='Login Error')
-        print('login error')
-        return
-        # not perfect
-    # todo if found element of the login area still around, then login failed
-    # Click out of annoying popup
+    #  Captcha help?
+    # for _ in xrange(100):  # or loop forever, but this will allow it to timeout if the user falls asleep or whatever
+    #     if driver.get_current_url.find("captcha") == -1:
+    #         break
+    #     time.sleep(6)  # wait 6 seconds which means the user has 10 minutes before timeout occurs
+
+    # if driver.find_element(By.CSS_SELECTOR, '.IqBxG'):
+    #     sg.popup_error(title='Login Error')
+    #     print('login error')
+    #     return
+    #     # not perfect
+
+
+def validate(artist, user, password):
+    if not len(artist):
+        sg.popup_error('Artist cannot be blank.')
+        return False
+    if not len(user):
+        sg.popup_error('Username cannot be blank.')
+        return False
+    if not len(password):
+        sg.popup_error('Password cannot be blank.')
+        return False
+    return True

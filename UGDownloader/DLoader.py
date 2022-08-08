@@ -27,7 +27,6 @@ def get_tabs(driver):
         driver.get(str(tab_links[i]))
         button = driver.find_element(By.CSS_SELECTOR, 'button.exTWY:nth-child(2)')
         scroll_to_bottom(driver)
-        # todo comment below line out for testing
         # todo why does button click take so long?
         button.click()
 
