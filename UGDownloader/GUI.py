@@ -76,9 +76,10 @@ class GUI:
                 password = '!bRD3*@erWRZ54'
 
                 # todo ugh captcha
+                # todo add if empty validator
                 artist = values['-ARTIST-']
-                # user = values['-USERNAME-']
-                # password = values['-PASSWORD-']
+                user = values['-USERNAME-']
+                password = values['-PASSWORD-']
                 driver = start_browser(artist)
                 start_download(driver, artist, user, password)
 
@@ -89,7 +90,6 @@ class GUI:
 
 
 # todo check validity of all text entries
-# todo download button press
 
 def start_browser(artist):
     # find path of Tabs folder, and set browser options
@@ -108,30 +108,13 @@ def start_browser(artist):
     return driver
 
 
-# deal with placeholder user/pass input
+# todo deal with placeholder user/pass input
 def start_download(driver, artist, user, password):
     # navigate to site, go to artist page, then filter out text tabs
     driver.get('https://www.ultimate-guitar.com/search.php?search_type=bands&value=' + artist)
     driver.find_element(By.LINK_TEXT, artist).click()
     driver.find_element(By.LINK_TEXT, 'Guitar Pro').click()
-    # Login required...
-    driver.find_element(By.CSS_SELECTOR, '.exTWY > span:nth-child(1)').click()  # login button
-    username_textbox = driver.find_element(By.CSS_SELECTOR, '.wzvZg > div:nth-child(1) > input:nth-child(1)')
-    password_textbox = driver.find_element(By.CSS_SELECTOR, '.wlfii > div:nth-child(1) > input:nth-child(1)')
-    username_textbox.send_keys(user)
-    password_textbox.send_keys(password)
-    password_textbox.send_keys(Keys.RETURN)
-    print('logged in hopefully')
-    # todo wait for captcha solved by person?
-    if driver.find_element(By.CSS_SELECTOR, '.IqBxG'):
-        sg.popup_error(title='Login Error')
-        print('login error')
-        return
-        # not perfect
-    # todo if found element of the login area still around, then login failed
-    # Click out of annoying popup
-    driver.find_element(By.CSS_SELECTOR,
-                        'button.RwBUh:nth-child(1) > svg:nth-child(1) > path:nth-child(1)').click()
+    login(driver, user, password)
     current_page = driver.current_url
     while True:
         DLoader.get_tabs(driver)
@@ -144,3 +127,25 @@ def start_download(driver, artist, user, password):
         else:
             driver.close()
             break
+
+
+def login(driver, user, password):
+    driver.find_element(By.CSS_SELECTOR, '.exTWY > span:nth-child(1)').click()  # login button
+    username_textbox = driver.find_element(By.CSS_SELECTOR, '.wzvZg > div:nth-child(1) > input:nth-child(1)')
+    password_textbox = driver.find_element(By.CSS_SELECTOR, '.wlfii > div:nth-child(1) > input:nth-child(1)')
+    username_textbox.send_keys(user)
+    password_textbox.send_keys(password)
+    password_textbox.send_keys(Keys.RETURN)
+    time.sleep(.2)
+    driver.find_element(By.CSS_SELECTOR,
+                        'button.RwBUh:nth-child(1) > svg:nth-child(1) > path:nth-child(1)').click()
+
+    print('logged in hopefully')
+    # todo wait for captcha solved by person?
+    if driver.find_element(By.CSS_SELECTOR, '.IqBxG'):
+        sg.popup_error(title='Login Error')
+        print('login error')
+        return
+        # not perfect
+    # todo if found element of the login area still around, then login failed
+    # Click out of annoying popup
