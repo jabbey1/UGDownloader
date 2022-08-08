@@ -4,14 +4,6 @@ from selenium.webdriver.common.by import By
 from line_profiler_pycharm import profile
 
 
-class DLoader:
-
-    def __init__(self, artist, dl_path):
-        # not necessary?
-        self.artist = artist
-        self.dl_path = dl_path
-
-
 @profile
 def get_tabs(driver):
     tab_list = driver.find_elements(By.CLASS_NAME, 'LQUZJ')

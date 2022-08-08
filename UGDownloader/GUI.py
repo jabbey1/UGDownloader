@@ -1,26 +1,23 @@
 from pathlib import Path
-import selenium
-import DLoader
-from pathlib import Path
-import warnings
 import time
-import GUI
-from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.by import By
-from selenium.webdriver.firefox.options import Options
-from selenium.webdriver.firefox.firefox_profile import FirefoxProfile
-from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+import time
+from pathlib import Path
 import PySimpleGUI as sg
-import DLoader
+from line_profiler_pycharm import profile
+from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.firefox.options import Options
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+import DLoader
 
 
 class GUI:
 
     # noinspection PyBroadException
+    @profile
     def __init__(self):
 
         # start layout
@@ -30,9 +27,12 @@ class GUI:
              sg.Button(button_text='Autofill')],
             [sg.Text(text='Password', size=(10, 1)), sg.Input(size=(25, 1), pad=(0, 10), key="-PASSWORD-"),
              sg.Button(button_text='Download')],
-            # [sg.HSeparator()],
-            # [sg.FolderBrowse()],
-            # [sg.Listbox(values=[], enable_events=True, size=(40, 20), key="-FILE LIST-")],
+            [sg.HSeparator()],
+            [sg.Multiline(size=(60, 15), font='Courier 8', expand_x=True, expand_y=True,
+                          write_only=True, reroute_stdout=True, reroute_stderr=True, echo_stdout_stderr=True,
+                          autoscroll=True, auto_refresh=True)
+             # [sg.Output(size=(60,15), font='Courier 8', expand_x=True, expand_y=True)]
+             ]
         ]
 
         right_column = [
@@ -80,9 +80,10 @@ class GUI:
                 driver = start_browser(artist)
                 try:
                     start_download(driver, artist, user, password)
+                    sg.popup('Downloads finished.')
                 except:  # could track down each failure point to add exceptions for each
                     driver.close()
-                    sg.popup_error("Something went wrong with the download. Try again- check that the"
+                    sg.popup_error("Something went wrong with the download. Try again- check that the "
                                    "artist you entered is on the site, and has guitar pro tabs available.")
 
             if event == "Exit" or event == sg.WIN_CLOSED:
@@ -104,6 +105,7 @@ def start_browser(artist):
     options.set_preference("browser.download.manager.showWhenStarting", False)
     options.set_preference("browser.download.dir", dl_path)
     options.set_preference("browser.helperApps.neverAsk.saveToDisk", "application/x-gzip")
+    options.headless = True
     driver = webdriver.Firefox(options=options)  # create instance of browser
     return driver
 
@@ -114,6 +116,7 @@ def start_download(driver, artist, user, password):
     driver.find_element(By.LINK_TEXT, artist).click()
     driver.find_element(By.LINK_TEXT, 'Guitar Pro').click()
     login(driver, user, password)
+    print('Starting downloads...')
     current_page = driver.current_url
     while True:
         DLoader.get_tabs(driver)
@@ -124,6 +127,7 @@ def start_download(driver, artist, user, password):
             current_page = driver.current_url
             continue
         else:
+            print('Downloads finished.')
             driver.close()
             break
 
@@ -135,11 +139,14 @@ def login(driver, user, password):
     username_textbox.send_keys(user)
     password_textbox.send_keys(password)
     password_textbox.send_keys(Keys.RETURN)
-    time.sleep(.2)
-    driver.find_element(By.CSS_SELECTOR,  # clicks out of popup
-                        'button.RwBUh:nth-child(1) > svg:nth-child(1) > path:nth-child(1)').click()
+    time.sleep(.5)
+    # this popup sometimes takes some time to appear, wait until it's clickable
+    element = WebDriverWait(driver, 20).until(
+        EC.element_to_be_clickable((By.CSS_SELECTOR,
+                                    'button.RwBUh:nth-child(1) > svg:nth-child(1) > path:nth-child(1)')))
+    element.click()
 
-    print('logged in hopefully')
+    print('Logged in')
     # todo wait for captcha solved by person?
     #  Captcha help?
     # for _ in xrange(100):  # or loop forever, but this will allow it to timeout if the user falls asleep or whatever
