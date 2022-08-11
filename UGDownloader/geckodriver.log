@@ -5397,3 +5397,69 @@ JavaScript error: https://tabs.ultimate-guitar.com/tab/wormrot/critical-human-st
 JavaScript error: , line 0: AbortError: The operation was aborted. 
 JavaScript error: https://tabs.ultimate-guitar.com/tab/wormrot/critical-human-stupidity-guitar-pro-3748193, line 82: TypeError: registration.active is null
 JavaScript error: https://tabs.ultimate-guitar.com/tab/wormrot/critical-human-stupidity-guitar-pro-3748193, line 82: TypeError: registration.active is null
+1660200692541	geckodriver	INFO	Listening on 127.0.0.1:50300
+1660200698845	geckodriver	INFO	Listening on 127.0.0.1:50315
+1660200701906	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "50316" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofilewujb2o"
+1660200702204	Marionette	INFO	Marionette enabled
+1660200702208	Marionette	INFO	Listening on port 50329
+WebDriver BiDi listening on ws://localhost:50316
+Read port: 50329
+1660200702299	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofilewujb2o\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:50316/devtools/browser/46153db6-1a22-4152-b433-d697541a597e
+JavaScript error: https://www.ultimate-guitar.com/artist/wormrot_28751, line 175: TypeError: registration.active is null
+JavaScript error: https://www.ultimate-guitar.com/artist/wormrot_28751?filter=guitar_pro, line 175: TypeError: registration.active is null
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.ultimate-guitar.com."
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.ultimate-guitar.com."
+1660200888787	Marionette	INFO	Stopped listening on port 50329
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+[Parent 162652, IPC I/O Parent] WARNING: file /builds/worker/checkouts/gecko/ipc/chromium/src/base/process_util_win.cc:167
+1660200935767	geckodriver	INFO	Listening on 127.0.0.1:50413
+1660200938813	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "50414" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofileoe0eTs"
+1660200939096	Marionette	INFO	Marionette enabled
+1660200939100	Marionette	INFO	Listening on port 50423
+WebDriver BiDi listening on ws://localhost:50414
+Read port: 50423
+1660200939189	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofileoe0eTs\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:50414/devtools/browser/a9ef8d30-b214-4167-9021-b9dc7877517e
+JavaScript error: https://www.ultimate-guitar.com/artist/wormrot_28751, line 175: TypeError: registration.active is null
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.ultimate-guitar.com."
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.ultimate-guitar.com."
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.ultimate-guitar.com."
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://temp-mail.org."
+1660201637573	geckodriver	INFO	Listening on 127.0.0.1:50569
+1660201640621	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "50570" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofileYsefdE"
+1660201640901	Marionette	INFO	Marionette enabled
+1660201640905	Marionette	INFO	Listening on port 50580
+WebDriver BiDi listening on ws://localhost:50570
+Read port: 50580
+1660201640998	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofileYsefdE\\search.json.mozlz4", (void 0)))
+1660201642825	Marionette	INFO	Stopped listening on port 50580
+1660201642838	CDP	WARN	Failed to remove undefined (Could not parse path (undefined): NS_ERROR_FILE_UNRECOGNIZED_PATH)
+console.warn: services.settings: main/query-stripping sync interrupted by shutdown
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+1660201645769	geckodriver	INFO	Listening on 127.0.0.1:50593
+1660201648842	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "50594" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofile3iwoBJ"
+1660201649122	Marionette	INFO	Marionette enabled
+1660201649126	Marionette	INFO	Listening on port 50603
+WebDriver BiDi listening on ws://localhost:50594
+Read port: 50603
+1660201649219	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofile3iwoBJ\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:50594/devtools/browser/e018ba17-8044-4c51-922f-6090452dd2ed
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.ultimate-guitar.com."
+1660202357745	geckodriver	INFO	Listening on 127.0.0.1:50789
+1660202360790	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "50790" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofileyjsmgC"
+1660202361074	Marionette	INFO	Marionette enabled
+1660202361078	Marionette	INFO	Listening on port 50799
+WebDriver BiDi listening on ws://localhost:50790
+Read port: 50799
+1660202361171	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofileyjsmgC\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:50790/devtools/browser/be9e9410-eb21-4ef3-a9fa-3a317a9da462
+JavaScript error: https://www.ultimate-guitar.com/artist/wormrot_28751, line 175: TypeError: registration.active is null
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.ultimate-guitar.com."
+1660202377299	Marionette	INFO	Stopped listening on port 50799
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
