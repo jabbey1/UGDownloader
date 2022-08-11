@@ -1,23 +1,19 @@
-from pathlib import Path
-import time
 import time
 from pathlib import Path
 import PySimpleGUI as sg
-from line_profiler_pycharm import profile
+# from line_profiler_pycharm import profile
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.firefox.options import Options
-from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-
+from selenium.webdriver.support.wait import WebDriverWait
 import DLoader
 
 
 class GUI:
 
     # noinspection PyBroadException
-    @profile
     def __init__(self):
 
         # start layout
@@ -78,15 +74,17 @@ class GUI:
                 if not validate(artist, user, password):
                     continue
                 driver = start_browser(artist)
-                try:
-                    start_download(driver, artist, user, password)
-                    sg.popup('Downloads finished.')
-                except:  # could track down each failure point to add exceptions for each
-                    driver.close()
-                    sg.popup_error("Something went wrong with the download. Try again- check that the "
-                                   "artist you entered is on the site, and has guitar pro tabs available.")
+                # try:
+                start_download(driver, artist, user, password)
+                sg.popup('Downloads finished.')
+                #todo make this exception print error
+                # except:  # could track down each failure point to add exceptions for each
+                #     driver.close()
+                #     sg.popup_error("Something went wrong with the download. Try again- check that the "
+                #                    "artist you entered is on the site, and has guitar pro tabs available.")
 
             if event == "Exit" or event == sg.WIN_CLOSED:
+
                 break
 
         window.close()
@@ -105,7 +103,7 @@ def start_browser(artist):
     options.set_preference("browser.download.manager.showWhenStarting", False)
     options.set_preference("browser.download.dir", dl_path)
     options.set_preference("browser.helperApps.neverAsk.saveToDisk", "application/x-gzip")
-    options.headless = True
+    # options.headless = True
     driver = webdriver.Firefox(options=options, executable_path='geckodriver.exe')  # create instance of browser
     return driver
 
@@ -134,6 +132,7 @@ def start_download(driver, artist, user, password):
 
 def login(driver, user, password):
     driver.find_element(By.CSS_SELECTOR, '.exTWY > span:nth-child(1)').click()  # login button
+    time.sleep(1)
     username_textbox = driver.find_element(By.CSS_SELECTOR, '.wzvZg > div:nth-child(1) > input:nth-child(1)')
     password_textbox = driver.find_element(By.CSS_SELECTOR, '.wlfii > div:nth-child(1) > input:nth-child(1)')
     username_textbox.send_keys(user)

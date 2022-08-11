@@ -1,7 +1,14 @@
 import time
 import os
+from threading import Thread
+
+from selenium import webdriver
+import selenium.common.exceptions
 from selenium.webdriver.common.by import By
 from line_profiler_pycharm import profile
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.action_chains import ActionChains
 
 
 @profile
@@ -17,10 +24,36 @@ def get_tabs(driver):
     for i in range(how_many_tabs):
         print(tab_links[i])
         driver.get(str(tab_links[i]))
-        button = driver.find_element(By.CSS_SELECTOR, 'button.exTWY:nth-child(2)')
+        # todo might be able to use webdrivertimeout to pause page loading after a short wait
+        # preventing the player from loading
         scroll_to_bottom(driver)
-        # todo why does button click take so long?
+        # driver.execute_script("window.stop();")  # stop their player from loading
+        # wait = WebDriverWait(driver, 10)
+        # wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, 'button.exTWY:nth-child(2)')))
+        button = driver.find_element(By.CSS_SELECTOR, 'button.exTWY:nth-child(2)')
+        # driver.execute_script("arguments[0].scrollIntoView(true);", button)
         button.click()
+        # scroll_to_bottom(driver)
+
+        # Haven't tried this:
+        # while not EC.element_to_be_clickable(button):
+        #     print('while')
+        #     scroll_to_bottom()
+
+        # try:
+        #     if EC.element_to_be_clickable(button):
+        #         button.click()
+        #     else:
+        #         print('not good')
+        # except (TypeError, selenium.common.exceptions.ElementNotInteractableException):
+        #     print('whoops')
+        #     scroll_to_bottom(driver)
+        #     button.click()
+        # except Exception as e:
+        #     print(e)
+        #     print('Something went wrong with the download. Try again- check that the artist you entered is on the '
+        #           'site, and has guitar pro tabs available.')
+        #     break  # todo this will just go to the next page, not quit out
 
 
 def create_artist_folder(dl_path):
@@ -35,7 +68,6 @@ def create_artist_folder(dl_path):
 def scroll_to_bottom(driver):
     # todo check if times can be cut/shortened
     time.sleep(.1)
-    driver.execute_script("window.stop();")  # stop their player from loading
     driver.execute_script(
         "window.scrollTo(0,document.body.scrollHeight)")  # scroll to bottom of page to see button
     time.sleep(.1)
