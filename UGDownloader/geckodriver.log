@@ -5300,3 +5300,100 @@ JavaScript error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_
 [Parent 8780, Main Thread] WARNING: ContentParent: id=21e0b046600 - RemoveShutdownBlockers: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3697
 [Parent 8780, Main Thread] WARNING: ContentParent: id=21dfffdeb00 - ShutDownProcess: Closing channel.: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:1834
 [Parent 8780, Main Thread] WARNING: ContentParent: id=21dfffdeb00 - RemoveShutdownBlockers: file /builds/worker/checkouts/gecko/dom/ipc/ContentParent.cpp:3697
+1660200063524	geckodriver	INFO	Listening on 127.0.0.1:49486
+1660200066557	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "-headless" "--remote-debugging-port" "49487" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofileOQibkb"
+*** You are running in headless mode.
+1660200066858	Marionette	INFO	Marionette enabled
+1660200066862	Marionette	INFO	Listening on port 49496
+WebDriver BiDi listening on ws://localhost:49487
+Read port: 49496
+1660200066943	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofileOQibkb\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:49487/devtools/browser/2951a494-747f-4c05-ad98-d2e109d2356e
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.ultimate-guitar.com."
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://tabs.ultimate-guitar.com."
+1660200093879	geckodriver	INFO	Listening on 127.0.0.1:49558
+1660200096938	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "49559" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofileyfUbY7"
+1660200097226	Marionette	INFO	Marionette enabled
+1660200097230	Marionette	INFO	Listening on port 49568
+WebDriver BiDi listening on ws://localhost:49559
+Read port: 49568
+1660200097329	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofileyfUbY7\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:49559/devtools/browser/6a657745-9a40-4190-a0ef-77e96d6f1116
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.ultimate-guitar.com."
+JavaScript error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_doc_sync_es6/ug~runtime.7979c56c7e1a644e613e6f0ca223007f.js, line 1: ChunkLoadError: Loading chunk 3429 failed.
+(error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_doc_sync_es6/202208/3429.869fbe4aa63d12bf77d9e01b4ced26b6.js)
+JavaScript error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_doc_sync_es6/ug~runtime.7979c56c7e1a644e613e6f0ca223007f.js, line 1: ChunkLoadError: Loading chunk 3429 failed.
+(error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_doc_sync_es6/202208/3429.869fbe4aa63d12bf77d9e01b4ced26b6.js)
+JavaScript error: , line 0: AbortError: The operation was aborted. 
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_doc_sync_es6/ug~runtime.7979c56c7e1a644e613e6f0ca223007f.js, line 1: ChunkLoadError: Loading chunk 3429 failed.
+(error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_doc_sync_es6/202208/3429.869fbe4aa63d12bf77d9e01b4ced26b6.js)
+JavaScript error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_doc_sync_es6/ug~runtime.7979c56c7e1a644e613e6f0ca223007f.js, line 1: ChunkLoadError: Loading chunk 9537 failed.
+(error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_doc_sync_es6/202208/9537.d89837ee43346cd21976ef3b38a1adc5.js)
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_doc_sync_es6/ug~runtime.7979c56c7e1a644e613e6f0ca223007f.js, line 1: ChunkLoadError: Loading chunk 3429 failed.
+(error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_doc_sync_es6/202208/3429.869fbe4aa63d12bf77d9e01b4ced26b6.js)
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_doc_sync_es6/ug~runtime.7979c56c7e1a644e613e6f0ca223007f.js, line 1: ChunkLoadError: Loading chunk 3429 failed.
+(error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_doc_sync_es6/202208/3429.869fbe4aa63d12bf77d9e01b4ced26b6.js)
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_doc_sync_es6/ug~runtime.7979c56c7e1a644e613e6f0ca223007f.js, line 1: ChunkLoadError: Loading chunk 3429 failed.
+(error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_doc_sync_es6/202208/3429.869fbe4aa63d12bf77d9e01b4ced26b6.js)
+JavaScript error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_doc_sync_es6/ug~runtime.7979c56c7e1a644e613e6f0ca223007f.js, line 1: ChunkLoadError: Loading chunk 9537 failed.
+(error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_doc_sync_es6/202208/9537.d89837ee43346cd21976ef3b38a1adc5.js)
+1660200132701	Marionette	INFO	Stopped listening on port 49568
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+[Parent 138864, IPC I/O Parent] WARNING: pipe error: 232: file /builds/worker/checkouts/gecko/ipc/chromium/src/chrome/common/ipc_channel_win.cc:554
+1660200222121	geckodriver	INFO	Listening on 127.0.0.1:49660
+1660200225163	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "49661" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofileq8iCgu"
+1660200225468	Marionette	INFO	Marionette enabled
+1660200225472	Marionette	INFO	Listening on port 49675
+WebDriver BiDi listening on ws://localhost:49661
+Read port: 49675
+1660200225566	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofileq8iCgu\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:49661/devtools/browser/938f4ed4-3e8e-4a42-8f7b-7131c902ed26
+JavaScript error: https://www.ultimate-guitar.com/artist/wormrot_28751, line 175: TypeError: registration.active is null
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.ultimate-guitar.com."
+JavaScript error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_es6/ug~runtime.7981741fbaca0e836fac9f2f1544a341.js, line 1: ChunkLoadError: Loading chunk 3429 failed.
+(error: https://tabs.ultimate-guitar.com/static/public/build/ug_react_es6/202208/3429.42cd4625e719571da04cd53620052fad.js)
+JavaScript warning: , line 0: WebGL warning: drawElementsInstanced: Drawing to a destination rect smaller than the viewport rect. (This warning will only be given once)
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://tabs.ultimate-guitar.com."
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript error: , line 0: AbortError: The operation was aborted. 
+JavaScript error: , line 0: AbortError: The operation was aborted. 
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+1660200295461	Marionette	INFO	Stopped listening on port 49675
+1660200583126	geckodriver	INFO	Listening on 127.0.0.1:49848
+1660200586162	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "49849" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofileZ31yBg"
+1660200586443	Marionette	INFO	Marionette enabled
+1660200586447	Marionette	INFO	Listening on port 49858
+WebDriver BiDi listening on ws://localhost:49849
+Read port: 49858
+1660200586538	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofileZ31yBg\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:49849/devtools/browser/ffd4b0b5-c37a-4489-b720-13eb09602979
+JavaScript error: https://www.ultimate-guitar.com/artist/wormrot_28751, line 175: TypeError: registration.active is null
+JavaScript error: https://www.ultimate-guitar.com/artist/wormrot_28751?filter=guitar_pro, line 175: TypeError: registration.active is null
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.ultimate-guitar.com."
+JavaScript error: https://tabs.ultimate-guitar.com/tab/wormrot/critical-human-stupidity-guitar-pro-3748193, line 82: TypeError: registration.active is null
+JavaScript error: , line 0: AbortError: The operation was aborted. 
+JavaScript error: https://tabs.ultimate-guitar.com/tab/wormrot/critical-human-stupidity-guitar-pro-3748193, line 82: TypeError: registration.active is null
+JavaScript error: https://tabs.ultimate-guitar.com/tab/wormrot/critical-human-stupidity-guitar-pro-3748193, line 82: TypeError: registration.active is null

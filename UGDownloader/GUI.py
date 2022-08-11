@@ -9,6 +9,7 @@ from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 import DLoader
+import datetime
 
 
 class GUI:
@@ -76,7 +77,6 @@ class GUI:
                 try:
                     start_download(driver, artist, user, password)
                     sg.popup('Downloads finished.')
-                # todo make this exception print error
                 except Exception as e:
                     print(e)
                     driver.close()
@@ -102,12 +102,18 @@ def start_browser(artist):
     options.set_preference("browser.download.manager.showWhenStarting", False)
     options.set_preference("browser.download.dir", dl_path)
     options.set_preference("browser.helperApps.neverAsk.saveToDisk", "application/x-gzip")
-    options.headless = True
+    # options.headless = True
     driver = webdriver.Firefox(options=options, executable_path='geckodriver.exe')  # create instance of browser
     return driver
 
 
 def start_download(driver, artist, user, password):
+    # create log of download attempt
+    failurelog = open('failurelog.txt', 'a')
+    failurelog.write('\n')
+    failurelog.write('Download attempt at:' + str(datetime.datetime.now()))
+    failurelog.write('\n')
+    failurelog.close()
     # navigate to site, go to artist page, then filter out text tabs
     driver.get('https://www.ultimate-guitar.com/search.php?search_type=bands&value=' + artist)
     driver.find_element(By.LINK_TEXT, artist).click()
