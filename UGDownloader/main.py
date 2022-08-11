@@ -1,8 +1,8 @@
 import DLoader
 import GUI
-
+# todo test headless. does window need to be a certain size? restrict resize?
 # testing
-artist = 'Radiohead'
+artist = 'Wormrot'
 user = 'mygoodusername'
 password = 'passyword'
 driver = GUI.start_browser(artist)

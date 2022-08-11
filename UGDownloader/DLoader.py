@@ -21,6 +21,8 @@ def get_tabs(driver):
     how_many_tabs = len(tab_list)
     print('Found ' + str(how_many_tabs) + ' Guitar Pro Files')
     # download for each element, skipping pro or official
+    download_count = 0
+    failure_count = 0
     for i in range(how_many_tabs):
         tries = 1
         while True:  # used to restart iterations of loop
@@ -39,22 +41,28 @@ def get_tabs(driver):
             except Exception as e:  # sometimes the button is obscured by other elements
                 print(e)
                 print('Button obscured? trying again.')
+                failure_count += 1
                 continue
             try:
                 # add another scroll here if problems
                 # todo total download count
                 button.click()
+                download_count += 1
                 tries = 0
                 break
             except (TypeError, selenium.common.exceptions.ElementNotInteractableException):
                 print('ElementNotInteractableException, retrying page.')
                 print("Try number: " + str(tries))
+                failure_count += 1
                 # todo handling of unlimited loop here
             except Exception as e:
                 print(e)
                 print('Something went wrong, retrying page')
                 print("Try number: " + str(tries))
+                failure_count += 1
     # todo handle end of loop
+    print('Downloads Finished. Total number of downloads: ' + str(download_count) + '.')
+    print('Total number of failures: ' + str(failure_count))
 
 
 def create_artist_folder(dl_path):
