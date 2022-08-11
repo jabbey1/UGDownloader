@@ -22,38 +22,39 @@ def get_tabs(driver):
     print('Found ' + str(how_many_tabs) + ' Guitar Pro Files')
     # download for each element, skipping pro or official
     for i in range(how_many_tabs):
-        print(tab_links[i])
-        driver.get(str(tab_links[i]))
-        # todo might be able to use webdrivertimeout to pause page loading after a short wait
-        # preventing the player from loading
-        scroll_to_bottom(driver)
-        # driver.execute_script("window.stop();")  # stop their player from loading
-        # wait = WebDriverWait(driver, 10)
-        # wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, 'button.exTWY:nth-child(2)')))
-        button = driver.find_element(By.CSS_SELECTOR, 'button.exTWY:nth-child(2)')
-        # driver.execute_script("arguments[0].scrollIntoView(true);", button)
-        button.click()
-        # scroll_to_bottom(driver)
+        tries = 1
+        while True:  # used to restart iterations of loop
+            tries += 1
+            if tries > 9:
+                print('Too many download attempts, moving on.')
+                # todo create log of failed downloads
+                # todo create count of all failures
+                break
+            print(tab_links[i])
+            driver.get(str(tab_links[i]))
 
-        # Haven't tried this:
-        # while not EC.element_to_be_clickable(button):
-        #     print('while')
-        #     scroll_to_bottom()
-
-        # try:
-        #     if EC.element_to_be_clickable(button):
-        #         button.click()
-        #     else:
-        #         print('not good')
-        # except (TypeError, selenium.common.exceptions.ElementNotInteractableException):
-        #     print('whoops')
-        #     scroll_to_bottom(driver)
-        #     button.click()
-        # except Exception as e:
-        #     print(e)
-        #     print('Something went wrong with the download. Try again- check that the artist you entered is on the '
-        #           'site, and has guitar pro tabs available.')
-        #     break  # todo this will just go to the next page, not quit out
+            scroll_to_bottom(driver)
+            try:
+                button = driver.find_element(By.CSS_SELECTOR, 'button.exTWY:nth-child(2)')
+            except Exception as e:  # sometimes the button is obscured by other elements
+                print(e)
+                print('Button obscured? trying again.')
+                continue
+            try:
+                # add another scroll here if problems
+                # todo total download count
+                button.click()
+                tries = 0
+                break
+            except (TypeError, selenium.common.exceptions.ElementNotInteractableException):
+                print('ElementNotInteractableException, retrying page.')
+                print("Try number: " + str(tries))
+                # todo handling of unlimited loop here
+            except Exception as e:
+                print(e)
+                print('Something went wrong, retrying page')
+                print("Try number: " + str(tries))
+    # todo handle end of loop
 
 
 def create_artist_folder(dl_path):

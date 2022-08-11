@@ -2,8 +2,11 @@ import DLoader
 import GUI
 
 # testing
-driver = GUI.start_browser("Wormrot")
-GUI.start_download(driver, "Wormrot", 'mygoodusername', 'passyword')
+artist = 'Radiohead'
+user = 'mygoodusername'
+password = 'passyword'
+driver = GUI.start_browser(artist)
+GUI.start_download(driver, artist, user, password)
 
 # gui = GUI.GUI()
 

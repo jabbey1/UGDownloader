@@ -138,6 +138,12 @@ def login(driver, user, password):
     username_textbox.send_keys(user)
     password_textbox.send_keys(password)
     password_textbox.send_keys(Keys.RETURN)
+    # todo deal with captcha here
+    # for _ in xrange(100):  # or loop forever, but this will allow it to timeout if the user falls asleep or whatever
+    #     if driver.get_current_url.find("captcha") == -1:
+    #         break
+    #     time.sleep(6)  # wait 6 seconds which means the user has 10 minutes before timeout occurs
+
     time.sleep(.5)
     # this popup sometimes takes some time to appear, wait until it's clickable
     element = WebDriverWait(driver, 20).until(
@@ -148,7 +154,7 @@ def login(driver, user, password):
     print('Logged in')
     # todo wait for captcha solved by person?
     #  Captcha help?
-    # for _ in xrange(100):  # or loop forever, but this will allow it to timeout if the user falls asleep or whatever
+    # for _ in range(100):  # or loop forever, but this will allow it to timeout if the user falls asleep or whatever
     #     if driver.get_current_url.find("captcha") == -1:
     #         break
     #     time.sleep(6)  # wait 6 seconds which means the user has 10 minutes before timeout occurs
