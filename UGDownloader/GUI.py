@@ -103,7 +103,7 @@ def start_browser(artist):
     options.set_preference("browser.download.manager.showWhenStarting", False)
     options.set_preference("browser.download.dir", dl_path)
     options.set_preference("browser.helperApps.neverAsk.saveToDisk", "application/x-gzip")
-    # options.headless = True
+    options.headless = True
     driver = webdriver.Firefox(options=options, executable_path='geckodriver.exe')  # create instance of browser
     return driver
 
@@ -125,7 +125,6 @@ def start_download(driver, artist, user, password):
             current_page = driver.current_url
             continue
         else:
-            print('Downloads finished.')
             driver.close()
             break
 

@@ -29,8 +29,7 @@ def get_tabs(driver):
             tries += 1
             if tries > 9:
                 print('Too many download attempts, moving on.')
-                # todo create log of failed downloads
-                # todo create count of all failures
+                # todo create log of failed downloads, print to text file?
                 break
             print(tab_links[i])
             driver.get(str(tab_links[i]))
@@ -45,7 +44,6 @@ def get_tabs(driver):
                 continue
             try:
                 # add another scroll here if problems
-                # todo total download count
                 button.click()
                 download_count += 1
                 tries = 0
@@ -54,13 +52,11 @@ def get_tabs(driver):
                 print('ElementNotInteractableException, retrying page.')
                 print("Try number: " + str(tries))
                 failure_count += 1
-                # todo handling of unlimited loop here
             except Exception as e:
                 print(e)
                 print('Something went wrong, retrying page')
                 print("Try number: " + str(tries))
                 failure_count += 1
-    # todo handle end of loop
     print('Downloads Finished. Total number of downloads: ' + str(download_count) + '.')
     print('Total number of failures: ' + str(failure_count))
 
