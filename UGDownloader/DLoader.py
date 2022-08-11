@@ -1,14 +1,8 @@
-import time
 import os
-from threading import Thread
-
-from selenium import webdriver
+import time
 import selenium.common.exceptions
-from selenium.webdriver.common.by import By
 from line_profiler_pycharm import profile
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.by import By
 
 
 @profile
@@ -25,7 +19,7 @@ def get_tabs(driver):
     failure_count = 0
     for i in range(how_many_tabs):
         tries = 1
-        while True:  # used to restart iterations of loop
+        while True:  # used to restart iterations of for loop
             tries += 1
             if tries > 9:
                 print('Too many download attempts, moving on.')

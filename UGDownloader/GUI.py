@@ -13,7 +13,6 @@ import DLoader
 
 class GUI:
 
-    # noinspection PyBroadException
     def __init__(self):
 
         # start layout
@@ -74,23 +73,23 @@ class GUI:
                 if not validate(artist, user, password):
                     continue
                 driver = start_browser(artist)
-                # try:
-                start_download(driver, artist, user, password)
-                sg.popup('Downloads finished.')
-                #todo make this exception print error
-                # except:  # could track down each failure point to add exceptions for each
-                #     driver.close()
-                #     sg.popup_error("Something went wrong with the download. Try again- check that the "
-                #                    "artist you entered is on the site, and has guitar pro tabs available.")
+                try:
+                    start_download(driver, artist, user, password)
+                    sg.popup('Downloads finished.')
+                # todo make this exception print error
+                except Exception as e:
+                    print(e)
+                    driver.close()
+                    sg.popup_error("Something went wrong with the download. Try again- check that the "
+                                   "artist you entered is on the site, and has guitar pro tabs available.")
 
             if event == "Exit" or event == sg.WIN_CLOSED:
-
                 break
 
         window.close()
 
 
-# todo chrome option in start browser?
+# todo chrome option in start browser? or just figure out how to package geckodriver
 def start_browser(artist):
     # find path of Tabs folder, and set browser options
     dl_path = str(Path.cwd())
@@ -151,18 +150,6 @@ def login(driver, user, password):
     element.click()
 
     print('Logged in')
-    # todo wait for captcha solved by person?
-    #  Captcha help?
-    # for _ in range(100):  # or loop forever, but this will allow it to timeout if the user falls asleep or whatever
-    #     if driver.get_current_url.find("captcha") == -1:
-    #         break
-    #     time.sleep(6)  # wait 6 seconds which means the user has 10 minutes before timeout occurs
-
-    # if driver.find_element(By.CSS_SELECTOR, '.IqBxG'):
-    #     sg.popup_error(title='Login Error')
-    #     print('login error')
-    #     return
-    #     # not perfect
 
 
 def validate(artist, user, password):
