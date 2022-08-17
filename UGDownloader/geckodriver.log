@@ -5463,3 +5463,16 @@ JavaScript error: https://www.ultimate-guitar.com/artist/wormrot_28751, line 175
 console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.ultimate-guitar.com."
 1660202377299	Marionette	INFO	Stopped listening on port 50799
 console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+1660775544453	geckodriver	INFO	Listening on 127.0.0.1:55515
+1660775547528	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "55516" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofilePp1DUm"
+1660775547811	Marionette	INFO	Marionette enabled
+1660775547816	Marionette	INFO	Listening on port 55525
+WebDriver BiDi listening on ws://localhost:55516
+Read port: 55525
+1660775547929	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\jake\\AppData\\Local\\Temp\\rust_mozprofilePp1DUm\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:55516/devtools/browser/a411e741-824c-4990-b26f-00766c0589f6
+JavaScript error: https://www.ultimate-guitar.com/artist/wormrot_28751, line 175: TypeError: registration.active is null
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.ultimate-guitar.com."
+1660775676183	Marionette	INFO	Stopped listening on port 55525
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.

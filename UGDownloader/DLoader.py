@@ -23,7 +23,6 @@ def get_tabs(driver):
             tries += 1
             if tries > 9:
                 print('Too many download attempts, moving on.')
-                # todo create log of failed downloads, print to text file?
                 failurelog = open('failurelog.txt', 'a')
                 failurelog.write(tab_links[i])
                 failurelog.write('\n')
