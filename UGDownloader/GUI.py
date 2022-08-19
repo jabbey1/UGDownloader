@@ -3,6 +3,8 @@ from pathlib import Path
 import PySimpleGUI as sg
 # from line_profiler_pycharm import profile
 from selenium import webdriver
+from selenium.webdriver.firefox.service import Service as FirefoxService
+from webdriver_manager.firefox import GeckoDriverManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.firefox.options import Options
@@ -102,8 +104,11 @@ def start_browser(artist):
     options.set_preference("browser.download.manager.showWhenStarting", False)
     options.set_preference("browser.download.dir", dl_path)
     options.set_preference("browser.helperApps.neverAsk.saveToDisk", "application/x-gzip")
+    # todo add switch to run in background (won't work with captcha)
     # options.headless = True
-    driver = webdriver.Firefox(options=options, executable_path='geckodriver.exe')  # create instance of browser
+    driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
+    # driver = webdriver.Firefox(options=options, executable_path='geckodriver.exe')  # don't think I need a local
+    # geckodriver anymore
     return driver
 
 
