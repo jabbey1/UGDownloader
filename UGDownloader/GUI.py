@@ -91,7 +91,6 @@ class GUI:
         window.close()
 
 
-# todo chrome option in start browser? or just figure out how to package geckodriver
 def start_browser(artist):
     # find path of Tabs folder, and set browser options
     dl_path = str(Path.cwd())
@@ -106,7 +105,7 @@ def start_browser(artist):
     options.set_preference("browser.helperApps.neverAsk.saveToDisk", "application/x-gzip")
     # todo add switch to run in background (won't work with captcha)
     # options.headless = True
-    driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
+    driver = webdriver.Firefox(options=options, service=FirefoxService(GeckoDriverManager(path='Driver').install()))
     # driver = webdriver.Firefox(options=options, executable_path='geckodriver.exe')  # don't think I need a local
     # geckodriver anymore
     return driver
