@@ -1,11 +1,9 @@
 import os
 import time
 import selenium.common.exceptions
-from line_profiler_pycharm import profile
 from selenium.webdriver.common.by import By
 
 
-@profile
 def get_tabs(driver):
     tab_list = driver.find_elements(By.CLASS_NAME, 'LQUZJ')
     tab_links = []
