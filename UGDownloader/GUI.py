@@ -6,11 +6,14 @@ from selenium.webdriver.firefox.service import Service as FirefoxService
 from webdriver_manager.firefox import GeckoDriverManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.firefox.options import Options
+from selenium.webdriver.firefox.options import Options as FFOptions
+from selenium.webdriver.chrome.options import Options as COptions
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 import DLoader
 import datetime
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.service import Service as ChromeService
 
 
 class GUI:
@@ -21,9 +24,10 @@ class GUI:
         left_column = [
             [sg.Text(text='Artist', size=(10, 1)), sg.Input(size=(25, 1), pad=(0, 10), key="-ARTIST-")],
             [sg.Text(text='Username', size=(10, 1)), sg.Input(size=(25, 1), pad=(0, 10), key="-USERNAME-"),
-             sg.Button(button_text='Autofill')],
+             sg.Button(button_text='Autofill'), sg.Checkbox('Run in background', default=True, key="-HEADLESS-")],
             [sg.Text(text='Password', size=(10, 1)), sg.Input(size=(25, 1), pad=(0, 10), key="-PASSWORD-"),
-             sg.Button(button_text='Download')],
+             sg.Button(button_text='Download'), sg.Combo(values=('Firefox', 'Chrome'), default_value='Firefox',
+                                                         key="-BROWSER-")],
             [sg.HSeparator()],
             [sg.Multiline(size=(60, 15), font='Courier 8', expand_x=True, expand_y=True,
                           write_only=True, reroute_stdout=True, reroute_stderr=True, echo_stdout_stderr=True,
@@ -38,6 +42,7 @@ class GUI:
                           "Guitar has listed.")],
             [sg.Text(size=(30, 5), justification='center',
                      text="-Files will be downloaded to the folder this program is in.")],
+            [sg.Text(size=(30, 5), justification='center', text='-captcha problems')],
             [sg.Text(size=(30, 5), justification='center',
                      text="-Ultimate Guitar requires a login to download tabs. If you just created an account, "
                           "you may have to wait a day or two for the captcha to stop appearing (this program won't"
@@ -74,10 +79,12 @@ class GUI:
                 password = values['-PASSWORD-']
                 if not validate(artist, user, password):
                     continue
-                driver = start_browser(artist)
+                headless = values['-HEADLESS-']
+                which_browser = values['-BROWSER-']
+                driver = start_browser(artist, headless, which_browser)
                 try:
                     start_download(driver, artist, user, password)
-                    driver.close() # todo untested
+                    driver.close()  # todo untested
                     sg.popup('Downloads finished.')
                 except Exception as e:
                     print(e)
@@ -91,23 +98,34 @@ class GUI:
         window.close()
 
 
-def start_browser(artist):
+def start_browser(artist, headless, which_browser):
     # find path of Tabs folder, and set browser options
     dl_path = str(Path.cwd())
     dl_path += '\\Tabs\\'
     dl_path += artist
     DLoader.create_artist_folder(dl_path)
     # setup browser options
-    options = Options()
-    options.set_preference("browser.download.folderList", 2)
-    options.set_preference("browser.download.manager.showWhenStarting", False)
-    options.set_preference("browser.download.dir", dl_path)
-    options.set_preference("browser.helperApps.neverAsk.saveToDisk", "application/x-gzip")
-    # todo add switch to run in background (won't work with captcha)
-    # options.headless = True
-    driver = webdriver.Firefox(options=options, service=FirefoxService(GeckoDriverManager(path='Driver').install()))
-    # driver = webdriver.Firefox(options=options, executable_path='geckodriver.exe')  # don't think I need a local
-    # geckodriver anymore
+    ff_options = FFOptions()
+    ff_options.set_preference("browser.download.folderList", 2)
+    ff_options.set_preference("browser.download.manager.showWhenStarting", False)
+    ff_options.set_preference("browser.download.dir", dl_path)
+    ff_options.set_preference("browser.helperApps.neverAsk.saveToDisk", "application/x-gzip")
+    c_options = COptions()
+    c_options.add_argument('--no-sandbox') # not sure why this makes it work better
+
+
+
+
+    if headless:
+        ff_options.headless = True
+        c_options.headless = True
+    if which_browser == 'Firefox':
+        driver = webdriver.Firefox(options=ff_options, service=FirefoxService(GeckoDriverManager(path='Driver').install()))
+    # driver = webdriver.Firefox(options=options, executable_path='geckodriver.exe')  # if I want to include local
+    # driver
+    if which_browser == 'Chrome':
+        # driver = webdriver.Chrome(options=c_options, executable_path='chromedriver.exe')
+        driver = webdriver.Chrome(options=c_options, service=ChromeService(ChromeDriverManager(path='Driver').install()))
     return driver
 
 
@@ -120,6 +138,7 @@ def start_download(driver, artist, user, password):
     failurelog.close()
     # navigate to site, go to artist page, then filter out text tabs
     driver.get('https://www.ultimate-guitar.com/search.php?search_type=bands&value=' + artist)
+    driver.set_window_size(1100, 1000) # todo get correct browser size for chrome
     driver.find_element(By.LINK_TEXT, artist).click()
     driver.find_element(By.LINK_TEXT, 'Guitar Pro').click()
     login(driver, user, password)
