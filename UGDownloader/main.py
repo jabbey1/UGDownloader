@@ -1,4 +1,3 @@
-import DLoader
 import GUI
 # todo test headless. does window need to be a certain size? restrict resize?
 # testing
@@ -12,3 +11,8 @@ import GUI
 gui = GUI.GUI()
 
 print('fin')
+
+# todo chrome switch
+# todo allow for redownload of failures
+# todo lock window size
+# todo total downloads/downloads finished appearing at end of page
