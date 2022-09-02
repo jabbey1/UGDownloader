@@ -37,11 +37,15 @@ def get_tabs(driver):
                 button = driver.find_element(By.CSS_SELECTOR, 'button.exTWY:nth-child(2)')
             except Exception as e:  # sometimes the button is obscured by other elements
                 print(e)
-                print('Button obscured? trying again.') # todo I don't think this error is ever hitting
+                print('Button obscured? trying again.') # I don't think this error is ever hitting
                 failure_count += 1
                 continue
             try:
-                driver.execute_script('arguments[0].click();', WebDriverWait(driver, 20).until(EC.element_to_be_clickable(button)))
+                if driver.which_browser == 'Chrome':
+                    driver.execute_script('arguments[0].click();', WebDriverWait(driver, 20).until(EC.element_to_be_clickable(button)))
+                if driver.which_browser == 'Firefox':
+                    driver.execute_script('arguments[0].click();', WebDriverWait(driver, 20).until(EC.element_to_be_clickable(button)))
+                    time.sleep(.6)  # think this can go down to .5 at least todo optimize
                 download_count += 1
                 tries = 0
                 break
@@ -54,8 +58,9 @@ def get_tabs(driver):
                 print('Something went wrong, retrying page')
                 print("Try number: " + str(tries))
                 failure_count += 1
-    print('Downloads Finished. Total number of downloads: ' + str(download_count) + '.')
-    print('Total number of failures: ' + str(failure_count))
+    return [download_count, failure_count]
+    # print('Downloads Finished. Total number of downloads: ' + str(download_count) + '.') #todo move this out of this method
+    # print('Total number of failures: ' + str(failure_count))
 
 
 def create_artist_folder(dl_path):

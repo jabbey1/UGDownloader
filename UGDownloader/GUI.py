@@ -84,7 +84,7 @@ class GUI:
                 driver = start_browser(artist, headless, which_browser)
                 try:
                     start_download(driver, artist, user, password)
-                    driver.close()  # todo untested
+                    driver.close() # todo error here?
                     sg.popup('Downloads finished.')
                 except Exception as e:
                     print(e)
@@ -111,7 +111,6 @@ def start_browser(artist, headless, which_browser):
     ff_options.set_preference("browser.download.manager.showWhenStarting", False)
     ff_options.set_preference("browser.download.dir", dl_path)
     ff_options.set_preference("browser.helperApps.neverAsk.saveToDisk", "application/x-gzip")
-    # todo test optimizations
     ff_options.set_preference('permissions.default.stylesheet', 2)
     ff_options.set_preference('permissions.default.image', 2)
     ff_options.set_preference('dom.ipc.plugins.enabled.libflashplayer.so', 'false')
@@ -145,6 +144,7 @@ def start_browser(artist, headless, which_browser):
         # driver = webdriver.Chrome(options=c_options, executable_path='chromedriver.exe')
         driver = webdriver.Chrome(options=c_options,
                                   service=ChromeService(ChromeDriverManager(path='Driver').install()))
+    driver.which_browser = which_browser
     return driver
 
 
@@ -157,14 +157,18 @@ def start_download(driver, artist, user, password):
     failurelog.close()
     # navigate to site, go to artist page, then filter out text tabs
     driver.get('https://www.ultimate-guitar.com/search.php?search_type=bands&value=' + artist)
-    driver.set_window_size(1100, 1000)  # todo get correct browser size for chrome
+    driver.set_window_size(1100, 1000)
     driver.find_element(By.LINK_TEXT, artist).click()
     driver.find_element(By.LINK_TEXT, 'Guitar Pro').click()
     login(driver, user, password)
     print('Starting downloads...')
     current_page = driver.current_url
+    download_count = 0
+    failure_count = 0
     while True:
-        DLoader.get_tabs(driver)
+        results = DLoader.get_tabs(driver)
+        download_count += results[0]
+        failure_count += results[1]
         driver.get(current_page)
         if driver.find_elements(By.CLASS_NAME, 'BvSfz'):
             print("There's another page")
@@ -172,7 +176,10 @@ def start_download(driver, artist, user, password):
             current_page = driver.current_url
             continue
         else:
-            driver.close()
+            # todo end message here
+            print('Downloads Finished. Total number of downloads: ' + str(
+                download_count) + '.')  # todo move this out of this method
+            print('Total number of failures: ' + str(failure_count))
             break
 
 
