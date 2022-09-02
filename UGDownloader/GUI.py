@@ -105,27 +105,46 @@ def start_browser(artist, headless, which_browser):
     dl_path += artist
     DLoader.create_artist_folder(dl_path)
     # setup browser options
+
     ff_options = FFOptions()
     ff_options.set_preference("browser.download.folderList", 2)
     ff_options.set_preference("browser.download.manager.showWhenStarting", False)
     ff_options.set_preference("browser.download.dir", dl_path)
     ff_options.set_preference("browser.helperApps.neverAsk.saveToDisk", "application/x-gzip")
+    # todo test optimizations
+    ff_options.set_preference('permissions.default.stylesheet', 2)
+    ff_options.set_preference('permissions.default.image', 2)
+    ff_options.set_preference('dom.ipc.plugins.enabled.libflashplayer.so', 'false')
+
     c_options = COptions()
-    c_options.add_argument('--no-sandbox') # not sure why this makes it work better
-
-
-
+    c_options.add_argument('--no-sandbox')  # not sure why this makes it work better
+    preferences = {"download.default_directory": dl_path,  # pass the variable
+                   "download.prompt_for_download": False,
+                   "directory_upgrade": True,
+                   # optimizations
+                   "profile.managed_default_content_settings.images": 2,
+                   "profile.default_content_setting_values.notifications": 2,
+                   "profile.managed_default_content_settings.stylesheets": 2,
+                   # "profile.managed_default_content_settings.cookies": 2,
+                   # "profile.managed_default_content_settings.javascript": 1,
+                   "profile.managed_default_content_settings.plugins": 2,
+                   "profile.managed_default_content_settings.popups": 2,
+                   "profile.managed_default_content_settings.geolocation": 2,
+                   "profile.managed_default_content_settings.media_stream": 2}
+    c_options.add_experimental_option('prefs', preferences)
 
     if headless:
         ff_options.headless = True
         c_options.headless = True
     if which_browser == 'Firefox':
-        driver = webdriver.Firefox(options=ff_options, service=FirefoxService(GeckoDriverManager(path='Driver').install()))
+        driver = webdriver.Firefox(options=ff_options,
+                                   service=FirefoxService(GeckoDriverManager(path='Driver').install()))
     # driver = webdriver.Firefox(options=options, executable_path='geckodriver.exe')  # if I want to include local
     # driver
     if which_browser == 'Chrome':
         # driver = webdriver.Chrome(options=c_options, executable_path='chromedriver.exe')
-        driver = webdriver.Chrome(options=c_options, service=ChromeService(ChromeDriverManager(path='Driver').install()))
+        driver = webdriver.Chrome(options=c_options,
+                                  service=ChromeService(ChromeDriverManager(path='Driver').install()))
     return driver
 
 
@@ -138,7 +157,7 @@ def start_download(driver, artist, user, password):
     failurelog.close()
     # navigate to site, go to artist page, then filter out text tabs
     driver.get('https://www.ultimate-guitar.com/search.php?search_type=bands&value=' + artist)
-    driver.set_window_size(1100, 1000) # todo get correct browser size for chrome
+    driver.set_window_size(1100, 1000)  # todo get correct browser size for chrome
     driver.find_element(By.LINK_TEXT, artist).click()
     driver.find_element(By.LINK_TEXT, 'Guitar Pro').click()
     login(driver, user, password)
