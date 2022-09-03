@@ -59,8 +59,6 @@ def get_tabs(driver):
                 print("Try number: " + str(tries))
                 failure_count += 1
     return [download_count, failure_count]
-    # print('Downloads Finished. Total number of downloads: ' + str(download_count) + '.') #todo move this out of this method
-    # print('Total number of failures: ' + str(failure_count))
 
 
 def create_artist_folder(dl_path):

@@ -84,7 +84,7 @@ class GUI:
                 driver = start_browser(artist, headless, which_browser)
                 try:
                     start_download(driver, artist, user, password)
-                    driver.close() # todo error here?
+                    driver.close()
                     sg.popup('Downloads finished.')
                 except Exception as e:
                     print(e)

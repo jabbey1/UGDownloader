@@ -14,7 +14,9 @@ import GUI
 gui = GUI.GUI()
 
 print('fin')
-# TODO long, multipage test for firefox and chrome
+# TODO long, multipage test for and chrome
+# todo captcha
+# todo system testing
 
 # low priority:
 # todo write up captcha problems
