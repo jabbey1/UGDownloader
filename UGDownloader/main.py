@@ -14,12 +14,10 @@ import GUI
 gui = GUI.GUI()
 
 print('fin')
-# TODO long, multipage test for and chrome
 # todo captcha
 # todo system testing
 
 # low priority:
-# todo write up captcha problems
 # todo total downloads/downloads finished appearing at end of page
 # todo allow for redownload of failures
 # todo progress bar

@@ -42,7 +42,8 @@ class GUI:
                           "Guitar has listed.")],
             [sg.Text(size=(30, 5), justification='center',
                      text="-Files will be downloaded to the folder this program is in.")],
-            [sg.Text(size=(30, 5), justification='center', text='-captcha problems')],
+            [sg.Text(size=(30, 5), justification='center', text='-You will need Chrome or firefox installed, select '
+                                                                'which one you have.')],
             [sg.Text(size=(30, 5), justification='center',
                      text="-Ultimate Guitar requires a login to download tabs. If you just created an account, "
                           "you may have to wait a day or two for the captcha to stop appearing (this program won't"
