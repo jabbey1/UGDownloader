@@ -22,7 +22,8 @@ class GUI:
 
         # start layout
         left_column = [
-            [sg.Text(text='Artist', size=(10, 1)), sg.Input(size=(25, 1), pad=(0, 10), key="-ARTIST-")],
+            [sg.Text(text='Artist', size=(10, 1)), sg.Input(size=(25, 1), pad=(0, 10), key="-ARTIST-"),
+             sg.Button(button_text='Save Info')],
             [sg.Text(text='Username', size=(10, 1)), sg.Input(size=(25, 1), pad=(0, 10), key="-USERNAME-"),
              sg.Button(button_text='Autofill'), sg.Checkbox('Run in background', default=True, key="-HEADLESS-")],
             [sg.Text(text='Password', size=(10, 1)), sg.Input(size=(25, 1), pad=(0, 10), key="-PASSWORD-"),
@@ -70,10 +71,25 @@ class GUI:
         window = sg.Window("Ultimate Guitar Downloader", layout)
         while True:
             event, values = window.read()
+            if event == "Save Info":
+                # todo protect against the file being empty
+                artist = 'a'
+                user = values['-USERNAME-']
+                password = values['-PASSWORD-']
+                if not validate(artist, user, password):
+                    continue
+                userinfo = open('userinfo.txt', 'w')
+                userinfo.write(values['-USERNAME-'])
+                userinfo.write(' ')
+                userinfo.write(values['-PASSWORD-'])
+                userinfo.close()
             if event == "Autofill":
                 # dummy account: user=mygoodusername, pass=passyword
-                window["-USERNAME-"].update('mygoodusername')
-                window["-PASSWORD-"].update('passyword')
+                userinfo = open('userinfo.txt', 'r')
+                for line in userinfo:
+                    data = line.split()
+                window["-USERNAME-"].update(data[0])  # todo get username and password from text file
+                window["-PASSWORD-"].update(data[1])
             if event == "Download":
                 artist = values['-ARTIST-']
                 user = values['-USERNAME-']
