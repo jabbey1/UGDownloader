@@ -1,6 +1,6 @@
 import GUI
 
-# testing
+# testing code
 # artist = 'Wormrot'
 # # account 1
 # user = 'mygoodusername'
@@ -15,9 +15,10 @@ gui = GUI.GUI()
 
 print('fin')
 # todo captcha
-# todo autofill button throwing error when hasn't been used yet
 
 # low priority:
+# todo cleanup code
+# todo change or allow customization to folders
 # todo total downloads/downloads finished appearing at end of page
 # todo allow for redownload of failures
 # todo progress bar

@@ -69,13 +69,12 @@ class GUI:
         # end layout
 
         window = sg.Window("Ultimate Guitar Downloader", layout)
+        # Run loop start
         while True:
             event, values = window.read()
             if event == "Save Info":
-                # todo protect against the file being empty
-                artist = 'a' # just to not trip the validation method
-                user = values['-USERNAME-']
-                password = values['-PASSWORD-']
+                artist = 'a'  # validation method requires artist field, fake it here
+                user, password = values['-USERNAME-'], values['-PASSWORD-']
                 if not validate(artist, user, password):
                     continue
                 userinfo = open('userinfo.txt', 'w')
@@ -89,16 +88,14 @@ class GUI:
                 data = ''
                 for line in userinfo:
                     data = line.split()
-                window["-USERNAME-"].update(data[0])  # todo get username and password from text file
+                window["-USERNAME-"].update(data[0])
                 window["-PASSWORD-"].update(data[1])
             if event == "Download":
-                artist = values['-ARTIST-']
-                user = values['-USERNAME-']
-                password = values['-PASSWORD-']
+                artist, user, password = values['-ARTIST-'], values['-USERNAME-'], values['-PASSWORD-']
+
                 if not validate(artist, user, password):
                     continue
-                headless = values['-HEADLESS-']
-                which_browser = values['-BROWSER-']
+                headless, which_browser = values['-HEADLESS-'], values['-BROWSER-']
                 driver = start_browser(artist, headless, which_browser)
                 try:
                     start_download(driver, artist, user, password)
@@ -119,11 +116,10 @@ class GUI:
 def start_browser(artist, headless, which_browser):
     # find path of Tabs folder, and set browser options
     dl_path = str(Path.cwd())
-    dl_path += '\\Tabs\\'
+    dl_path += '\\Tabs\\'  # todo modify here if you want to customize tabs folder
     dl_path += artist
     DLoader.create_artist_folder(dl_path)
     # setup browser options
-
     ff_options = FFOptions()
     ff_options.set_preference("browser.download.folderList", 2)
     ff_options.set_preference("browser.download.manager.showWhenStarting", False)
@@ -151,15 +147,13 @@ def start_browser(artist, headless, which_browser):
     c_options.add_experimental_option('prefs', preferences)
 
     if headless:
-        ff_options.headless = True
-        c_options.headless = True
+        ff_options.headless, c_options.headless = True, True
     if which_browser == 'Firefox':
         driver = webdriver.Firefox(options=ff_options,
                                    service=FirefoxService(GeckoDriverManager(path='Driver').install()))
-    # driver = webdriver.Firefox(options=options, executable_path='geckodriver.exe')  # if I want to include local
-    # driver
+        # driver = webdriver.Firefox(options=options, executable_path='geckodriver.exe')  # get local copy of driver
     if which_browser == 'Chrome':
-        # driver = webdriver.Chrome(options=c_options, executable_path='chromedriver.exe')
+        # driver = webdriver.Chrome(options=c_options, executable_path='chromedriver.exe')  # gets local copy of driver
         driver = webdriver.Chrome(options=c_options,
                                   service=ChromeService(ChromeDriverManager(path='Driver').install()))
     driver.which_browser = which_browser
@@ -181,8 +175,7 @@ def start_download(driver, artist, user, password):
     login(driver, user, password)
     print('Starting downloads...')
     current_page = driver.current_url
-    download_count = 0
-    failure_count = 0
+    download_count, failure_count = 0, 0
     while True:
         results = DLoader.get_tabs(driver)
         download_count += results[0]
@@ -194,10 +187,9 @@ def start_download(driver, artist, user, password):
             current_page = driver.current_url
             continue
         else:
-            # todo end message here
             print('Downloads Finished. Total number of downloads: ' + str(
                 download_count) + '.')  # todo move this out of this method
-            print('Total number of failures: ' + str(failure_count))
+            print('Total number of failures: ' + str(failure_count)) # not very useful as it stands
             break
 
 
@@ -210,27 +202,8 @@ def login(driver, user, password):
     password_textbox.send_keys(password)
     password_textbox.send_keys(Keys.RETURN)
     # todo deal with captcha here
-    # captcha css selectors
-    # #captchak8gPWM_TLJs0GssOrg0gG > div:nth-child(1) > div:nth-child(1) > iframe:nth-child(1)
-    # title="reCAPTCHA"
-    # todo convert this java code
-    # WebDriverWait(driver, 10).until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(
-    #     By.xpath("//iframe[starts-with(@name, 'a-') and starts-with(@src, 'https://www.google.com/recaptcha')]")));
-    #
-    # WebDriverWait(driver, 20).until(
-    #     ExpectedConditions.elementToBeClickable(By.cssSelector("div.recaptcha-checkbox-checkmark"))).click();
+    # call method from captcha class, moved unfinished code there
 
-    # for _ in range(100):  # or loop forever, but this will allow it to timeout if the user falls asleep or whatever
-    #     if driver.get_current_url.find("captcha") == -1:
-    #         break
-    #     time.sleep(6)  # wait 6 seconds which means the user has 10 minutes before timeout occurs
-
-    # todo another possible method:
-    # WebDriverWait(driver, 10).until(EC.frame_to_be_available_and_switch_to_it((By.CSS_SELECTOR,"iframe[src^='https://www.google.com/recaptcha/api2/anchor?']")))
-    # WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "span.recaptcha-checkbox.goog-inline-block.recaptcha-checkbox-unchecked.rc-anchor-checkbox"))).click()
-    # driver.switch_to_default_content()
-    # WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "button.btn.btn-primary.block.full-width.m-b"))).click()
-    # time.sleep(.5)
     # this popup sometimes takes some time to appear, wait until it's clickable
     element = WebDriverWait(driver, 20).until(
         EC.element_to_be_clickable((By.CSS_SELECTOR,
