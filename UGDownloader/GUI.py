@@ -171,6 +171,8 @@ def start_download(driver, artist, user, password):
     driver.get('https://www.ultimate-guitar.com/search.php?search_type=bands&value=' + artist)
     driver.set_window_size(1100, 1000)
     driver.find_element(By.LINK_TEXT, artist).click()
+    if driver.which_browser == 'Firefox':
+        time.sleep(1)
     driver.find_element(By.LINK_TEXT, 'Guitar Pro').click()
     login(driver, user, password)
     print('Starting downloads...')
