@@ -214,13 +214,13 @@ def login(driver, user, password):
 
 
 def validate(artist, user, password):
-    if not len(artist):
+    if not artist:
         sg.popup_error('Artist cannot be blank.')
         return False
-    if not len(user):
+    if not user:
         sg.popup_error('Username cannot be blank.')
         return False
-    if not len(password):
+    if not password:
         sg.popup_error('Password cannot be blank.')
         return False
     return True
