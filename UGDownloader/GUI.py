@@ -73,7 +73,7 @@ class GUI:
             event, values = window.read()
             if event == "Save Info":
                 # todo protect against the file being empty
-                artist = 'a'
+                artist = 'a' # just to not trip the validation method
                 user = values['-USERNAME-']
                 password = values['-PASSWORD-']
                 if not validate(artist, user, password):
@@ -86,6 +86,7 @@ class GUI:
             if event == "Autofill":
                 # dummy account: user=mygoodusername, pass=passyword
                 userinfo = open('userinfo.txt', 'r')
+                data = ''
                 for line in userinfo:
                     data = line.split()
                 window["-USERNAME-"].update(data[0])  # todo get username and password from text file
