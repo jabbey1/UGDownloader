@@ -18,7 +18,6 @@ print('fin')
 # todo captcha
 # todo track down firefox bug- happens before login it seems
 # low priority:
-# todo cleanup code
 # todo change or allow customization to folders
 # todo total downloads/downloads finished appearing at end of page
 # todo allow for redownload of failures
