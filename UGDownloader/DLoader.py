@@ -3,7 +3,7 @@ import time
 import selenium.common.exceptions
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.common.action_chains import ActionChains
 
 
@@ -37,14 +37,14 @@ def get_tabs(driver):
                 button = driver.find_element(By.CSS_SELECTOR, 'button.exTWY:nth-child(2)')
             except Exception as e:  # sometimes the button is obscured by other elements
                 print(e)
-                print('Button obscured? trying again.') # I don't think this error is ever hitting
+                print('Button obscured? trying again.')  # I don't think this error is ever hitting
                 failure_count += 1
                 continue
             try:
                 if driver.which_browser == 'Chrome':
-                    driver.execute_script('arguments[0].click();', WebDriverWait(driver, 20).until(EC.element_to_be_clickable(button)))
+                    driver.execute_script('arguments[0].click();', WebDriverWait(driver, 20).until(ec.element_to_be_clickable(button)))
                 if driver.which_browser == 'Firefox':
-                    driver.execute_script('arguments[0].click();', WebDriverWait(driver, 20).until(EC.element_to_be_clickable(button)))
+                    driver.execute_script('arguments[0].click();', WebDriverWait(driver, 20).until(ec.element_to_be_clickable(button)))
                     time.sleep(.6)  # think this can go down to .5 at least todo optimize
                 download_count += 1
                 tries = 0
@@ -65,7 +65,8 @@ def create_artist_folder(dl_path):
     try:
         os.mkdir(dl_path)
     except OSError as error:
-        print(error)
+        # not graceful:
+        print('Artist folder already exists')
     else:
         print("Folder created at " + dl_path)
 

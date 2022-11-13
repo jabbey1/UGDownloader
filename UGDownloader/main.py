@@ -14,8 +14,9 @@ userinfo = open('userinfo.txt', 'a')
 gui = GUI.GUI()
 
 print('fin')
-# todo captcha
 
+# todo captcha
+# todo track down firefox bug- happens before login it seems
 # low priority:
 # todo cleanup code
 # todo change or allow customization to folders
@@ -23,5 +24,4 @@ print('fin')
 # todo allow for redownload of failures
 # todo progress bar
 # todo lock window size - headless working so may not be necessary
-# todo rewrite scroll_to_bottom without waits
-
+# todo rewrite scroll_to_bottom without waits, as possible optimization
