@@ -1,6 +1,7 @@
 import os
 import time
 import selenium.common.exceptions
+from pathlib import Path
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
@@ -61,14 +62,21 @@ def get_tabs(driver):
     return [download_count, failure_count]
 
 
-def create_artist_folder(dl_path):
+def create_artist_folder(artist):
+    # Need there to already be a 'Tabs' folder
+    # todo: check if there's a Tabs folder, and create one if not
+    dl_path = str(Path.cwd())
+    dl_path += '\\Tabs\\'  # todo modify here if you want to customize tabs folder
+    dl_path += artist
     try:
         os.mkdir(dl_path)
     except OSError as error:
+        # print(error)
         # not graceful:
         print('Artist folder already exists')
     else:
         print("Folder created at " + dl_path)
+    return dl_path # return path so GUI can set download directory in browser
 
 
 def scroll_to_bottom(driver):

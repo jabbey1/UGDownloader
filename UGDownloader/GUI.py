@@ -115,10 +115,8 @@ class GUI:
 
 def start_browser(artist, headless, which_browser):
     # find path of Tabs folder, and set browser options
-    dl_path = str(Path.cwd())
-    dl_path += '\\Tabs\\'  # todo modify here if you want to customize tabs folder
-    dl_path += artist
-    DLoader.create_artist_folder(dl_path)
+
+    dl_path = DLoader.create_artist_folder(artist)
     # setup browser options
     ff_options = FFOptions()
     ff_options.set_preference("browser.download.folderList", 2)
