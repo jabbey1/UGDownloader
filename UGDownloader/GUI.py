@@ -77,14 +77,15 @@ class GUI:
                 user, password = values['-USERNAME-'], values['-PASSWORD-']
                 if not validate(artist, user, password):
                     continue
-                userinfo = open('userinfo.txt', 'w')
+                userinfo = open('_UGDownloaderFiles\\userinfo.txt', 'w+')
                 userinfo.write(values['-USERNAME-'])
                 userinfo.write(' ')
                 userinfo.write(values['-PASSWORD-'])
                 userinfo.close()
             if event == "Autofill":
+                # todo make sure userinfo file exists (do at startup, along with Tabs folder?)
                 # dummy account: user=mygoodusername, pass=passyword
-                userinfo = open('userinfo.txt', 'r')
+                userinfo = open('_UGDownloaderFiles\\userinfo.txt', 'r')
                 data = ''
                 for line in userinfo:
                     data = line.split()
@@ -148,19 +149,19 @@ def start_browser(artist, headless, which_browser):
         ff_options.headless, c_options.headless = True, True
     if which_browser == 'Firefox':
         driver = webdriver.Firefox(options=ff_options,
-                                   service=FirefoxService(GeckoDriverManager(path='Driver').install()))
+                                   service=FirefoxService(GeckoDriverManager(path='_UGDownloaderFiles').install()))
         # driver = webdriver.Firefox(options=options, executable_path='geckodriver.exe')  # get local copy of driver
     if which_browser == 'Chrome':
         # driver = webdriver.Chrome(options=c_options, executable_path='chromedriver.exe')  # gets local copy of driver
         driver = webdriver.Chrome(options=c_options,
-                                  service=ChromeService(ChromeDriverManager(path='Driver').install()))
+                                  service=ChromeService(ChromeDriverManager(path='_UGDownloaderFiles').install()))
     driver.which_browser = which_browser
     return driver
 
 
 def start_download(driver, artist, user, password):
     # create log of download attempt
-    failurelog = open('failurelog.txt', 'a')
+    failurelog = open('_UGDownloaderFiles\\failurelog.txt', 'a+')
     failurelog.write('\n')
     failurelog.write('Download attempt at:' + str(datetime.datetime.now()))
     failurelog.write('\n')
