@@ -1,3 +1,4 @@
+import os
 import time
 from pathlib import Path
 import PySimpleGUI as sg
@@ -20,6 +21,7 @@ class GUI:
 
     def __init__(self):
 
+        folder_check()
         # start layout
         left_column = [
             [sg.Text(text='Artist', size=(10, 1)), sg.Input(size=(25, 1), pad=(0, 10), key="-ARTIST-"),
@@ -77,20 +79,22 @@ class GUI:
                 user, password = values['-USERNAME-'], values['-PASSWORD-']
                 if not validate(artist, user, password):
                     continue
-                userinfo = open('_UGDownloaderFiles\\userinfo.txt', 'w+')
+                userinfo = open('_UGDownloaderFiles/userinfo.txt', 'w+')
                 userinfo.write(values['-USERNAME-'])
                 userinfo.write(' ')
                 userinfo.write(values['-PASSWORD-'])
                 userinfo.close()
             if event == "Autofill":
-                # todo make sure userinfo file exists (do at startup, along with Tabs folder?)
                 # dummy account: user=mygoodusername, pass=passyword
-                userinfo = open('_UGDownloaderFiles\\userinfo.txt', 'r')
+                userinfo = open('_UGDownloaderFiles/userinfo.txt', 'r')
                 data = ''
                 for line in userinfo:
                     data = line.split()
-                window["-USERNAME-"].update(data[0])
-                window["-PASSWORD-"].update(data[1])
+                if len(data) == 2:
+                    window["-USERNAME-"].update(data[0])
+                    window["-PASSWORD-"].update(data[1])
+                else: # bad userinfo warning
+                    print(f'There is either no user info saved or the data saved is invalid.')
             if event == "Download":
                 artist, user, password = values['-ARTIST-'], values['-USERNAME-'], values['-PASSWORD-']
 
@@ -110,7 +114,8 @@ class GUI:
 
             if event == "Exit" or event == sg.WIN_CLOSED:
                 break
-
+        if os.path.isfile('geckodriver.log'):
+            os.remove('geckodriver.log')
         window.close()
 
 
@@ -190,7 +195,7 @@ def start_download(driver, artist, user, password):
         else:
             print('Downloads Finished. Total number of downloads: ' + str(
                 download_count) + '.')  # todo move this out of this method
-            print('Total number of failures: ' + str(failure_count)) # not very useful as it stands
+            print('Total number of failures: ' + str(failure_count))  # not very useful as it stands
             break
 
 
@@ -225,3 +230,12 @@ def validate(artist, user, password):
         sg.popup_error('Password cannot be blank.')
         return False
     return True
+
+
+def folder_check():
+    # makes sure that the Tabs folder and the userinfo.txt files exist
+    if not os.path.isdir('Tabs'):
+        os.mkdir('Tabs')
+    if not os.path.isfile('_UGDownloaderFiles/userinfo.txt'):
+        with open('_UGDownloaderFiles/userinfo.txt', 'x'):
+            pass

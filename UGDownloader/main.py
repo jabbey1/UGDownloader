@@ -21,6 +21,7 @@ print('fin')
 # todo track down firefox bug- happens before login it seems - fixed?
 # todo: check if there's a Tabs folder, and create one if not
 # todo: figure out how to make project files folder hidden
+# todo:autofill error if there's no data
 # low priority:
 # todo allow for editing and viewing of a to download text file
 # todo change or allow customization to folders
