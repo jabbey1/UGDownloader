@@ -25,7 +25,7 @@ def get_tabs(driver):
             tries += 1
             if tries > 9:  # Count # of tries for current file, to prevent getting stuck
                 print('Too many download attempts, moving on.')
-                failurelog = open('failurelog.txt', 'a')
+                failurelog = open('_UGDownloaderFiles\\failurelog.txt', 'a')
                 failurelog.write(tab_links[i])
                 failurelog.write('\n')
                 failurelog.close()
@@ -64,9 +64,8 @@ def get_tabs(driver):
 
 def create_artist_folder(artist):
     # Need there to already be a 'Tabs' folder
-    # todo: check if there's a Tabs folder, and create one if not maybe put at start of program though?
     dl_path = str(Path.cwd())
-    dl_path += '\\Tabs\\'  # todo modify here if you want to customize tabs folder
+    dl_path += '\\Tabs\\'
     dl_path += artist
     try:
         os.mkdir(dl_path)

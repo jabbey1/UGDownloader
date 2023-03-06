@@ -114,8 +114,6 @@ class GUI:
 
             if event == "Exit" or event == sg.WIN_CLOSED:
                 break
-        if os.path.isfile('geckodriver.log'):
-            os.remove('geckodriver.log')
         window.close()
 
 
@@ -165,6 +163,7 @@ def start_browser(artist, headless, which_browser):
 
 
 def start_download(driver, artist, user, password):
+    # todo should this method be in the DLoader class?
     # create log of download attempt
     failurelog = open('_UGDownloaderFiles\\failurelog.txt', 'a+')
     failurelog.write('\n')
