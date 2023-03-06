@@ -202,8 +202,10 @@ def start_download(driver, artist, user, password):
 def login(driver, user, password):
     driver.find_element(By.CSS_SELECTOR, '.exTWY > span:nth-child(1)').click()  # login button
     time.sleep(1)
-    username_textbox = driver.find_element(By.CSS_SELECTOR, '.wzvZg > div:nth-child(1) > input:nth-child(1)')
-    password_textbox = driver.find_element(By.CSS_SELECTOR, '.wlfii > div:nth-child(1) > input:nth-child(1)')
+    # next line is problem .grU7r > div:nth-child(1) > input:nth-child(1)
+    # username_textbox = driver.find_element(By.CSS_SELECTOR, '.wzvZg > div:nth-child(1) > input:nth-child(1)')
+    username_textbox = driver.find_element(By.CSS_SELECTOR, '.PictU > div:nth-child(1) > input:nth-child(1)')
+    password_textbox = driver.find_element(By.CSS_SELECTOR, '.grU7r > div:nth-child(1) > input:nth-child(1)')
     username_textbox.send_keys(user)
     password_textbox.send_keys(password)
     password_textbox.send_keys(Keys.RETURN)
