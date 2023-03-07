@@ -28,3 +28,4 @@ print('fin')
 # todo progress bar
 # todo lock window size - headless working so may not be necessary
 # todo rewrite scroll_to_bottom without waits, as possible optimization
+# todo cleanup methods in GUI

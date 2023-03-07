@@ -9,6 +9,9 @@ from selenium.webdriver.common.action_chains import ActionChains
 
 
 def get_tabs(driver):
+    # gets a list of all tabs on the current page, and slices the GPro tabs away from the others, getting the urls to
+    # each. Downloads each by traveling to each URL before traveling back to the artist page, where it can be determined
+    # in GUI if there's another page of downloads to be run
     tab_list = driver.find_elements(By.CLASS_NAME, 'LQUZJ')
     tab_links = []
     tab_list[:] = [x for x in tab_list if x.text.__contains__('Guitar Pro')]
@@ -20,15 +23,12 @@ def get_tabs(driver):
     download_count = 0
     failure_count = 0
     for i in range(how_many_tabs):
-        tries = 1
+        tries = 0
         while True:  # used to restart iterations of for loop
             tries += 1
-            if tries > 9:  # Count # of tries for current file, to prevent getting stuck
+            if tries > 8:  # Count # of tries for current file, to prevent getting stuck
                 print('Too many download attempts, moving on.')
-                failurelog = open('_UGDownloaderFiles\\failurelog.txt', 'a')
-                failurelog.write(tab_links[i])
-                failurelog.write('\n')
-                failurelog.close()
+                failure_log_failed_attempt(tab_links[i])
                 break
             print(tab_links[i])
             driver.get(str(tab_links[i]))
@@ -46,7 +46,7 @@ def get_tabs(driver):
                     driver.execute_script('arguments[0].click();', WebDriverWait(driver, 20).until(ec.element_to_be_clickable(button)))
                 if driver.which_browser == 'Firefox':
                     driver.execute_script('arguments[0].click();', WebDriverWait(driver, 20).until(ec.element_to_be_clickable(button)))
-                    time.sleep(.6)  # think this can go down to .5 at least todo optimize
+                    time.sleep(.65)  # think this can go down to .5 at least todo optimize
                 download_count += 1
                 tries = 0
                 break
@@ -59,14 +59,20 @@ def get_tabs(driver):
                 print('Something went wrong, retrying page')
                 print("Try number: " + str(tries))
                 failure_count += 1
+    time.sleep(.5)
     return [download_count, failure_count]
+
+
+def failure_log_failed_attempt(text):
+    failurelog = open('_UGDownloaderFiles\\failurelog.txt', 'a')
+    failurelog.write(text)
+    failurelog.write('\n')
+    failurelog.close()
 
 
 def create_artist_folder(artist):
     # Need there to already be a 'Tabs' folder
-    dl_path = str(Path.cwd())
-    dl_path += '\\Tabs\\'
-    dl_path += artist
+    dl_path = str(Path.cwd()) + '\\Tabs\\' + artist
     try:
         os.mkdir(dl_path)
     except OSError as error:

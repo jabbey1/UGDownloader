@@ -93,7 +93,7 @@ class GUI:
                 if len(data) == 2:
                     window["-USERNAME-"].update(data[0])
                     window["-PASSWORD-"].update(data[1])
-                else: # bad userinfo warning
+                else:  # bad userinfo warning
                     print(f'There is either no user info saved or the data saved is invalid.')
             if event == "Download":
                 artist, user, password = values['-ARTIST-'], values['-USERNAME-'], values['-PASSWORD-']
@@ -118,10 +118,31 @@ class GUI:
 
 
 def start_browser(artist, headless, which_browser):
-    # find path of Tabs folder, and set browser options
-
     dl_path = DLoader.create_artist_folder(artist)
-    # setup browser options
+    if which_browser == 'Firefox':
+        ff_options = set_firefox_options(dl_path, headless)
+        print(f'Starting Firefox, downloading latest Gecko driver.')
+        driver = webdriver.Firefox(options=ff_options,
+                                   service=FirefoxService(GeckoDriverManager(path='_UGDownloaderFiles').install()))
+        # driver = webdriver.Firefox(options=options, executable_path='geckodriver.exe')  # get local copy of driver
+        print('\n')
+
+    if which_browser == 'Chrome':
+        c_options = set_chrome_options(dl_path, headless)
+        print(f'Starting Chrome, downloading latest chromedriver.')
+        # driver = webdriver.Chrome(options=c_options, executable_path='chromedriver.exe')  # gets local copy of driver
+        driver = webdriver.Chrome(options=c_options,
+                                  service=ChromeService(ChromeDriverManager(path='_UGDownloaderFiles').install()))
+        # next three lines are allowing chrome to download files while in headless mode
+        driver.command_executor._commands["send_command"] = ("POST", '/session/$sessionId/chromium/send_command')
+        params = {'cmd': 'Page.setDownloadBehavior', 'params': {'behavior': 'allow', 'downloadPath': dl_path}}
+        command_result = driver.execute("send_command", params)
+        print('\n')
+    driver.which_browser = which_browser
+    return driver
+
+
+def set_firefox_options(dl_path, headless):
     ff_options = FFOptions()
     ff_options.set_preference("browser.download.folderList", 2)
     ff_options.set_preference("browser.download.manager.showWhenStarting", False)
@@ -130,7 +151,13 @@ def start_browser(artist, headless, which_browser):
     ff_options.set_preference('permissions.default.stylesheet', 2)
     ff_options.set_preference('permissions.default.image', 2)
     ff_options.set_preference('dom.ipc.plugins.enabled.libflashplayer.so', 'false')
+    if headless:
+        ff_options.headless = True
 
+    return ff_options
+
+
+def set_chrome_options(dl_path, headless):
     c_options = COptions()
     c_options.add_argument('--no-sandbox')  # not sure why this makes it work better
     preferences = {"download.default_directory": dl_path,  # pass the variable
@@ -147,29 +174,16 @@ def start_browser(artist, headless, which_browser):
                    "profile.managed_default_content_settings.geolocation": 2,
                    "profile.managed_default_content_settings.media_stream": 2}
     c_options.add_experimental_option('prefs', preferences)
-
     if headless:
-        ff_options.headless, c_options.headless = True, True
-    if which_browser == 'Firefox':
-        driver = webdriver.Firefox(options=ff_options,
-                                   service=FirefoxService(GeckoDriverManager(path='_UGDownloaderFiles').install()))
-        # driver = webdriver.Firefox(options=options, executable_path='geckodriver.exe')  # get local copy of driver
-    if which_browser == 'Chrome':
-        # driver = webdriver.Chrome(options=c_options, executable_path='chromedriver.exe')  # gets local copy of driver
-        driver = webdriver.Chrome(options=c_options,
-                                  service=ChromeService(ChromeDriverManager(path='_UGDownloaderFiles').install()))
-    driver.which_browser = which_browser
-    return driver
+        c_options.headless = True
+    return c_options
 
 
 def start_download(driver, artist, user, password):
-    # todo should this method be in the DLoader class?
+    # The while loop loops through the number of pages- it calls DLoader.get_tabs separately for each page and navigates
+    # to the page to start it off
     # create log of download attempt
-    failurelog = open('_UGDownloaderFiles\\failurelog.txt', 'a+')
-    failurelog.write('\n')
-    failurelog.write('Download attempt at:' + str(datetime.datetime.now()))
-    failurelog.write('\n')
-    failurelog.close()
+    failure_log_new_attempt()
     # navigate to site, go to artist page, then filter out text tabs
     driver.get('https://www.ultimate-guitar.com/search.php?search_type=bands&value=' + artist)
     driver.set_window_size(1100, 1000)
@@ -192,31 +206,37 @@ def start_download(driver, artist, user, password):
             current_page = driver.current_url
             continue
         else:
-            print('Downloads Finished. Total number of downloads: ' + str(
-                download_count) + '.')  # todo move this out of this method
-            print('Total number of failures: ' + str(failure_count))  # not very useful as it stands
             break
+    print('Downloads Finished. Total number of downloads: ' + str(download_count) + '.')
+    print('Total number of failures: ' + str(failure_count))
+
+
+def failure_log_new_attempt():
+    # create log of download attempt
+    failurelog = open('_UGDownloaderFiles\\failurelog.txt', 'a+')
+    failurelog.write('\n')
+    failurelog.write('Download attempt at:' + str(datetime.datetime.now()))
+    failurelog.write('\n')
+    failurelog.close()
 
 
 def login(driver, user, password):
     driver.find_element(By.CSS_SELECTOR, '.exTWY > span:nth-child(1)').click()  # login button
     time.sleep(1)
-    # next line is problem .grU7r > div:nth-child(1) > input:nth-child(1)
-    # username_textbox = driver.find_element(By.CSS_SELECTOR, '.wzvZg > div:nth-child(1) > input:nth-child(1)')
     username_textbox = driver.find_element(By.CSS_SELECTOR, '.PictU > div:nth-child(1) > input:nth-child(1)')
     password_textbox = driver.find_element(By.CSS_SELECTOR, '.grU7r > div:nth-child(1) > input:nth-child(1)')
     username_textbox.send_keys(user)
     password_textbox.send_keys(password)
     password_textbox.send_keys(Keys.RETURN)
     # todo deal with captcha here
-    # call method from captcha class, moved unfinished code there
+    # call method from captcha class
 
     # this popup sometimes takes some time to appear, wait until it's clickable
     element = WebDriverWait(driver, 20).until(
         EC.element_to_be_clickable((By.CSS_SELECTOR,
                                     'button.RwBUh:nth-child(1) > svg:nth-child(1) > path:nth-child(1)')))
     element.click()
-
+    time.sleep(.5)
     print('Logged in')
 
 
