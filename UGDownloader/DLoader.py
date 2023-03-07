@@ -20,8 +20,7 @@ def get_tabs(driver):
     how_many_tabs = len(tab_list)
     print('Found ' + str(how_many_tabs) + ' Guitar Pro Files')
     # download for each element, skipping pro or official
-    download_count = 0
-    failure_count = 0
+    download_count, failure_count = 0, 0
     for i in range(how_many_tabs):
         tries = 0
         while True:  # used to restart iterations of for loop
@@ -41,6 +40,7 @@ def get_tabs(driver):
                 print('Button obscured? trying again.')  # I don't think this error is ever hitting
                 failure_count += 1
                 continue
+            # Actual download button clicking here
             try:
                 if driver.which_browser == 'Chrome':
                     driver.execute_script('arguments[0].click();', WebDriverWait(driver, 20).until(ec.element_to_be_clickable(button)))

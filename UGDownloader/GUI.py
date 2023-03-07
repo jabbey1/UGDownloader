@@ -20,7 +20,11 @@ from selenium.webdriver.chrome.service import Service as ChromeService
 class GUI:
 
     def __init__(self):
-
+        # load todl data
+        todl_data = []
+        with open("_UGDownloaderFiles\\todownload.txt", 'r') as f:
+            todl_data = [[line.rstrip()] for line in f]
+        print(todl_data)
         folder_check()
         # start layout
         left_column = [
@@ -32,11 +36,14 @@ class GUI:
              sg.Button(button_text='Download'), sg.Combo(values=('Firefox', 'Chrome'), default_value='Firefox',
                                                          key="-BROWSER-")],
             [sg.HSeparator()],
-            [sg.Multiline(size=(60, 15), font='Courier 8', expand_x=True, expand_y=True,
+            [sg.Multiline(size=(60, 11), font='Courier 8', expand_x=True, expand_y=True,
                           write_only=True, reroute_stdout=True, reroute_stderr=True, echo_stdout_stderr=True,
-                          autoscroll=True, auto_refresh=True)
-             # [sg.Output(size=(60,15), font='Courier 8', expand_x=True, expand_y=True)]
-             ]
+                          autoscroll=True, auto_refresh=True)],
+            [sg.HSeparator()],
+            [sg.Button(button_text='Copy Artist Name'), sg.Button(button_text='Add'), sg.Button(button_text='Delete'),
+             sg.Input(size=(35, 1), pad=(0, 10), key="-TODLINPUT-")],
+            [sg.Table(values=todl_data[:], num_rows=9, headings=['Artists to Download'], key="-TODLTABLE-", enable_events=True, enable_click_events=True)]
+
         ]
 
         right_column = [
@@ -75,15 +82,10 @@ class GUI:
         while True:
             event, values = window.read()
             if event == "Save Info":
-                artist = 'a'  # validation method requires artist field, fake it here
                 user, password = values['-USERNAME-'], values['-PASSWORD-']
-                if not validate(artist, user, password):
-                    continue
-                userinfo = open('_UGDownloaderFiles/userinfo.txt', 'w+')
-                userinfo.write(values['-USERNAME-'])
-                userinfo.write(' ')
-                userinfo.write(values['-PASSWORD-'])
-                userinfo.close()
+                if not validate('A', user, password):
+                    continue  # faked artist field to not trip validate
+                write_user_info(user, password)
             if event == "Autofill":
                 # dummy account: user=mygoodusername, pass=passyword
                 userinfo = open('_UGDownloaderFiles/userinfo.txt', 'r')
@@ -93,7 +95,7 @@ class GUI:
                 if len(data) == 2:
                     window["-USERNAME-"].update(data[0])
                     window["-PASSWORD-"].update(data[1])
-                else:  # bad userinfo warning
+                else:
                     print(f'There is either no user info saved or the data saved is invalid.')
             if event == "Download":
                 artist, user, password = values['-ARTIST-'], values['-USERNAME-'], values['-PASSWORD-']
@@ -111,6 +113,12 @@ class GUI:
                     driver.close()
                     sg.popup_error("Something went wrong with the download. Try again- check that the "
                                    "artist you entered is on the site, and has guitar pro tabs available.")
+            if event == "Copy Artist Name":
+                pass
+            if event == "Add":
+                pass
+            if event == "delete":
+                pass
 
             if event == "Exit" or event == sg.WIN_CLOSED:
                 break
@@ -140,6 +148,14 @@ def start_browser(artist, headless, which_browser):
         print('\n')
     driver.which_browser = which_browser
     return driver
+
+
+def write_user_info(user, password):
+    userinfo = open('_UGDownloaderFiles/userinfo.txt', 'w+')
+    userinfo.write(user)
+    userinfo.write(' ')
+    userinfo.write(password)
+    userinfo.close()
 
 
 def set_firefox_options(dl_path, headless):
@@ -259,4 +275,7 @@ def folder_check():
         os.mkdir('Tabs')
     if not os.path.isfile('_UGDownloaderFiles/userinfo.txt'):
         with open('_UGDownloaderFiles/userinfo.txt', 'x'):
+            pass
+    if not os.path.isfile('_UGDownloaderFiles/todownload.txt'):
+        with open('_UGDownloaderFiles/todownload.txt', 'x'):
             pass

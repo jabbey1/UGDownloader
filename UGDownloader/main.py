@@ -22,10 +22,14 @@ print('fin')
 # low priority:
 # todo allow for editing and viewing of a 'to download' text file
 # it would be nice to add and delete, and paste to download field directly from this
+# need to read from file to populate table
+# button for copying from table line to artist download field
+# delete table entry button
+# text box and add button
+# create events
 # todo change or allow customization to folders
 # todo total downloads/downloads finished appearing at end of page
 # todo allow for redownload of failures
-# todo progress bar
+# todo progress bar, example in psgdemos all elements demo
 # todo lock window size - headless working so may not be necessary
 # todo rewrite scroll_to_bottom without waits, as possible optimization
-# todo cleanup methods in GUI
