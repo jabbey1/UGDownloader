@@ -5,7 +5,6 @@ from pathlib import Path
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
-from selenium.webdriver.common.action_chains import ActionChains
 
 
 def get_tabs(driver):
@@ -81,7 +80,7 @@ def create_artist_folder(artist):
         print('Artist folder already exists')
     else:
         print("Folder created at " + dl_path)
-    return dl_path # return path so GUI can set download directory in browser
+    return dl_path  # return path so GUI can set download directory in browser
 
 
 def scroll_to_bottom(driver):

@@ -1,6 +1,5 @@
 import os
 import time
-from pathlib import Path
 import PySimpleGUI as sg
 from selenium import webdriver
 from selenium.webdriver.firefox.service import Service as FirefoxService
@@ -20,11 +19,8 @@ from selenium.webdriver.chrome.service import Service as ChromeService
 class GUI:
 
     def __init__(self):
-        # load todl data
-        todl_data = []
-        with open("_UGDownloaderFiles\\todownload.txt", 'r') as f:
-            todl_data = [[line.rstrip()] for line in f]
-        folder_check()
+        todl_data = folder_check()
+
         # start layout
         left_column = [
             [sg.Text(text='Artist', size=(10, 1)), sg.Input(size=(25, 1), pad=(0, 10), key="-ARTIST-"),
@@ -42,7 +38,7 @@ class GUI:
             [sg.Button(button_text='Copy Artist Name'), sg.Button(button_text='Add'), sg.Button(button_text='Delete'),
              sg.Input(size=(35, 1), pad=(0, 10), key="-TODLINPUT-")],
             [sg.Table(values=todl_data[:], num_rows=9, headings=['Artists to Download'],
-                      key="-TODLTABLE-", enable_events=True )]  # enable_click_events=True
+                      key="-TODLTABLE-", enable_events=True)]  # enable_click_events=True
 
         ]
 
@@ -106,11 +102,11 @@ class GUI:
                 driver = start_browser(artist, headless, which_browser)
                 try:
                     start_download(driver, artist, user, password)
-                    driver.close()
+                    driver.quit()
                     sg.popup('Downloads finished.')
                 except Exception as e:
                     print(e)
-                    driver.close()
+                    driver.quit()
                     sg.popup_error("Something went wrong with the download. Try again- check that the "
                                    "artist you entered is on the site, and has guitar pro tabs available.")
             if event == "Copy Artist Name":
@@ -147,6 +143,7 @@ class GUI:
         window.close()
 
 
+# noinspection PyProtectedMember
 def start_browser(artist, headless, which_browser):
     dl_path = DLoader.create_artist_folder(artist)
     if which_browser == 'Firefox':
@@ -266,8 +263,7 @@ def login(driver, user, password):
     username_textbox.send_keys(user)
     password_textbox.send_keys(password)
     password_textbox.send_keys(Keys.RETURN)
-    # todo deal with captcha here
-    # call method from captcha class
+    # call method from captcha class, if figure out how to bypass captcha
 
     # this popup sometimes takes some time to appear, wait until it's clickable
     element = WebDriverWait(driver, 20).until(
@@ -295,9 +291,16 @@ def folder_check():
     # makes sure that the Tabs folder and the userinfo.txt files exist
     if not os.path.isdir('Tabs'):
         os.mkdir('Tabs')
+    if not os.path.isdir('_UGDownloaderFiles'):
+        os.mkdir('_UGDownloaderFiles')
     if not os.path.isfile('_UGDownloaderFiles/userinfo.txt'):
         with open('_UGDownloaderFiles/userinfo.txt', 'x'):
             pass
     if not os.path.isfile('_UGDownloaderFiles/todownload.txt'):
         with open('_UGDownloaderFiles/todownload.txt', 'x'):
             pass
+
+    todl_data = []
+    with open("_UGDownloaderFiles\\todownload.txt", 'r') as f:
+        todl_data = [[line.rstrip()] for line in f]
+    return todl_data
