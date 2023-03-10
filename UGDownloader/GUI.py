@@ -114,7 +114,11 @@ class GUI:
                     sg.popup_error("Something went wrong with the download. Try again- check that the "
                                    "artist you entered is on the site, and has guitar pro tabs available.")
             if event == "Copy Artist Name":
-                pass
+                if not values['-TODLTABLE-']:
+                    print('Nothing selected.')
+                    continue
+                selected_artist = todl_data[values['-TODLTABLE-'][0]][0]
+                window["-ARTIST-"].update(selected_artist)
             if event == "Add":
                 if not values['-TODLINPUT-']:
                     print('No artist to add. Please type one in the input box.')
@@ -127,7 +131,6 @@ class GUI:
                     todl_data.append(values['-TODLINPUT-'])
                     print(f'New artist added to To Download.')
                 window['-TODLTABLE-'].update(values=todl_data[:])
-
             if event == "Delete":
                 selected_index = values['-TODLTABLE-']
                 if selected_index:
