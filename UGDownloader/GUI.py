@@ -24,7 +24,6 @@ class GUI:
         todl_data = []
         with open("_UGDownloaderFiles\\todownload.txt", 'r') as f:
             todl_data = [[line.rstrip()] for line in f]
-        print(todl_data)
         folder_check()
         # start layout
         left_column = [
@@ -42,7 +41,8 @@ class GUI:
             [sg.HSeparator()],
             [sg.Button(button_text='Copy Artist Name'), sg.Button(button_text='Add'), sg.Button(button_text='Delete'),
              sg.Input(size=(35, 1), pad=(0, 10), key="-TODLINPUT-")],
-            [sg.Table(values=todl_data[:], num_rows=9, headings=['Artists to Download'], key="-TODLTABLE-", enable_events=True, enable_click_events=True)]
+            [sg.Table(values=todl_data[:], num_rows=9, headings=['Artists to Download'],
+                      key="-TODLTABLE-", enable_events=True )]  # enable_click_events=True
 
         ]
 
@@ -116,9 +116,28 @@ class GUI:
             if event == "Copy Artist Name":
                 pass
             if event == "Add":
-                pass
-            if event == "delete":
-                pass
+                if not values['-TODLINPUT-']:
+                    print('No artist to add. Please type one in the input box.')
+                    continue
+                else:
+                    file = open('_UGDownloaderFiles/todownload.txt', 'a+')
+                    file.write('\n')
+                    file.write(values['-TODLINPUT-'])
+                    file.close()
+                    todl_data.append(values['-TODLINPUT-'])
+                    print(f'New artist added to To Download.')
+                window['-TODLTABLE-'].update(values=todl_data[:])
+
+            if event == "Delete":
+                selected_index = values['-TODLTABLE-']
+                if selected_index:
+                    todl_data.pop(selected_index[0])
+                    window['-TODLTABLE-'].update(values=todl_data[:])
+                    file = open('_UGDownloaderFiles/todownload.txt', 'w+')
+                    for line in todl_data:
+                        file.write(line[0])
+                        file.write('\n')
+                    file.close()
 
             if event == "Exit" or event == sg.WIN_CLOSED:
                 break
