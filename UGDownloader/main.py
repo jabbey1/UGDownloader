@@ -11,8 +11,10 @@ import GUI
 
 gui = GUI.GUI()
 
-# todo make new .exe and check for virus
 # todo captcha
 # low priority:
 # progress bar, example in psgdemos all elements demo
 # rewrite scroll_to_bottom without waits, as possible optimization
+
+# pyinstaller command:
+# # pyinstaller --clean -F --noconsole main.py
