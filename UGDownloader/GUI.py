@@ -19,7 +19,8 @@ from selenium.webdriver.chrome.service import Service as ChromeService
 class GUI:
 
     def __init__(self):
-        todl_data = folder_check()
+        folder_check()
+        todl_data = get_todl_data()
 
         # start layout
         left_column = [
@@ -120,11 +121,11 @@ class GUI:
                     print('No artist to add. Please type one in the input box.')
                     continue
                 else:
-                    file = open('_UGDownloaderFiles/todownload.txt', 'a+')
+                    file = open('_UGDownloaderFiles/todownload.txt', 'a')
                     file.write('\n')
                     file.write(values['-TODLINPUT-'])
                     file.close()
-                    todl_data.append(values['-TODLINPUT-'])
+                    todl_data = get_todl_data()
                     print(f'New artist added to To Download.')
                 window['-TODLTABLE-'].update(values=todl_data[:])
             if event == "Delete":
@@ -133,9 +134,10 @@ class GUI:
                     todl_data.pop(selected_index[0])
                     window['-TODLTABLE-'].update(values=todl_data[:])
                     file = open('_UGDownloaderFiles/todownload.txt', 'w+')
-                    for line in todl_data:
-                        file.write(line[0])
-                        file.write('\n')
+                    for i in range(len(todl_data)):
+                        file.write(todl_data[i][0])
+                        if i < len(todl_data) - 1:
+                            file.write('\n')
                     file.close()
 
             if event == "Exit" or event == sg.WIN_CLOSED:
@@ -143,7 +145,6 @@ class GUI:
         window.close()
 
 
-# noinspection PyProtectedMember
 def start_browser(artist, headless, which_browser):
     dl_path = DLoader.create_artist_folder(artist)
     if which_browser == 'Firefox':
@@ -300,6 +301,8 @@ def folder_check():
         with open('_UGDownloaderFiles/todownload.txt', 'x'):
             pass
 
+
+def get_todl_data():
     todl_data = []
     with open("_UGDownloaderFiles\\todownload.txt", 'r') as f:
         todl_data = [[line.rstrip()] for line in f]
