@@ -17,4 +17,4 @@ gui = GUI.GUI()
 # rewrite scroll_to_bottom without waits, as possible optimization
 
 # pyinstaller command:
-# # pyinstaller --clean -F --noconsole main.py
+# pyinstaller --clean -F --noconsole main.py
