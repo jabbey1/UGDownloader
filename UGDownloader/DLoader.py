@@ -7,7 +7,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 
 
-def get_tabs(driver) -> list:
+def get_tabs(driver: webdriver) -> list:
     # gets a list of all tabs on the current page, and slices the GPro tabs away from the others, getting the urls to
     # each. Downloads each by traveling to each URL before traveling back to the artist page, where it can be determined
     # in GUI if there's another page of downloads to be run
@@ -62,14 +62,14 @@ def get_tabs(driver) -> list:
     return [download_count, failure_count]
 
 
-def failure_log_failed_attempt(text):
+def failure_log_failed_attempt(text: str):
     failurelog = open('_UGDownloaderFiles\\failurelog.txt', 'a')
     failurelog.write(text)
     failurelog.write('\n')
     failurelog.close()
 
 
-def create_artist_folder(artist) -> str:
+def create_artist_folder(artist: str) -> str:
     # Need there to already be a 'Tabs' folder
     dl_path = str(Path.cwd()) + '\\Tabs\\' + artist
     try:
@@ -83,7 +83,7 @@ def create_artist_folder(artist) -> str:
     return dl_path  # return path so GUI can set download directory in browser
 
 
-def scroll_to_bottom(driver):
+def scroll_to_bottom(driver: webdriver):
     # todo check if times can be cut/shortened
     time.sleep(.1)
     driver.execute_script(
