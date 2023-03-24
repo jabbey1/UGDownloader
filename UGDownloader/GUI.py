@@ -145,7 +145,7 @@ class GUI:
         window.close()
 
 
-def start_browser(artist, headless, which_browser):
+def start_browser(artist, headless, which_browser) -> webdriver:
     dl_path = DLoader.create_artist_folder(artist)
     if which_browser == 'Firefox':
         ff_options = set_firefox_options(dl_path, headless)
@@ -178,7 +178,7 @@ def write_user_info(user, password):
     userinfo.close()
 
 
-def set_firefox_options(dl_path, headless):
+def set_firefox_options(dl_path, headless) -> FFOptions:
     ff_options = FFOptions()
     ff_options.set_preference("browser.download.folderList", 2)
     ff_options.set_preference("browser.download.manager.showWhenStarting", False)
@@ -193,7 +193,7 @@ def set_firefox_options(dl_path, headless):
     return ff_options
 
 
-def set_chrome_options(dl_path, headless):
+def set_chrome_options(dl_path, headless) -> COptions:
     c_options = COptions()
     c_options.add_argument('--no-sandbox')  # not sure why this makes it work better
     preferences = {"download.default_directory": dl_path,  # pass the variable
@@ -275,7 +275,7 @@ def login(driver, user, password):
     print('Logged in')
 
 
-def validate(artist, user, password):
+def validate(artist, user, password) -> bool:
     if not artist:
         sg.popup_error('Artist cannot be blank.')
         return False
@@ -302,7 +302,7 @@ def folder_check():
             pass
 
 
-def get_todl_data():
+def get_todl_data() -> list:
     todl_data = []
     with open("_UGDownloaderFiles\\todownload.txt", 'r') as f:
         todl_data = [[line.rstrip()] for line in f]
