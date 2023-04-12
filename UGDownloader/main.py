@@ -1,26 +1,20 @@
 import GUI
 
-# testing
-# artist = 'Wormrot'
+# # testing code
+# artist = 'Wormrot' # average case
+# artist = 'SUMAC'  # just one GPro tab
+# artist = 'Radiohead'  # many pages of tabs
 # # account 1
-# user = 'mygoodusername'
-# password = 'passyword'
-# headless = True
-# which_browser = 'Chrome'
+# user, password, headless, which_browser = 'mygoodusername', 'passyword', True, 'Chrome'
 # driver = GUI.start_browser(artist, headless, which_browser)
-# print(driver.which_browser)
 # GUI.start_download(driver, artist, user, password)
-userinfo = open('userinfo.txt', 'a')
+
 gui = GUI.GUI()
 
-print('fin')
 # todo captcha
-# todo autofill button throwing error when hasn't been used yet
-
 # low priority:
-# todo total downloads/downloads finished appearing at end of page
-# todo allow for redownload of failures
-# todo progress bar
-# todo lock window size - headless working so may not be necessary
-# todo rewrite scroll_to_bottom without waits
+# progress bar, example in psgdemos all elements demo
+# rewrite scroll_to_bottom without waits, as possible optimization
 
+# pyinstaller command:
+# pyinstaller --clean -F --noconsole main.py
