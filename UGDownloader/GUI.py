@@ -29,7 +29,7 @@ class GUI:
             [sg.Text(text='Username', size=(10, 1)), sg.Input(size=(25, 1), pad=(0, 10), key="-USERNAME-"),
              sg.Button(button_text='Autofill'), sg.Checkbox('Run in background', default=True, key="-HEADLESS-")],
             [sg.Text(text='Password', size=(10, 1)), sg.Input(size=(25, 1), pad=(0, 10), key="-PASSWORD-"),
-             sg.Button(button_text='Download'), sg.Combo(values=('Firefox', 'Chrome'), default_value='Firefox',
+             sg.Button(button_text='Download'), sg.Combo(values=('Chrome', 'Firefox'), default_value='Chrome',
                                                          key="-BROWSER-")],
             [sg.HSeparator()],
             [sg.Multiline(size=(60, 11), font='Courier 8', expand_x=True, expand_y=True,
@@ -55,9 +55,6 @@ class GUI:
                      text="-Ultimate Guitar requires a login to download tabs. If you just created an account, "
                           "you may have to wait a day or two for the captcha to stop appearing (this program won't"
                           "work while that's appearing).")],
-            [sg.Text(size=(30, 5), justification='center',
-                     text="-Autofill will automatically enter a dummy account, but no guarantees for how long"
-                          "this will work for.")],
             [sg.HSeparator()],
             [sg.Text()],
             # [sg.HSeparator()],
@@ -84,16 +81,7 @@ class GUI:
                     continue  # faked artist field to not trip validate
                 write_user_info(user, password)
             if event == "Autofill":
-                # dummy account: user=mygoodusername, pass=passyword
-                userinfo = open('_UGDownloaderFiles/userinfo.txt', 'r')
-                data = ''
-                for line in userinfo:
-                    data = line.split()
-                if len(data) == 2:
-                    window["-USERNAME-"].update(data[0])
-                    window["-PASSWORD-"].update(data[1])
-                else:
-                    print(f'There is either no user info saved or the data saved is invalid.')
+                autofill_user(window)
             if event == "Download":
                 artist, user, password = values['-ARTIST-'], values['-USERNAME-'], values['-PASSWORD-']
 
@@ -170,6 +158,19 @@ def start_browser(artist: str, headless: bool, which_browser: str) -> webdriver:
     return driver
 
 
+def autofill_user(window):
+    # dummy account: user=mygoodusername, pass=passyword
+    userinfo = open('_UGDownloaderFiles/userinfo.txt', 'r')
+    data = ''
+    for line in userinfo:
+        data = line.split()
+    if len(data) == 2:
+        window["-USERNAME-"].update(data[0])
+        window["-PASSWORD-"].update(data[1])
+    else:
+        print(f'There is either no user info saved or the data saved is invalid.')
+
+
 def write_user_info(user: str, password: str):
     userinfo = open('_UGDownloaderFiles/userinfo.txt', 'w+')
     userinfo.write(user)
@@ -187,6 +188,8 @@ def set_firefox_options(dl_path: str, headless: bool) -> FFOptions:
     ff_options.set_preference('permissions.default.stylesheet', 2)
     ff_options.set_preference('permissions.default.image', 2)
     ff_options.set_preference('dom.ipc.plugins.enabled.libflashplayer.so', 'false')
+    # possible cookie fix
+    # ff_options.set_preference("network.cookie.cookieBehavior", 2)
     if headless:
         ff_options.headless = True
 
@@ -203,13 +206,16 @@ def set_chrome_options(dl_path: str, headless: bool) -> COptions:
                    "profile.managed_default_content_settings.images": 2,
                    "profile.default_content_setting_values.notifications": 2,
                    "profile.managed_default_content_settings.stylesheets": 2,
-                   # "profile.managed_default_content_settings.cookies": 2,
+                   # possible cookies fix?
+                   "profile.managed_default_content_settings.cookies": 2,
+                   "profile.block_third_party_cookies": True,
                    # "profile.managed_default_content_settings.javascript": 1,
                    "profile.managed_default_content_settings.plugins": 2,
                    "profile.managed_default_content_settings.popups": 2,
                    "profile.managed_default_content_settings.geolocation": 2,
                    "profile.managed_default_content_settings.media_stream": 2}
     c_options.add_experimental_option('prefs', preferences)
+    c_options.add_extension(r'_UGDownloaderFiles/extension_3_4_6_0.crx')
     if headless:
         c_options.headless = True
     return c_options
@@ -257,15 +263,17 @@ def failure_log_new_attempt():
 
 
 def login(driver: webdriver, user: str, password: str):
-    driver.find_element(By.CSS_SELECTOR, '.exTWY > span:nth-child(1)').click()  # login button
+    driver.find_element(By.CSS_SELECTOR, '.exTWY').click()  # login button
     time.sleep(1)
-    username_textbox = driver.find_element(By.CSS_SELECTOR, '.PictU > div:nth-child(1) > input:nth-child(1)')
-    password_textbox = driver.find_element(By.CSS_SELECTOR, '.grU7r > div:nth-child(1) > input:nth-child(1)')
+    form = driver.find_element(By.CSS_SELECTOR, "form > div.PictU")
+    username_textbox = form.find_element(By.CSS_SELECTOR, 'input[name=username]')
+    password_textbox = form.find_element(By.CSS_SELECTOR, 'input[name=password]')
+    submit_button = form.find_element(By.CSS_SELECTOR, 'button[type=submit]')
     username_textbox.send_keys(user)
     password_textbox.send_keys(password)
-    password_textbox.send_keys(Keys.RETURN)
+    time.sleep(1)
+    submit_button.click()
     # call method from captcha class, if figure out how to bypass captcha
-
     # this popup sometimes takes some time to appear, wait until it's clickable
     element = WebDriverWait(driver, 20).until(
         EC.element_to_be_clickable((By.CSS_SELECTOR,
