@@ -5,7 +5,6 @@ from selenium import webdriver
 from selenium.webdriver.firefox.service import Service as FirefoxService
 from webdriver_manager.firefox import GeckoDriverManager
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.firefox.options import Options as FFOptions
 from selenium.webdriver.chrome.options import Options as COptions
 from selenium.webdriver.support import expected_conditions as EC
@@ -96,8 +95,9 @@ class GUI:
                 except Exception as e:
                     print(e)
                     driver.quit()
-                    sg.popup_error("Something went wrong with the download. Try again- check that the "
-                                   "artist you entered is on the site, and has guitar pro tabs available.")
+                    sg.popup_error("Something went wrong with the download. Try again- The most common problem is that"
+                                   "the artist is not typed in exactly the way UG expects it, or the artist has no"
+                                   "guitar pro files available. Other errors possible.")
             if event == "Copy Artist Name":
                 if not values['-TODLTABLE-']:
                     print('Nothing selected.')
@@ -207,23 +207,24 @@ def set_chrome_options(dl_path: str, headless: bool) -> COptions:
                    "profile.default_content_setting_values.notifications": 2,
                    "profile.managed_default_content_settings.stylesheets": 2,
                    # possible cookies fix?
-                   "profile.managed_default_content_settings.cookies": 2,
-                   "profile.block_third_party_cookies": True,
+                   # 2 blocks all cookies, 1 just blocks 3rd party
+                   # "profile.managed_default_content_settings.cookies": 2,
+                   # not sure how this line behaves differently than previous
+                   # "profile.block_third_party_cookies": True,
                    # "profile.managed_default_content_settings.javascript": 1,
                    "profile.managed_default_content_settings.plugins": 2,
                    "profile.managed_default_content_settings.popups": 2,
                    "profile.managed_default_content_settings.geolocation": 2,
                    "profile.managed_default_content_settings.media_stream": 2}
     c_options.add_experimental_option('prefs', preferences)
-    c_options.add_extension(r'_UGDownloaderFiles/extension_3_4_6_0.crx')
+    # to add I don't care about cookies, something like:
+    # c_options.add_extension(r'_UGDownloaderFiles/extension_3_4_6_0.crx')
     if headless:
         c_options.headless = True
     return c_options
 
 
 def start_download(driver: webdriver, artist: str, user: str, password: str):
-    # The while loop loops through the number of pages- it calls DLoader.get_tabs separately for each page and navigates
-    # to the page to start it off
     # create log of download attempt
     failure_log_new_attempt()
     # navigate to site, go to artist page, then filter out text tabs
@@ -235,20 +236,25 @@ def start_download(driver: webdriver, artist: str, user: str, password: str):
     driver.find_element(By.LINK_TEXT, 'Guitar Pro').click()
     login(driver, user, password)
     print('Starting downloads...')
-    current_page = driver.current_url
     download_count, failure_count = 0, 0
-    while True:
-        results = DLoader.get_tabs(driver)
+    # get list of tabs
+    tab_links = DLoader.collect_links(driver)
+    # download each
+    for link in tab_links:
+        results = DLoader.download_tab(driver, link)
+        # try again after failure, 8 tries. Results[0] == 1 means a download was made
+        tries = 1
+        while results[0] == 0 and tries < 8:
+            tries += 1
+            print(f'Download failed, trying again. Attempt {tries}')
+            temp = DLoader.download_tab(driver, link)
+            results[0] += temp[0]
+            results[1] += temp[1]
+        if tries >= 8:
+            print(f'Too many download attempts. Moving on')
         download_count += results[0]
         failure_count += results[1]
-        driver.get(current_page)
-        if driver.find_elements(By.CLASS_NAME, 'BvSfz'):
-            print("There's another page")
-            driver.find_element(By.CLASS_NAME, 'BvSfz').click()
-            current_page = driver.current_url
-            continue
-        else:
-            break
+
     print('Downloads Finished. Total number of downloads: ' + str(download_count) + '.')
     print('Total number of failures: ' + str(failure_count))
 
@@ -311,7 +317,7 @@ def folder_check():
 
 
 def get_todl_data() -> list:
-    todl_data = []
+    # todl_data = []
     with open("_UGDownloaderFiles\\todownload.txt", 'r') as f:
         todl_data = [[line.rstrip()] for line in f]
     return todl_data
