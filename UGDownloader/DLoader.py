@@ -73,6 +73,10 @@ def failure_log_failed_attempt(text: str):
 def create_artist_folder(artist: str) -> str:
     # Need there to already be a 'Tabs' folder
     dl_path = str(Path.cwd()) + '\\Tabs\\' + artist
+    # thanks, sawyersteven
+    if os.path.isdir(dl_path):
+        print("Using folder at " + dl_path)
+        return dl_path
     try:
         os.mkdir(dl_path)
     except OSError as error:
