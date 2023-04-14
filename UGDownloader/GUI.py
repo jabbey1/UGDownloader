@@ -26,7 +26,7 @@ class GUI:
         # start layout
         left_column = [
             [sg.Text(text='Artist', size=(10, 1)), sg.Input(size=(25, 1), pad=(0, 10), key="-ARTIST-"),
-             sg.Button(button_text='Save Info')],
+             sg.Button(button_text='Save Info'), sg.Checkbox('Bypass cookies (E.U.)', default=False, key="-COOKIES-")],
             [sg.Text(text='Username', size=(10, 1)), sg.Input(size=(25, 1), pad=(0, 10), key="-USERNAME-"),
              sg.Button(button_text='Autofill'), sg.Checkbox('Run in background', default=True, key="-HEADLESS-")],
             [sg.Text(text='Password', size=(10, 1)), sg.Input(size=(25, 1), pad=(0, 10), key="-PASSWORD-"),
@@ -88,7 +88,7 @@ class GUI:
                 if not validate(artist, user, password):
                     continue
 
-                driver = start_browser(artist, values['-HEADLESS-'], values['-BROWSER-'])
+                driver = start_browser(artist, values['-HEADLESS-'], values['-BROWSER-'], values['-COOKIES-'])
                 try:
                     start_download(driver, artist, user, password)
                     driver.quit()
@@ -116,7 +116,7 @@ class GUI:
         window.close()
 
 
-def start_browser(artist: str, headless: bool, which_browser: str) -> webdriver:
+def start_browser(artist: str, headless: bool, which_browser: str, no_cookies: bool) -> webdriver:
     dl_path = DLoader.create_artist_folder(artist)
     if which_browser == 'Firefox':
         ff_options = set_firefox_options(dl_path, headless)
@@ -127,7 +127,7 @@ def start_browser(artist: str, headless: bool, which_browser: str) -> webdriver:
         print('\n')
 
     if which_browser == 'Chrome':
-        c_options = set_chrome_options(dl_path, headless)
+        c_options = set_chrome_options(dl_path, headless, no_cookies)
         print(f'Starting Chrome, downloading latest chromedriver.')
         # driver = webdriver.Chrome(options=c_options, executable_path='chromedriver.exe')  # gets local copy of driver
         driver = webdriver.Chrome(options=c_options,
@@ -171,7 +171,7 @@ def set_firefox_options(dl_path: str, headless: bool) -> FFOptions:
     return ff_options
 
 
-def set_chrome_options(dl_path: str, headless: bool) -> COptions:
+def set_chrome_options(dl_path: str, headless: bool, no_cookies: bool) -> COptions:
     c_options = COptions()
     c_options.add_argument('--no-sandbox')  # not sure why this makes it work better
     preferences = {"download.default_directory": dl_path,  # pass the variable
@@ -193,8 +193,9 @@ def set_chrome_options(dl_path: str, headless: bool) -> COptions:
                    "profile.managed_default_content_settings.media_stream": 2}
     c_options.add_experimental_option('prefs', preferences)
     # to add I don't care about cookies, only works when headless is disabled
-    # c_options.add_extension(str(Path.cwd()) + r'\\_UGDownloaderFiles\\extension_3_4_6_0.crx')
-    if headless:
+    if no_cookies:
+        c_options.add_extension(str(Path.cwd()) + r'\\_UGDownloaderFiles\\extension_3_4_6_0.crx')
+    elif headless:
         c_options.headless = True
     return c_options
 
