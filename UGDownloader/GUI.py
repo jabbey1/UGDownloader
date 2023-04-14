@@ -1,5 +1,7 @@
 import os
 import time
+from pathlib import Path
+
 import PySimpleGUI as sg
 from selenium import webdriver
 from selenium.webdriver.firefox.service import Service as FirefoxService
@@ -190,8 +192,8 @@ def set_chrome_options(dl_path: str, headless: bool) -> COptions:
                    "profile.managed_default_content_settings.geolocation": 2,
                    "profile.managed_default_content_settings.media_stream": 2}
     c_options.add_experimental_option('prefs', preferences)
-    # to add I don't care about cookies, something like:
-    # c_options.add_extension(r'_UGDownloaderFiles/extension_3_4_6_0.crx')
+    # to add I don't care about cookies, only works when headless is disabled
+    # c_options.add_extension(str(Path.cwd()) + r'\\_UGDownloaderFiles\\extension_3_4_6_0.crx')
     if headless:
         c_options.headless = True
     return c_options

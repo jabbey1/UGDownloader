@@ -12,8 +12,12 @@ import GUI
 gui = GUI.GUI()
 
 # todo captcha
+# todo progress bar, now easier since grabbing list of tabs all at once
+# todo grab powertabs too?
+
 # low priority:
-# progress bar, example in psgdemos all elements demo
+# save text tabs as .txt files??
+# progress bar, example in psgdemos all elements demo. now possible
 # rewrite scroll_to_bottom without waits, as possible optimization
 
 # pyinstaller command:
