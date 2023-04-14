@@ -75,19 +75,18 @@ class GUI:
         while True:
             event, values = window.read()
             if event == "Save Info":
-                user, password = values['-USERNAME-'], values['-PASSWORD-']
-                if not validate('A', user, password):
-                    continue  # faked artist field to not trip validate
-                write_user_info(user, password)
+                save_user_info(values)
+
             if event == "Autofill":
                 autofill_user(window)
+
             if event == "Download":
                 artist, user, password = values['-ARTIST-'], values['-USERNAME-'], values['-PASSWORD-']
 
                 if not validate(artist, user, password):
                     continue
-                headless, which_browser = values['-HEADLESS-'], values['-BROWSER-']
-                driver = start_browser(artist, headless, which_browser)
+
+                driver = start_browser(artist, values['-HEADLESS-'], values['-BROWSER-'])
                 try:
                     start_download(driver, artist, user, password)
                     driver.quit()
@@ -98,35 +97,17 @@ class GUI:
                     sg.popup_error("Something went wrong with the download. Try again- The most common problem is that"
                                    "the artist is not typed in exactly the way UG expects it, or the artist has no"
                                    "guitar pro files available. Other errors possible.")
+
             if event == "Copy Artist Name":
-                if not values['-TODLTABLE-']:
-                    print('Nothing selected.')
-                    continue
-                selected_artist = todl_data[values['-TODLTABLE-'][0]][0]
-                window["-ARTIST-"].update(selected_artist)
+                copy_artist_name(window, values, todl_data)
+
             if event == "Add":
-                if not values['-TODLINPUT-']:
-                    print('No artist to add. Please type one in the input box.')
-                    continue
-                else:
-                    file = open('_UGDownloaderFiles/todownload.txt', 'a')
-                    file.write('\n')
-                    file.write(values['-TODLINPUT-'])
-                    file.close()
-                    todl_data = get_todl_data()
-                    print(f'New artist added to To Download.')
-                window['-TODLTABLE-'].update(values=todl_data[:])
+                add_to_todl_list(window, values)
+                todl_data = get_todl_data()
+
             if event == "Delete":
-                selected_index = values['-TODLTABLE-']
-                if selected_index:
-                    todl_data.pop(selected_index[0])
-                    window['-TODLTABLE-'].update(values=todl_data[:])
-                    file = open('_UGDownloaderFiles/todownload.txt', 'w+')
-                    for i in range(len(todl_data)):
-                        file.write(todl_data[i][0])
-                        if i < len(todl_data) - 1:
-                            file.write('\n')
-                    file.close()
+                delete_from_todl(window, values, todl_data)
+                todl_data = get_todl_data()
 
             if event == "Exit" or event == sg.WIN_CLOSED:
                 break
@@ -169,14 +150,6 @@ def autofill_user(window):
         window["-PASSWORD-"].update(data[1])
     else:
         print(f'There is either no user info saved or the data saved is invalid.')
-
-
-def write_user_info(user: str, password: str):
-    userinfo = open('_UGDownloaderFiles/userinfo.txt', 'w+')
-    userinfo.write(user)
-    userinfo.write(' ')
-    userinfo.write(password)
-    userinfo.close()
 
 
 def set_firefox_options(dl_path: str, headless: bool) -> FFOptions:
@@ -228,18 +201,21 @@ def start_download(driver: webdriver, artist: str, user: str, password: str):
     # create log of download attempt
     failure_log_new_attempt()
     # navigate to site, go to artist page, then filter out text tabs
+    # first search for artist
     driver.get('https://www.ultimate-guitar.com/search.php?search_type=bands&value=' + artist)
+    # setting the window size seems to help some element obfuscation issues
     driver.set_window_size(1100, 1000)
+    # Then, click on artist from search results
     driver.find_element(By.LINK_TEXT, artist).click()
     if driver.which_browser == 'Firefox':
         time.sleep(1)
+    # Click on the Guitar Pro tab to go to page with only GP, 'Official', and 'Pro' tabs
     driver.find_element(By.LINK_TEXT, 'Guitar Pro').click()
     login(driver, user, password)
     print('Starting downloads...')
     download_count, failure_count = 0, 0
-    # get list of tabs
+    # get list of tabs, ignoring non GP files, then iterate thru list downloading each one
     tab_links = DLoader.collect_links(driver)
-    # download each
     for link in tab_links:
         results = DLoader.download_tab(driver, link)
         # try again after failure, 8 tries. Results[0] == 1 means a download was made
@@ -255,8 +231,8 @@ def start_download(driver: webdriver, artist: str, user: str, password: str):
         download_count += results[0]
         failure_count += results[1]
 
-    print('Downloads Finished. Total number of downloads: ' + str(download_count) + '.')
-    print('Total number of failures: ' + str(failure_count))
+    print(f'Downloads Finished. Total number of downloads: {str(download_count)}.')
+    print(f'Total number of failures: {str(failure_count)}')
 
 
 def failure_log_new_attempt():
@@ -317,7 +293,54 @@ def folder_check():
 
 
 def get_todl_data() -> list:
-    # todl_data = []
     with open("_UGDownloaderFiles\\todownload.txt", 'r') as f:
         todl_data = [[line.rstrip()] for line in f]
     return todl_data
+
+
+def add_to_todl_list(window, values):
+    if not values['-TODLINPUT-']:
+        print('No artist to add. Please type one in the input box.')
+        return
+    else:
+        file = open('_UGDownloaderFiles/todownload.txt', 'a')
+        file.write('\n')
+        new_artist = values['-TODLINPUT-']
+        file.write(new_artist)
+        file.close()
+        todl_data = get_todl_data()
+        print(f'New artist added to To Download: {new_artist}')
+    window['-TODLTABLE-'].update(values=todl_data[:])
+
+
+def delete_from_todl(window, values, todl_data):
+    selected_index = values['-TODLTABLE-'][0]
+    if selected_index:
+        print(f' removed {todl_data.pop(selected_index)} from to download list.')
+        window['-TODLTABLE-'].update(values=todl_data[:])
+        file = open('_UGDownloaderFiles/todownload.txt', 'w+')
+        for i in range(len(todl_data)):
+            file.write(todl_data[i][0])
+            if i < len(todl_data) - 1:
+                file.write('\n')
+        file.close()
+
+
+def copy_artist_name(window, values, todl_data):
+    if not values['-TODLTABLE-']:
+        print('Nothing selected.')
+        return
+    selected_artist = todl_data[values['-TODLTABLE-'][0]][0]
+    window["-ARTIST-"].update(selected_artist)
+
+
+def save_user_info(values):
+    user, password = values['-USERNAME-'], values['-PASSWORD-']
+    if not validate('A', user, password):
+        return  # faked artist field to not trip validate
+    userinfo = open('_UGDownloaderFiles/userinfo.txt', 'w+')
+    userinfo.write(user)
+    userinfo.write(' ')
+    userinfo.write(password)
+    userinfo.close()
+    print(f'New User info saved.')

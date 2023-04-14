@@ -15,6 +15,7 @@ def download_tab(driver, link) -> list[int, int]:
     try:
         scroll_to_bottom(driver)
         button = driver.find_element(By.CSS_SELECTOR, 'button.exTWY:nth-child(2)')
+        # seems more robust but not working for me:
         # button = driver.find_element(By.CSS_SELECTOR, "form[action='https://tabs.ultimate-guitar.com/tab/download']
         # button") button.click()
         driver.execute_script('arguments[0].click();', WebDriverWait(driver, 20)
