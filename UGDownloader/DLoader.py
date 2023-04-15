@@ -1,5 +1,5 @@
-import os
-import time
+from os import path, mkdir
+from time import sleep
 import selenium.common.exceptions
 from pathlib import Path
 from selenium import webdriver
@@ -8,7 +8,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 
 
-def download_tab(driver, link) -> list[int, int]:
+def download_tab(driver: webdriver, link: str) -> list[int, int]:
     download_count, failure_count = 0, 0
     driver.get(link)
     print(f'Downloading tab @ {link}')
@@ -22,13 +22,13 @@ def download_tab(driver, link) -> list[int, int]:
                               .until(ec.element_to_be_clickable(button)))
         # seem to need to give firefox time on page after a download, still necessary?
         if driver.which_browser == 'Firefox':
-            time.sleep(.65)
+            sleep(.65)
         download_count += 1
     except Exception as e:  # sometimes the button is obscured by other elements
         print(e)
         print('Button obscured?')  # I don't think this error is ever hitting
         failure_count += 1
-    time.sleep(0.5)
+    sleep(0.5)
     return [download_count, failure_count]
 
 
@@ -64,11 +64,11 @@ def create_artist_folder(artist: str) -> str:
     # Need there to already be a 'Tabs' folder
     dl_path = str(Path.cwd()) + '\\Tabs\\' + artist
     # thanks, sawyersteven
-    if os.path.isdir(dl_path):
+    if path.isdir(dl_path):
         print("Using folder at " + dl_path)
         return dl_path
     try:
-        os.mkdir(dl_path)
+        mkdir(dl_path)
     except OSError as error:
         print(error)
         # not graceful:
@@ -80,13 +80,13 @@ def create_artist_folder(artist: str) -> str:
 
 def scroll_to_bottom(driver: webdriver):
     # todo check if times can be cut/shortened
-    time.sleep(.1)
+    sleep(.1)
     driver.execute_script(
         "window.scrollTo(0,document.body.scrollHeight)")  # scroll to bottom of page to see button
-    time.sleep(.1)
+    sleep(.1)
     driver.execute_script(
         "window.scrollTo(0,document.body.scrollHeight)")  # would be nice to get rid of browser bounce
-    time.sleep(.1)
+    sleep(.1)
 
 
 def get_tabs(driver: webdriver) -> list:
@@ -117,7 +117,7 @@ def get_tabs(driver: webdriver) -> list:
                 driver.execute_script('arguments[0].click();', WebDriverWait(driver, 20)
                                       .until(ec.element_to_be_clickable(button)))
                 if driver.which_browser == 'Firefox':
-                    time.sleep(.65)  # think this can go down to .5 at least todo optimize
+                    sleep(.65)  # think this can go down to .5 at least todo optimize
                 download_count += 1
                 tries = 0
                 break
@@ -130,5 +130,5 @@ def get_tabs(driver: webdriver) -> list:
                 print('Something went wrong, retrying page')
                 print("Try number: " + str(tries))
                 failure_count += 1
-    time.sleep(.5)
+    sleep(.5)
     return [download_count, failure_count]

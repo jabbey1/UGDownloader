@@ -1,20 +1,20 @@
-import os
-import time
+from datetime import datetime
+from os import path, mkdir
+from time import sleep
 from pathlib import Path
-
 import PySimpleGUI as sg
 from selenium import webdriver
-from selenium.webdriver.firefox.service import Service as FirefoxService
-from webdriver_manager.firefox import GeckoDriverManager
+from selenium.webdriver.chrome.options import Options as COptions
+from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.common.by import By
 from selenium.webdriver.firefox.options import Options as FFOptions
-from selenium.webdriver.chrome.options import Options as COptions
+from selenium.webdriver.firefox.service import Service as FirefoxService
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
-import DLoader
-import datetime
 from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.chrome.service import Service as ChromeService
+from webdriver_manager.firefox import GeckoDriverManager
+
+import DLoader
 
 
 class GUI:
@@ -141,7 +141,7 @@ def start_browser(artist: str, headless: bool, which_browser: str, no_cookies: b
     return driver
 
 
-def autofill_user(window):
+def autofill_user(window: sg.Window):
     # dummy account: user=mygoodusername, pass=passyword
     userinfo = open('_UGDownloaderFiles/userinfo.txt', 'r')
     data = ''
@@ -211,7 +211,7 @@ def start_download(driver: webdriver, artist: str, user: str, password: str):
     # Then, click on artist from search results
     driver.find_element(By.LINK_TEXT, artist).click()
     if driver.which_browser == 'Firefox':
-        time.sleep(1)
+        sleep(1)
     # Click on the Guitar Pro tab to go to page with only GP, 'Official', and 'Pro' tabs
     driver.find_element(By.LINK_TEXT, 'Guitar Pro').click()
     login(driver, user, password)
@@ -242,21 +242,21 @@ def failure_log_new_attempt():
     # create log of download attempt
     failurelog = open('_UGDownloaderFiles\\failurelog.txt', 'a+')
     failurelog.write('\n')
-    failurelog.write('Download attempt at:' + str(datetime.datetime.now()))
+    failurelog.write('Download attempt at:' + str(datetime.now())) # datetime.datetime.now
     failurelog.write('\n')
     failurelog.close()
 
 
 def login(driver: webdriver, user: str, password: str):
     driver.find_element(By.CSS_SELECTOR, '.exTWY').click()  # login button
-    time.sleep(1)
+    sleep(1)
     form = driver.find_element(By.CSS_SELECTOR, "form > div.PictU")
     username_textbox = form.find_element(By.CSS_SELECTOR, 'input[name=username]')
     password_textbox = form.find_element(By.CSS_SELECTOR, 'input[name=password]')
     submit_button = form.find_element(By.CSS_SELECTOR, 'button[type=submit]')
     username_textbox.send_keys(user)
     password_textbox.send_keys(password)
-    time.sleep(1)
+    sleep(1)
     submit_button.click()
     # call method from captcha class, if figure out how to bypass captcha
     # this popup sometimes takes some time to appear, wait until it's clickable
@@ -264,7 +264,7 @@ def login(driver: webdriver, user: str, password: str):
         EC.element_to_be_clickable((By.CSS_SELECTOR,
                                     'button.RwBUh:nth-child(1) > svg:nth-child(1) > path:nth-child(1)')))
     element.click()
-    time.sleep(.5)
+    sleep(.5)
     print('Logged in')
 
 
@@ -283,14 +283,14 @@ def validate(artist: str, user: str, password: str) -> bool:
 
 def folder_check():
     # makes sure that the Tabs folder and the userinfo.txt files exist
-    if not os.path.isdir('Tabs'):
-        os.mkdir('Tabs')
-    if not os.path.isdir('_UGDownloaderFiles'):
-        os.mkdir('_UGDownloaderFiles')
-    if not os.path.isfile('_UGDownloaderFiles/userinfo.txt'):
+    if not path.isdir('Tabs'):
+        mkdir('Tabs')
+    if not path.isdir('_UGDownloaderFiles'):
+        mkdir('_UGDownloaderFiles')
+    if not path.isfile('_UGDownloaderFiles/userinfo.txt'):
         with open('_UGDownloaderFiles/userinfo.txt', 'x'):
             pass
-    if not os.path.isfile('_UGDownloaderFiles/todownload.txt'):
+    if not path.isfile('_UGDownloaderFiles/todownload.txt'):
         with open('_UGDownloaderFiles/todownload.txt', 'x'):
             pass
 
@@ -301,7 +301,7 @@ def get_todl_data() -> list:
     return todl_data
 
 
-def add_to_todl_list(window, values):
+def add_to_todl_list(window: sg.Window, values: dict):
     if not values['-TODLINPUT-']:
         print('No artist to add. Please type one in the input box.')
         return
@@ -316,7 +316,7 @@ def add_to_todl_list(window, values):
     window['-TODLTABLE-'].update(values=todl_data[:])
 
 
-def delete_from_todl(window, values, todl_data):
+def delete_from_todl(window: sg.Window, values: dict, todl_data: list):
     selected_index = values['-TODLTABLE-'][0]
     if selected_index:
         print(f' removed {todl_data.pop(selected_index)} from to download list.')
@@ -329,7 +329,7 @@ def delete_from_todl(window, values, todl_data):
         file.close()
 
 
-def copy_artist_name(window, values, todl_data):
+def copy_artist_name(window: sg.Window, values: dict, todl_data: list):
     if not values['-TODLTABLE-']:
         print('Nothing selected.')
         return
@@ -337,7 +337,7 @@ def copy_artist_name(window, values, todl_data):
     window["-ARTIST-"].update(selected_artist)
 
 
-def save_user_info(values):
+def save_user_info(values: dict):
     user, password = values['-USERNAME-'], values['-PASSWORD-']
     if not validate('A', user, password):
         return  # faked artist field to not trip validate
