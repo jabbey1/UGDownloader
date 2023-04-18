@@ -16,6 +16,11 @@ from webdriver_manager.firefox import GeckoDriverManager
 
 import DLoader
 
+THREAD_KEY = '-THREAD-'
+DL_START_KEY = '-START DOWNLOAD-'
+DL_COUNT_KEY = '-COUNT-'
+DL_END_KEY = '-END DOWNLOAD-'
+DL_THREAD_EXITING = '-THREAD EXITING-'
 
 class GUI:
 
@@ -32,6 +37,7 @@ class GUI:
             [sg.Text(text='Password', size=(10, 1)), sg.Input(size=(25, 1), pad=(0, 10), key="-PASSWORD-"),
              sg.Button(button_text='Download'), sg.Combo(values=('Chrome', 'Firefox'), default_value='Chrome',
                                                          key="-BROWSER-")],
+            [sg.Text(text='Progress'), sg.ProgressBar(100, 'h', size=(30,20), key='-PROGRESS-', expand_x=True)],
             [sg.HSeparator()],
             [sg.Multiline(size=(60, 11), font='Courier 8', expand_x=True, expand_y=True,
                           write_only=True, reroute_stdout=True, reroute_stderr=True, echo_stdout_stderr=True,
@@ -73,6 +79,9 @@ class GUI:
         # end layout
 
         window = sg.Window("Ultimate Guitar Downloader", layout)
+
+        downloading = False
+
         # Run loop start
         while True:
             event, values = window.read()
@@ -82,7 +91,7 @@ class GUI:
             if event == "Autofill":
                 autofill_user(window)
 
-            if event == "Download":
+            if event == "Download" and not downloading:
                 artist, user, password = values['-ARTIST-'], values['-USERNAME-'], values['-PASSWORD-']
 
                 if not validate(artist, user, password):
@@ -90,9 +99,7 @@ class GUI:
 
                 driver = start_browser(artist, values['-HEADLESS-'], values['-BROWSER-'], values['-COOKIES-'])
                 try:
-                    start_download(driver, artist, user, password)
-                    driver.quit()
-                    sg.popup('Downloads finished.')
+                    window.start_thread(lambda: start_download(driver, artist, user, password, window), (THREAD_KEY, DL_THREAD_EXITING))
                 except Exception as e:
                     print(e)
                     driver.quit()
@@ -113,6 +120,24 @@ class GUI:
 
             if event == "Exit" or event == sg.WIN_CLOSED:
                 break
+
+            # thread events
+            elif event[0] == THREAD_KEY:
+                if event[1] == DL_START_KEY:
+                    max_value = values[event]
+                    downloading = True
+                    # sg.one_line_progress_meter(f'Downloading {max_value} segments', 0, max_value, 1,
+                                               # f'Downloading {max_value} segments', )
+                    window['-PROGRESS-'].update(0, max_value)
+                elif event[1] == DL_COUNT_KEY:
+                    # sg.one_line_progress_meter(f'Downloading {max_value} segments', values[event] + 1, max_value, 1,
+                                               # f'Downloading {max_value} segments')
+                    window['-PROGRESS-'].update(values[event], max_value)
+                elif event[1] == DL_END_KEY:
+                    downloading = False
+                elif event[1] == DL_THREAD_EXITING:
+                    pass
+                    # print('Last step - Thread has exited')
         window.close()
 
 
@@ -200,7 +225,7 @@ def set_chrome_options(dl_path: str, headless: bool, no_cookies: bool) -> COptio
     return c_options
 
 
-def start_download(driver: webdriver, artist: str, user: str, password: str):
+def start_download(driver: webdriver, artist: str, user: str, password: str, window: sg.Window):
     # create log of download attempt
     failure_log_new_attempt()
     # navigate to site, go to artist page, then filter out text tabs
@@ -219,6 +244,8 @@ def start_download(driver: webdriver, artist: str, user: str, password: str):
     download_count, failure_count = 0, 0
     # get list of tabs, ignoring non GP files, then iterate thru list downloading each one
     tab_links = DLoader.collect_links(driver)
+    window.write_event_value((THREAD_KEY, DL_START_KEY), len(tab_links))
+    tabs_attempted = 0
     for link in tab_links:
         results = DLoader.download_tab(driver, link)
         # try again after failure, 8 tries. Results[0] == 1 means a download was made
@@ -231,11 +258,14 @@ def start_download(driver: webdriver, artist: str, user: str, password: str):
             results[1] += temp[1]
         if tries >= 8:
             print(f'Too many download attempts. Moving on')
+        tabs_attempted += 1
         download_count += results[0]
         failure_count += results[1]
-
+        window.write_event_value((THREAD_KEY, DL_COUNT_KEY), tabs_attempted)
+    driver.quit()
     print(f'Downloads Finished. Total number of downloads: {str(download_count)}.')
     print(f'Total number of failures: {str(failure_count)}')
+    window.write_event_value((THREAD_KEY, DL_END_KEY), len(tab_links))
 
 
 def failure_log_new_attempt():
