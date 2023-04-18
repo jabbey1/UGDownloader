@@ -49,25 +49,25 @@ class GUI:
             [sg.Button(button_text='Copy Artist Name'), sg.Button(button_text='Add'), sg.Button(button_text='Delete'),
              sg.Input(size=(35, 1), pad=(0, 10), key="-TODLINPUT-")],
             [sg.Table(values=todl_data[:], num_rows=9, headings=['Artists to Download'],
-                      key="-TODLTABLE-", enable_events=True)]  # enable_click_events=True
+                      key="-TODLTABLE-", enable_events=True, justification='center', expand_x=True)]  # enable_click_events=True
 
         ]
 
         right_column = [
-            [sg.Text(size=(30, 4), justification='center',
+            [sg.Text(size=(30, 4), justification='left',
                      text="-Artist entered must be an exact, case sensitive match to what Ultimate "
                           "Guitar has listed.")],
-            [sg.Text(size=(30, 4), justification='center',
+            [sg.Text(size=(30, 4), justification='left',
                      text="-Files will be downloaded to the folder this program is in.")],
-            [sg.Text(size=(30, 4), justification='center', text='-You will need Chrome or firefox installed, select '
+            [sg.Text(size=(30, 4), justification='left', text='-You will need Chrome or firefox installed, select '
                                                                 'which one you have.')],
-            [sg.Text(size=(30, 6), justification='center',
+            [sg.Text(size=(30, 6), justification='left',
                      text="-Ultimate Guitar requires a login to download tabs. If you just created an account, "
                           "you may have to wait a day or two for the captcha to stop appearing (this program won't "
                           "work while that's appearing).")],
-            [sg.HSeparator()],
+            [sg.HSeparator(pad=((0, 0), (150, 10)))],
 
-            [sg.Button(button_text='Exit')]
+            [sg.Button(button_text='Exit', expand_x=True)]
         ]
 
         # ----- Full layout -----
@@ -75,7 +75,7 @@ class GUI:
             [
                 sg.Column(left_column),
                 sg.VSeperator(),
-                sg.Column(right_column),
+                sg.Column(right_column, vertical_alignment='top')
             ]
         ]
         # end layout
