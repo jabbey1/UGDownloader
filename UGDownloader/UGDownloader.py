@@ -13,3 +13,5 @@ gui = GUI.GUI()
 
 # pyinstaller command:
 # pyinstaller --clean -F --noconsole UGDownloader.py
+
+# todo chrome not exiting right? if you exit early processes are left open

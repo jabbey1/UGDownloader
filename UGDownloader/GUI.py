@@ -3,13 +3,14 @@ from os import path, mkdir
 from time import sleep
 from pathlib import Path
 import PySimpleGUI as sg
+import selenium.common.exceptions
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options as COptions
 from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.common.by import By
 from selenium.webdriver.firefox.options import Options as FFOptions
 from selenium.webdriver.firefox.service import Service as FirefoxService
-from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.wait import WebDriverWait
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.firefox import GeckoDriverManager
@@ -21,6 +22,7 @@ DL_START_KEY = '-START DOWNLOAD-'
 DL_COUNT_KEY = '-COUNT-'
 DL_END_KEY = '-END DOWNLOAD-'
 DL_THREAD_EXITING = '-THREAD EXITING-'
+
 
 class GUI:
 
@@ -35,9 +37,10 @@ class GUI:
             [sg.Text(text='Username', size=(10, 1)), sg.Input(size=(25, 1), pad=(0, 10), key="-USERNAME-"),
              sg.Button(button_text='Autofill'), sg.Checkbox('Run in background', default=True, key="-HEADLESS-")],
             [sg.Text(text='Password', size=(10, 1)), sg.Input(size=(25, 1), pad=(0, 10), key="-PASSWORD-"),
-             sg.Button(button_text='Download'), sg.Combo(values=('Chrome', 'Firefox'), default_value='Chrome',
-                                                         key="-BROWSER-")],
-            [sg.Text(text='Progress'), sg.ProgressBar(100, 'h', size=(30,20), key='-PROGRESS-', expand_x=True)],
+             sg.Button(button_text='Download'),
+             sg.Combo(values=('Guitar Pro', 'Powertab', 'Both'), default_value='Guitar Pro', key="-FILETYPE-"),
+             sg.Combo(values=('Chrome', 'Firefox'), default_value='Chrome', key="-BROWSER-")],
+            [sg.Text(text='Progress'), sg.ProgressBar(100, 'h', size=(30, 20), key='-PROGRESS-', expand_x=True)],
             [sg.HSeparator()],
             [sg.Multiline(size=(60, 11), font='Courier 8', expand_x=True, expand_y=True,
                           write_only=True, reroute_stdout=True, reroute_stderr=True, echo_stdout_stderr=True,
@@ -51,20 +54,19 @@ class GUI:
         ]
 
         right_column = [
-            [sg.Text(size=(30, 5), justification='center',
+            [sg.Text(size=(30, 4), justification='center',
                      text="-Artist entered must be an exact, case sensitive match to what Ultimate "
                           "Guitar has listed.")],
-            [sg.Text(size=(30, 5), justification='center',
+            [sg.Text(size=(30, 4), justification='center',
                      text="-Files will be downloaded to the folder this program is in.")],
-            [sg.Text(size=(30, 5), justification='center', text='-You will need Chrome or firefox installed, select '
+            [sg.Text(size=(30, 4), justification='center', text='-You will need Chrome or firefox installed, select '
                                                                 'which one you have.')],
-            [sg.Text(size=(30, 5), justification='center',
+            [sg.Text(size=(30, 6), justification='center',
                      text="-Ultimate Guitar requires a login to download tabs. If you just created an account, "
-                          "you may have to wait a day or two for the captcha to stop appearing (this program won't"
+                          "you may have to wait a day or two for the captcha to stop appearing (this program won't "
                           "work while that's appearing).")],
             [sg.HSeparator()],
-            [sg.Text()],
-            # [sg.HSeparator()],
+
             [sg.Button(button_text='Exit')]
         ]
 
@@ -99,7 +101,9 @@ class GUI:
 
                 driver = start_browser(artist, values['-HEADLESS-'], values['-BROWSER-'], values['-COOKIES-'])
                 try:
-                    window.start_thread(lambda: start_download(driver, artist, user, password, window), (THREAD_KEY, DL_THREAD_EXITING))
+                    window.start_thread(lambda: start_download
+                                        (driver, artist, user, password, window, values['-FILETYPE-']),
+                                        (THREAD_KEY, DL_THREAD_EXITING))
                 except Exception as e:
                     print(e)
                     driver.quit()
@@ -126,18 +130,13 @@ class GUI:
                 if event[1] == DL_START_KEY:
                     max_value = values[event]
                     downloading = True
-                    # sg.one_line_progress_meter(f'Downloading {max_value} segments', 0, max_value, 1,
-                                               # f'Downloading {max_value} segments', )
                     window['-PROGRESS-'].update(0, max_value)
                 elif event[1] == DL_COUNT_KEY:
-                    # sg.one_line_progress_meter(f'Downloading {max_value} segments', values[event] + 1, max_value, 1,
-                                               # f'Downloading {max_value} segments')
                     window['-PROGRESS-'].update(values[event], max_value)
                 elif event[1] == DL_END_KEY:
                     downloading = False
                 elif event[1] == DL_THREAD_EXITING:
                     pass
-                    # print('Last step - Thread has exited')
         window.close()
 
 
@@ -160,7 +159,7 @@ def start_browser(artist: str, headless: bool, which_browser: str, no_cookies: b
         # next three lines are allowing chrome to download files while in headless mode
         driver.command_executor._commands["send_command"] = ("POST", '/session/$sessionId/chromium/send_command')
         params = {'cmd': 'Page.setDownloadBehavior', 'params': {'behavior': 'allow', 'downloadPath': dl_path}}
-        command_result = driver.execute("send_command", params)
+        driver.execute("send_command", params)
         print('\n')
     driver.which_browser = which_browser
     return driver
@@ -225,7 +224,7 @@ def set_chrome_options(dl_path: str, headless: bool, no_cookies: bool) -> COptio
     return c_options
 
 
-def start_download(driver: webdriver, artist: str, user: str, password: str, window: sg.Window):
+def start_download(driver: webdriver, artist: str, user: str, password: str, window: sg.Window, file_type_wanted: str):
     # create log of download attempt
     failure_log_new_attempt()
     # navigate to site, go to artist page, then filter out text tabs
@@ -234,16 +233,40 @@ def start_download(driver: webdriver, artist: str, user: str, password: str, win
     # setting the window size seems to help some element obfuscation issues
     driver.set_window_size(1100, 1000)
     # Then, click on artist from search results
-    driver.find_element(By.LINK_TEXT, artist).click()
+    try:
+        driver.find_element(By.LINK_TEXT, artist).click()
+    except (TypeError, selenium.common.exceptions.NoSuchElementException):
+        print("Cannot find artist. Did you type it in with the exact spelling and capitalization?")
+        print('\n')
+        return
     if driver.which_browser == 'Firefox':
         sleep(1)
-    # Click on the Guitar Pro tab to go to page with only GP, 'Official', and 'Pro' tabs
-    driver.find_element(By.LINK_TEXT, 'Guitar Pro').click()
     login(driver, user, password)
-    print('Starting downloads...')
     download_count, failure_count = 0, 0
-    # get list of tabs, ignoring non GP files, then iterate thru list downloading each one
-    tab_links = DLoader.collect_links(driver)
+    tab_links = []
+    print('Starting downloads...')
+    # collect a list of the urls to download from, depending on file type desired
+    print(file_type_wanted)
+    if file_type_wanted in ('Guitar Pro', 'Both'):
+        try:
+            # guitar_pro_main_page = driver.find_element(By.LINK_TEXT, 'Guitar Pro')
+            # driver.get(guitar_pro_main_page)
+            driver.find_element(By.LINK_TEXT, 'Guitar Pro').click()
+            tab_links += DLoader.collect_links_guitar_pro(driver)
+        except (TypeError, selenium.common.exceptions.NoSuchElementException):
+            print('There are no available Guitar Pro tabs for this artist.')
+    if file_type_wanted in ('Powertab', 'Both'):
+        try:
+            # powertab_main_page = driver.find_element(By.LINK_TEXT, 'Power')
+            # driver.get(powertab_main_page)
+            driver.find_element(By.LINK_TEXT, 'Power').click()
+            tab_links += DLoader.collect_links_powertab(driver)
+        except (TypeError, selenium.common.exceptions.NoSuchElementException):
+            print('There are no available Powertabs for this artist.')
+    if file_type_wanted == 'Text':
+        print("Not yet implemented")
+
+    print(f'Attempting {len(tab_links)} downloads.')
     window.write_event_value((THREAD_KEY, DL_START_KEY), len(tab_links))
     tabs_attempted = 0
     for link in tab_links:
@@ -272,7 +295,7 @@ def failure_log_new_attempt():
     # create log of download attempt
     failurelog = open('_UGDownloaderFiles\\failurelog.txt', 'a+')
     failurelog.write('\n')
-    failurelog.write('Download attempt at:' + str(datetime.now())) # datetime.datetime.now
+    failurelog.write('Download attempt at:' + str(datetime.now()))  # datetime.datetime.now
     failurelog.write('\n')
     failurelog.close()
 
@@ -291,7 +314,7 @@ def login(driver: webdriver, user: str, password: str):
     # call method from captcha class, if figure out how to bypass captcha
     # this popup sometimes takes some time to appear, wait until it's clickable
     element = WebDriverWait(driver, 20).until(
-        EC.element_to_be_clickable((By.CSS_SELECTOR,
+        ec.element_to_be_clickable((By.CSS_SELECTOR,
                                     'button.RwBUh:nth-child(1) > svg:nth-child(1) > path:nth-child(1)')))
     element.click()
     sleep(.5)

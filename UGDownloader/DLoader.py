@@ -32,7 +32,7 @@ def download_tab(driver: webdriver, link: str) -> list[int, int]:
     return [download_count, failure_count]
 
 
-def collect_links(driver: webdriver) -> list:
+def collect_links_guitar_pro(driver: webdriver) -> list:
     """ Collects links to guitar pro files only, page by page"""
     tab_links, page = [], 1
 
@@ -50,6 +50,27 @@ def collect_links(driver: webdriver) -> list:
             break
 
     print(f'Found {len(tab_links)} Guitar Pro Files')
+    return tab_links
+
+
+def collect_links_powertab(driver: webdriver) -> list:
+    """ Collects links to powertab files only, page by page"""
+    tab_links, page = [], 1
+
+    while True:
+        print(f"Reading page {page}")
+        tabs_from_page = [x for x in driver.find_elements(By.CLASS_NAME, 'LQUZJ') if x.text.__contains__('Power')]
+        for tab in tabs_from_page:
+            tab_links.append(tab.find_element(By.CSS_SELECTOR, '.HT3w5').get_attribute('href'))
+
+        if driver.find_elements(By.CLASS_NAME, 'BvSfz'):
+            page += 1
+            driver.find_element(By.CLASS_NAME, 'BvSfz').click()
+            continue
+        else:
+            break
+
+    print(f'Found {len(tab_links)} Powertab Files')
     return tab_links
 
 
@@ -90,7 +111,7 @@ def scroll_to_bottom(driver: webdriver):
 
 
 def get_tabs(driver: webdriver) -> list:
-    tab_links = collect_links(driver)
+    tab_links = collect_links_guitar_pro(driver)
     # download for each element, skipping pro or official
     download_count, failure_count = 0, 0
     for i in range(len(tab_links)):
