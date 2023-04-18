@@ -123,6 +123,10 @@ class GUI:
                 todl_data = get_todl_data()
 
             if event == "Exit" or event == sg.WIN_CLOSED:
+                try:
+                    driver.quit()
+                except:
+                    pass
                 break
 
             # thread events
@@ -227,7 +231,6 @@ def set_chrome_options(dl_path: str, headless: bool, no_cookies: bool) -> COptio
 def start_download(driver: webdriver, artist: str, user: str, password: str, window: sg.Window, file_type_wanted: str):
     # create log of download attempt
     failure_log_new_attempt()
-    # navigate to site, go to artist page, then filter out text tabs
     # first search for artist
     driver.get('https://www.ultimate-guitar.com/search.php?search_type=bands&value=' + artist)
     # setting the window size seems to help some element obfuscation issues
@@ -241,30 +244,12 @@ def start_download(driver: webdriver, artist: str, user: str, password: str, win
         return
     if driver.which_browser == 'Firefox':
         sleep(1)
+
     login(driver, user, password)
-    download_count, failure_count = 0, 0
-    tab_links = []
-    print('Starting downloads...')
-    # collect a list of the urls to download from, depending on file type desired
-    print(file_type_wanted)
-    if file_type_wanted in ('Guitar Pro', 'Both'):
-        try:
-            # guitar_pro_main_page = driver.find_element(By.LINK_TEXT, 'Guitar Pro')
-            # driver.get(guitar_pro_main_page)
-            driver.find_element(By.LINK_TEXT, 'Guitar Pro').click()
-            tab_links += DLoader.collect_links_guitar_pro(driver)
-        except (TypeError, selenium.common.exceptions.NoSuchElementException):
-            print('There are no available Guitar Pro tabs for this artist.')
-    if file_type_wanted in ('Powertab', 'Both'):
-        try:
-            # powertab_main_page = driver.find_element(By.LINK_TEXT, 'Power')
-            # driver.get(powertab_main_page)
-            driver.find_element(By.LINK_TEXT, 'Power').click()
-            tab_links += DLoader.collect_links_powertab(driver)
-        except (TypeError, selenium.common.exceptions.NoSuchElementException):
-            print('There are no available Powertabs for this artist.')
-    if file_type_wanted == 'Text':
-        print("Not yet implemented")
+    download_count, failure_count, tab_links = 0, 0, []
+
+    print('Grabbing urls of requested files.')
+    tab_links = DLoader.link_handler(driver, tab_links, file_type_wanted)
 
     print(f'Attempting {len(tab_links)} downloads.')
     window.write_event_value((THREAD_KEY, DL_START_KEY), len(tab_links))

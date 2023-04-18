@@ -32,6 +32,26 @@ def download_tab(driver: webdriver, link: str) -> list[int, int]:
     return [download_count, failure_count]
 
 
+def link_handler(driver: webdriver, tab_links: list, file_type_wanted: str) -> list:
+    # collect a list of the urls to download from, depending on file type desired
+    if file_type_wanted in ('Guitar Pro', 'Both'):
+        try:
+            driver.find_element(By.LINK_TEXT, 'Guitar Pro').click()
+            tab_links += collect_links_guitar_pro(driver)
+        except (TypeError, selenium.common.exceptions.NoSuchElementException):
+            print('There are no available Guitar Pro tabs for this artist.')
+    if file_type_wanted in ('Powertab', 'Both'):
+        try:
+            driver.find_element(By.LINK_TEXT, 'Power').click()
+            tab_links += collect_links_powertab(driver)
+        except (TypeError, selenium.common.exceptions.NoSuchElementException):
+            print('There are no available Powertabs for this artist.')
+    if file_type_wanted == 'Text':
+        print("Not yet implemented")
+
+    return tab_links
+
+
 def collect_links_guitar_pro(driver: webdriver) -> list:
     """ Collects links to guitar pro files only, page by page"""
     tab_links, page = [], 1
