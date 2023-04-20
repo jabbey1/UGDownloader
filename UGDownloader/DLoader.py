@@ -24,12 +24,33 @@ def download_tab(driver: webdriver, link: str) -> list[int, int]:
         if driver.which_browser == 'Firefox':
             sleep(.65)
         download_count += 1
-    except Exception as e:  # sometimes the button is obscured by other elements
+    except Exception as e:  # sometimes the button is obscured by other elements, or button doesn't exist
         print(e)
-        print('Button obscured?')  # I don't think this error is ever hitting
+        print('Button obscured? Trying fallback method.')
+        download_tab_fallback(driver, link)
         failure_count += 1
+    # added because not throwing exception todo remove?
+    # download_tab_fallback(driver, link)
     sleep(0.5)
     return [download_count, failure_count]
+
+
+def download_tab_fallback(driver: webdriver, url: str):
+    """ This method opens the download link directly in the browser instead
+    of using the Download Tab button. This can be used when the button doesn't
+    exist (removed tab) or is otherwise unusable. This method works almost all
+    of the time, but occasionally will only load the tab's interactive page
+    instead of a download link. This may happen because the tab doesn't
+    actually exist on UG's server. So this should not be used as the primary
+    download strategy, but only as a fallback.
+    """
+    if driver.current_url != url:
+        driver.get(url)
+    sleep(.5)
+    uid = url.split('-')[-1]
+    js_dl = f"window.open('https://tabs.ultimate-guitar.com/tab/download?id={uid}');"
+    driver.execute_script(js_dl)
+    sleep(.5)
 
 
 def link_handler(driver: webdriver, tab_links: list, file_type_wanted: str) -> list:

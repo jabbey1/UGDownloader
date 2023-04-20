@@ -22,9 +22,13 @@ DL_START_KEY = '-START DOWNLOAD-'
 DL_COUNT_KEY = '-COUNT-'
 DL_END_KEY = '-END DOWNLOAD-'
 DL_THREAD_EXITING = '-THREAD EXITING-'
+# EXITING = False
+# CANCELED = False
 
 
 class GUI:
+    EXITING = False
+    CANCELED = False
 
     def __init__(self):
         folder_check()
@@ -49,7 +53,7 @@ class GUI:
             [sg.Button(button_text='Copy Artist Name'), sg.Button(button_text='Add'), sg.Button(button_text='Delete'),
              sg.Input(size=(35, 1), pad=(0, 10), key="-TODLINPUT-")],
             [sg.Table(values=todl_data[:], num_rows=9, headings=['Artists to Download'],
-                      key="-TODLTABLE-", enable_events=True, justification='center', expand_x=True)]  # enable_click_events=True
+                      key="-TODLTABLE-", enable_events=True, justification='center', expand_x=True)]
 
         ]
 
@@ -66,7 +70,7 @@ class GUI:
                           "you may have to wait a day or two for the captcha to stop appearing (this program won't "
                           "work while that's appearing).")],
             [sg.HSeparator(pad=((0, 0), (150, 10)))],
-
+            [sg.Button(button_text='Cancel Download', expand_x=True)],
             [sg.Button(button_text='Exit', expand_x=True)]
         ]
 
@@ -122,11 +126,16 @@ class GUI:
                 delete_from_todl(window, values, todl_data)
                 todl_data = get_todl_data()
 
+            if event == "Cancel Download":
+                print(f'Download Canceled.')
+                GUI.CANCELED = True
             if event == "Exit" or event == sg.WIN_CLOSED:
+                print('Exiting.')
                 try:
                     driver.quit()
-                except:
+                finally:
                     pass
+                GUI.EXITING = True
                 break
 
             # thread events
@@ -255,10 +264,19 @@ def start_download(driver: webdriver, artist: str, user: str, password: str, win
     window.write_event_value((THREAD_KEY, DL_START_KEY), len(tab_links))
     tabs_attempted = 0
     for link in tab_links:
+        if GUI.EXITING:
+            driver.quit()
+            return
+        if GUI.CANCELED:
+            print('hey im canceled')
+            window.write_event_value((THREAD_KEY, DL_END_KEY), download_count)
+            GUI.CANCELED = False
+            driver.quit()
+            return
         results = DLoader.download_tab(driver, link)
         # try again after failure, 8 tries. Results[0] == 1 means a download was made
         tries = 1
-        while results[0] == 0 and tries < 8:
+        while results[0] == 0 and tries < 2:
             tries += 1
             print(f'Download failed, trying again. Attempt {tries}')
             temp = DLoader.download_tab(driver, link)
