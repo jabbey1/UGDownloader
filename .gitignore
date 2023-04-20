@@ -1,9 +1,10 @@
-/UGDownloader/chromedriver.exe
 /UGDownloader/geckodriver.log
 /UGDownloader/_UGDownloaderFiles/todownload.txt
 /.idea/UGDownloader.iml
 /UGDownloader/_UGDownloaderFiles/userinfo.txt
-
+/UGDownloader/_UGDownloaderFiles/.wdm/
+/UGDownloader/_UGDownloaderFiles/failurelog.txt
+/.idea/
 
 
 Tabs/
@@ -250,3 +251,4 @@ fabric.properties
 
 # Android studio 3.1+ serialized cache file
 .idea/caches/build_file_checksums.ser
+
