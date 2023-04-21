@@ -92,7 +92,7 @@ class GUI:
         while True:
             event, values = window.read()
             if event == "Save Info":
-                save_user_info(values)
+                save_user_info(values['-USERNAME-'], values['-PASSWORD-'])
 
             if event == "Autofill":
                 autofill_user(window)
@@ -133,7 +133,7 @@ class GUI:
                 print('Exiting.')
                 try:
                     driver.quit()
-                finally:
+                except Exception as e:
                     pass
                 GUI.EXITING = True
                 break
@@ -360,14 +360,10 @@ def add_to_todl_list(window: sg.Window, values: dict):
     if not values['-TODLINPUT-']:
         print('No artist to add. Please type one in the input box.')
         return
-    else:
-        file = open('_UGDownloaderFiles/todownload.txt', 'a')
-        file.write('\n')
-        new_artist = values['-TODLINPUT-']
-        file.write(new_artist)
-        file.close()
-        todl_data = get_todl_data()
-        print(f'New artist added to To Download: {new_artist}')
+    with open('_UGDownloaderFiles/todownload.txt', 'a') as file:
+        file.write('\n' + values['-TODLINPUT-'])
+    todl_data = get_todl_data()
+    print(f'New artist added to To Download: {values["-TODLINPUT-"]}')
     window['-TODLTABLE-'].update(values=todl_data[:])
 
 
@@ -392,13 +388,9 @@ def copy_artist_name(window: sg.Window, values: dict, todl_data: list):
     window["-ARTIST-"].update(selected_artist)
 
 
-def save_user_info(values: dict):
-    user, password = values['-USERNAME-'], values['-PASSWORD-']
+def save_user_info(user, password):
     if not validate('A', user, password):
         return  # faked artist field to not trip validate
-    userinfo = open('_UGDownloaderFiles/userinfo.txt', 'w+')
-    userinfo.write(user)
-    userinfo.write(' ')
-    userinfo.write(password)
-    userinfo.close()
+    with open('_UGDownloaderFiles/userinfo.txt', 'w+') as userinfo:
+        userinfo.write(f'{user} {password}')
     print(f'New User info saved.')
