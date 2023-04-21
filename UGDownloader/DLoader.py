@@ -1,22 +1,25 @@
 from os import path, mkdir
 from time import sleep
+
+import requests
 import selenium.common.exceptions
 from pathlib import Path
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
+import urllib
 
 
-def download_tab(driver: webdriver, link: str) -> list[int, int]:
+def download_tab(driver: webdriver, url: str) -> tuple[int, int]:
     download_count, failure_count = 0, 0
-    driver.get(link)
-    print(f'Downloading tab @ {link}')
+    driver.get(url)
+    print(f'Downloading tab @ {url}')
     try:
         scroll_to_bottom(driver)
         # button = driver.find_element(By.CSS_SELECTOR, 'button.exTWY:nth-child(2)')
-        button = driver.find_element(By.CSS_SELECTOR, "form[action='https://tabs.ultimate-guitar.com/tab/download'] button")
         # button.click()
+        button = driver.find_element(By.CSS_SELECTOR, "form[action='https://tabs.ultimate-guitar.com/tab/download'] button")
         driver.execute_script('arguments[0].click();', WebDriverWait(driver, 4)
                               .until(ec.element_to_be_clickable(button)))
         # seem to need to give firefox time on page after a download, still necessary?
@@ -26,10 +29,8 @@ def download_tab(driver: webdriver, link: str) -> list[int, int]:
     except Exception as e:  # sometimes the button is obscured by other elements, or button doesn't exist
         print(e)
         print('Button obscured? Trying fallback method.')
-        download_tab_fallback(driver, link)
+        download_tab_fallback(driver, url)
         failure_count += 1
-    # added because not throwing exception todo remove?
-    # download_tab_fallback(driver, link)
     sleep(0.5)
     return [download_count, failure_count]
 
@@ -48,6 +49,14 @@ def download_tab_fallback(driver: webdriver, url: str):
     sleep(.5)
     uid = url.split('-')[-1]
     js_dl = f"window.open('https://tabs.ultimate-guitar.com/tab/download?id={uid}');"
+
+    # # testing
+    # response = requests.get('https://tabs.ultimate-guitar.com/tab/download?id=1986257')
+    # response = requests.get(url)
+    # with open('hhhhhhh', 'wb') as f:
+    #     f.write(response.content)
+    # urllib.urlretrieve(url, file_name)
+
     driver.execute_script(js_dl)
     sleep(.5)
 
@@ -66,7 +75,7 @@ def link_handler(driver: webdriver, tab_links: list, file_type_wanted: str) -> l
             tab_links += collect_links_powertab(driver)
         except (TypeError, selenium.common.exceptions.NoSuchElementException):
             print('There are no available Powertabs for this artist.')
-    if file_type_wanted == 'Text':
+    elif file_type_wanted == 'Text':
         print("Not yet implemented")
 
     return tab_links
@@ -78,16 +87,14 @@ def collect_links_guitar_pro(driver: webdriver) -> list:
 
     while True:
         print(f"Reading page {page}")
-        tabs_from_page = [x for x in driver.find_elements(By.CLASS_NAME, 'LQUZJ') if x.text.__contains__('Guitar Pro')]
+        tabs_from_page = [x for x in driver.find_elements(By.CLASS_NAME, 'LQUZJ') if 'Guitar Pro' in x.text]
         for tab in tabs_from_page:
             tab_links.append(tab.find_element(By.CSS_SELECTOR, '.HT3w5').get_attribute('href'))
 
-        if driver.find_elements(By.CLASS_NAME, 'BvSfz'):
-            page += 1
-            driver.find_element(By.CLASS_NAME, 'BvSfz').click()
-            continue
-        else:
+        if not driver.find_elements(By.CLASS_NAME, 'BvSfz'):
             break
+        page += 1
+        driver.find_element(By.CLASS_NAME, 'BvSfz').click()
 
     print(f'Found {len(tab_links)} Guitar Pro Files')
     return tab_links
@@ -99,30 +106,25 @@ def collect_links_powertab(driver: webdriver) -> list:
 
     while True:
         print(f"Reading page {page}")
-        tabs_from_page = [x for x in driver.find_elements(By.CLASS_NAME, 'LQUZJ') if x.text.__contains__('Power')]
+        tabs_from_page = [x for x in driver.find_elements(By.CLASS_NAME, 'LQUZJ') if 'Power' in x.text]
         for tab in tabs_from_page:
             tab_links.append(tab.find_element(By.CSS_SELECTOR, '.HT3w5').get_attribute('href'))
 
-        if driver.find_elements(By.CLASS_NAME, 'BvSfz'):
-            page += 1
-            driver.find_element(By.CLASS_NAME, 'BvSfz').click()
-            continue
-        else:
+        if not driver.find_elements(By.CLASS_NAME, 'BvSfz'):
             break
+        page += 1
+        driver.find_element(By.CLASS_NAME, 'BvSfz').click()
 
     print(f'Found {len(tab_links)} Powertab Files')
     return tab_links
 
 
 def failure_log_failed_attempt(text: str):
-    failurelog = open('_UGDownloaderFiles\\failurelog.txt', 'a')
-    failurelog.write(text)
-    failurelog.write('\n')
-    failurelog.close()
+    with open('_UGDownloaderFiles\\failurelog.txt', 'a') as failurelog:
+        failurelog.write(text + '\n')
 
 
 def create_artist_folder(artist: str) -> str:
-    # Need there to already be a 'Tabs' folder
     dl_path = str(Path.cwd()) + '\\Tabs\\' + artist
     # thanks, sawyersteven
     if path.isdir(dl_path):
@@ -132,8 +134,6 @@ def create_artist_folder(artist: str) -> str:
         mkdir(dl_path)
     except OSError as error:
         print(error)
-        # not graceful:
-        # print('Artist folder already exists')
     else:
         print("Folder created at " + dl_path)
     return dl_path  # return path so GUI can set download directory in browser
@@ -149,8 +149,13 @@ def scroll_to_bottom(driver: webdriver):
         "window.scrollTo(0,document.body.scrollHeight)")  # would be nice to get rid of browser bounce
     sleep(.1)
 
+    # # Alternatively, use scrollIntoView to scroll the button into view
+    # button = driver.find_element_by_xpath("//button[contains(text(), 'Button text')]")
+    # driver.execute_script("arguments[0].scrollIntoView();", button)
+    # button.click()
 
 def get_tabs(driver: webdriver) -> list:
+    """don't use this anymore"""
     tab_links = collect_links_guitar_pro(driver)
     # download for each element, skipping pro or official
     download_count, failure_count = 0, 0
