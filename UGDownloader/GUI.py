@@ -155,7 +155,7 @@ class GUI:
 
 def start_browser(artist: str, headless: bool, which_browser: str, no_cookies: bool) -> webdriver:
     dl_path = DLoader.create_artist_folder(artist)
-    if which_browser == 'Firefox':
+    if which_browser is 'Firefox':
         ff_options = set_firefox_options(dl_path, headless)
         print(f'Starting Firefox, downloading latest Gecko driver.')
         driver = webdriver.Firefox(options=ff_options,
@@ -163,7 +163,7 @@ def start_browser(artist: str, headless: bool, which_browser: str, no_cookies: b
         # driver = webdriver.Firefox(options=options, executable_path='geckodriver.exe')  # get local copy of driver
         print('\n')
 
-    if which_browser == 'Chrome':
+    if which_browser is 'Chrome':
         c_options = set_chrome_options(dl_path, headless, no_cookies)
         print(f'Starting Chrome, downloading latest chromedriver.')
         # driver = webdriver.Chrome(options=c_options, executable_path='chromedriver.exe')  # gets local copy of driver
@@ -266,23 +266,22 @@ def start_download(driver: webdriver, artist: str, user: str, password: str, win
     for link in tab_links:
         if GUI.EXITING:
             driver.quit()
-            return
+            break
         if GUI.CANCELED:
-            print('hey im canceled')
             window.write_event_value((THREAD_KEY, DL_END_KEY), download_count)
             GUI.CANCELED = False
             driver.quit()
             return
         results = DLoader.download_tab(driver, link)
-        # try again after failure, 8 tries. Results[0] == 1 means a download was made
+        # try again after failure, 3 tries. Results[0] == 1 means a download was made
         tries = 1
-        while results[0] == 0 and tries < 2:
+        while results[0] == 0 and tries < 3:
             tries += 1
             print(f'Download failed, trying again. Attempt {tries}')
             temp = DLoader.download_tab(driver, link)
             results[0] += temp[0]
             results[1] += temp[1]
-        if tries >= 8:
+        if tries >= 3:
             print(f'Too many download attempts. Moving on')
         tabs_attempted += 1
         download_count += results[0]

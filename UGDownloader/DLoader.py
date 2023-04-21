@@ -14,11 +14,10 @@ def download_tab(driver: webdriver, link: str) -> list[int, int]:
     print(f'Downloading tab @ {link}')
     try:
         scroll_to_bottom(driver)
-        button = driver.find_element(By.CSS_SELECTOR, 'button.exTWY:nth-child(2)')
-        # seems more robust but not working for me:
-        # button = driver.find_element(By.CSS_SELECTOR, "form[action='https://tabs.ultimate-guitar.com/tab/download']
-        # button") button.click()
-        driver.execute_script('arguments[0].click();', WebDriverWait(driver, 20)
+        # button = driver.find_element(By.CSS_SELECTOR, 'button.exTWY:nth-child(2)')
+        button = driver.find_element(By.CSS_SELECTOR, "form[action='https://tabs.ultimate-guitar.com/tab/download'] button")
+        # button.click()
+        driver.execute_script('arguments[0].click();', WebDriverWait(driver, 4)
                               .until(ec.element_to_be_clickable(button)))
         # seem to need to give firefox time on page after a download, still necessary?
         if driver.which_browser == 'Firefox':
