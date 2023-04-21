@@ -11,7 +11,7 @@ from selenium.webdriver.support import expected_conditions as ec
 import urllib
 
 
-def download_tab(driver: webdriver, url: str) -> tuple[int, int]:
+def download_tab(driver: webdriver, url: str) -> list[int, int]:
     download_count, failure_count = 0, 0
     driver.get(url)
     print(f'Downloading tab @ {url}')
