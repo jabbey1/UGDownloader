@@ -294,12 +294,8 @@ def start_download(driver: webdriver, artist: str, user: str, password: str, win
 
 
 def failure_log_new_attempt():
-    # create log of download attempt
-    failurelog = open('_UGDownloaderFiles\\failurelog.txt', 'a+')
-    failurelog.write('\n')
-    failurelog.write('Download attempt at:' + str(datetime.now()))  # datetime.datetime.now
-    failurelog.write('\n')
-    failurelog.close()
+    with open('_UGDownloaderFiles/failurelog.txt', 'a+') as failurelog:
+        failurelog.write(f"\nDownload attempt at: {str(datetime.now())}\n")
 
 
 def login(driver: webdriver, user: str, password: str):
