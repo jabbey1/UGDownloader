@@ -14,7 +14,6 @@ from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.wait import WebDriverWait
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.firefox import GeckoDriverManager
-
 import DLoader
 
 THREAD_KEY = '-THREAD-'
@@ -85,7 +84,6 @@ class GUI:
         # end layout
 
         window = sg.Window("Ultimate Guitar Downloader", layout)
-
         downloading = False
 
         # Run loop start
@@ -127,14 +125,11 @@ class GUI:
                 todl_data = get_todl_data()
 
             if event == "Cancel Download":
-                print(f'Download Canceled.')
+                print(f'Canceling...')
                 GUI.CANCELED = True
             if event == "Exit" or event == sg.WIN_CLOSED:
                 print('Exiting.')
-                try:
-                    driver.quit()
-                except Exception as e:
-                    pass
+
                 GUI.EXITING = True
                 break
 
@@ -151,6 +146,11 @@ class GUI:
                 elif event[1] == DL_THREAD_EXITING:
                     pass
         window.close()
+        try:
+            driver.quit()  # Still exits very slowly but at least it's behind the scenes
+        except Exception as e:
+            pass
+
 
 
 def start_browser(artist: str, headless: bool, which_browser: str, no_cookies: bool) -> webdriver:
@@ -267,11 +267,12 @@ def start_download(driver: webdriver, artist: str, user: str, password: str, win
         # download interruptions
         if GUI.EXITING:
             driver.quit()
-            break # todo should this be return?
+            break #
         if GUI.CANCELED:
             window.write_event_value((THREAD_KEY, DL_END_KEY), download_count)
             GUI.CANCELED = False
             driver.quit()
+            print('Download canceled.')
             return
         results = DLoader.download_tab(driver, link)
         # try again after failure, 3 tries. Results[0] == 1 means a download was made
@@ -375,12 +376,12 @@ def delete_from_todl(window: sg.Window, values: dict, todl_data: list):
     if selected_index:
         print(f' removed {todl_data.pop(selected_index)} from to download list.')
         window['-TODLTABLE-'].update(values=todl_data[:])
-        file = open('_UGDownloaderFiles/todownload.txt', 'w+')
-        for i in range(len(todl_data)):
-            file.write(todl_data[i][0])
-            if i < len(todl_data) - 1:
-                file.write('\n')
-        file.close()
+        # todo not tested
+        with open('_UGDownloaderFiles/todownload.txt', 'w+') as file:
+            for i in range(len(todl_data)):
+                file.write(todl_data[i][0])
+                if i < len(todl_data) - 1:
+                    file.write('\n')
 
 
 def copy_artist_name(window: sg.Window, values: dict, todl_data: list):
@@ -397,3 +398,4 @@ def save_user_info(user, password):
     with open('_UGDownloaderFiles/userinfo.txt', 'w+') as userinfo:
         userinfo.write(f'{user} {password}')
     print(f'New User info saved.')
+
