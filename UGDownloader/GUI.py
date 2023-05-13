@@ -155,7 +155,7 @@ class GUI:
 
 def start_browser(artist: str, headless: bool, which_browser: str, no_cookies: bool) -> webdriver:
     dl_path = DLoader.create_artist_folder(artist)
-    if which_browser is 'Firefox':
+    if which_browser == 'Firefox':
         ff_options = set_firefox_options(dl_path, headless)
         print(f'Starting Firefox, downloading latest Gecko driver.')
         driver = webdriver.Firefox(options=ff_options,
@@ -163,7 +163,7 @@ def start_browser(artist: str, headless: bool, which_browser: str, no_cookies: b
         # driver = webdriver.Firefox(options=options, executable_path='geckodriver.exe')  # get local copy of driver
         print('\n')
 
-    if which_browser is 'Chrome':
+    if which_browser == 'Chrome':
         c_options = set_chrome_options(dl_path, headless, no_cookies)
         print(f'Starting Chrome, downloading latest chromedriver.')
         # driver = webdriver.Chrome(options=c_options, executable_path='chromedriver.exe')  # gets local copy of driver
@@ -192,20 +192,20 @@ def autofill_user(window: sg.Window):
 
 
 def set_firefox_options(dl_path: str, headless: bool) -> FFOptions:
-    ff_options = FFOptions()
-    ff_options.set_preference("browser.download.folderList", 2)
-    ff_options.set_preference("browser.download.manager.showWhenStarting", False)
-    ff_options.set_preference("browser.download.dir", dl_path)
-    ff_options.set_preference("browser.helperApps.neverAsk.saveToDisk", "application/x-gzip")
-    ff_options.set_preference('permissions.default.stylesheet', 2)
-    ff_options.set_preference('permissions.default.image', 2)
-    ff_options.set_preference('dom.ipc.plugins.enabled.libflashplayer.so', 'false')
+    firefox_options = FFOptions()
+    firefox_options.set_preference("browser.download.folderList", 2)
+    firefox_options.set_preference("browser.download.manager.showWhenStarting", False)
+    firefox_options.set_preference("browser.download.dir", dl_path)
+    firefox_options.set_preference("browser.helperApps.neverAsk.saveToDisk", "application/x-gzip")
+    firefox_options.set_preference('permissions.default.stylesheet', 2)
+    firefox_options.set_preference('permissions.default.image', 2)
+    firefox_options.set_preference('dom.ipc.plugins.enabled.libflashplayer.so', 'false')
     # possible cookie fix
     # ff_options.set_preference("network.cookie.cookieBehavior", 2)
     if headless:
-        ff_options.headless = True
+        firefox_options.headless = True
 
-    return ff_options
+    return firefox_options
 
 
 def set_chrome_options(dl_path: str, headless: bool, no_cookies: bool) -> COptions:
@@ -264,9 +264,10 @@ def start_download(driver: webdriver, artist: str, user: str, password: str, win
     window.write_event_value((THREAD_KEY, DL_START_KEY), len(tab_links))
     tabs_attempted = 0
     for link in tab_links:
+        # download interruptions
         if GUI.EXITING:
             driver.quit()
-            break
+            break # todo should this be return?
         if GUI.CANCELED:
             window.write_event_value((THREAD_KEY, DL_END_KEY), download_count)
             GUI.CANCELED = False
@@ -282,6 +283,7 @@ def start_download(driver: webdriver, artist: str, user: str, password: str, win
             results[0] += temp[0]
             results[1] += temp[1]
         if tries >= 3:
+            failure_log_failed_attempt(link)
             print(f'Too many download attempts. Moving on')
         tabs_attempted += 1
         download_count += results[0]
@@ -296,6 +298,11 @@ def start_download(driver: webdriver, artist: str, user: str, password: str, win
 def failure_log_new_attempt():
     with open('_UGDownloaderFiles/failurelog.txt', 'a+') as failurelog:
         failurelog.write(f"\nDownload attempt at: {str(datetime.now())}\n")
+
+
+def failure_log_failed_attempt(text: str):
+    with open('_UGDownloaderFiles\\failurelog.txt', 'a') as failurelog:
+        failurelog.write(text + '\n')
 
 
 def login(driver: webdriver, user: str, password: str):

@@ -19,7 +19,8 @@ def download_tab(driver: webdriver, url: str) -> list[int, int]:
         scroll_to_bottom(driver)
         # button = driver.find_element(By.CSS_SELECTOR, 'button.exTWY:nth-child(2)')
         # button.click()
-        button = driver.find_element(By.CSS_SELECTOR, "form[action='https://tabs.ultimate-guitar.com/tab/download'] button")
+        button = driver.find_element(By.CSS_SELECTOR,
+                                     "form[action='https://tabs.ultimate-guitar.com/tab/download'] button")
         driver.execute_script('arguments[0].click();', WebDriverWait(driver, 4)
                               .until(ec.element_to_be_clickable(button)))
         # seem to need to give firefox time on page after a download, still necessary?
@@ -27,7 +28,7 @@ def download_tab(driver: webdriver, url: str) -> list[int, int]:
             sleep(.65)
         download_count += 1
     except Exception as e:  # sometimes the button is obscured by other elements, or button doesn't exist
-        print(e)
+        # print(e)
         print('Button obscured? Trying fallback method.')
         download_tab_fallback(driver, url)
         failure_count += 1
@@ -119,11 +120,6 @@ def collect_links_powertab(driver: webdriver) -> list:
     return tab_links
 
 
-def failure_log_failed_attempt(text: str):
-    with open('_UGDownloaderFiles\\failurelog.txt', 'a') as failurelog:
-        failurelog.write(text + '\n')
-
-
 def create_artist_folder(artist: str) -> str:
     dl_path = str(Path.cwd()) + '\\Tabs\\' + artist
     # thanks, sawyersteven
@@ -154,6 +150,7 @@ def scroll_to_bottom(driver: webdriver):
     # driver.execute_script("arguments[0].scrollIntoView();", button)
     # button.click()
 
+
 def get_tabs(driver: webdriver) -> list:
     """don't use this anymore"""
     tab_links = collect_links_guitar_pro(driver)
@@ -165,7 +162,7 @@ def get_tabs(driver: webdriver) -> list:
             tries += 1
             if tries > 8:  # Count # of tries for current file, to prevent getting stuck
                 print('Too many download attempts, moving on.')
-                failure_log_failed_attempt(tab_links[i])
+                # GUI.failure_log_failed_attempt(tab_links[i])
                 break
             print(tab_links[i])
             driver.get(str(tab_links[i]))
