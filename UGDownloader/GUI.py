@@ -160,7 +160,7 @@ class GUI:
 def start_browser(artist: str, headless: bool, which_browser: str, no_cookies: bool) -> webdriver:
     dl_path = DLoader.create_artist_folder(artist)
     if which_browser == 'Firefox':
-        ff_options = set_firefox_options(dl_path, headless)
+        ff_options = set_firefox_options(dl_path, headless, no_cookies)
         print(f'Starting Firefox, downloading latest Gecko driver.')
         driver = webdriver.Firefox(options=ff_options,
                                    service=FirefoxService(GeckoDriverManager(path='_UGDownloaderFiles').install()))
@@ -207,7 +207,7 @@ def set_firefox_options(dl_path: str, headless: bool, no_cookies: bool) -> FFOpt
 
     if no_cookies:
         print('Currently, no cookies pop-up removing add-on is included for Firefox, please try Chrome instead if you '
-              'are having cookies pop-up problems.')
+              'are having cookies pop-up problems.\n')
     if headless:
         firefox_options.headless = True
 
@@ -424,6 +424,8 @@ def check_update():
         latest_release_version = releases[0]["tag_name"]  # Assumes the API returns releases in descending order
         if latest_release_version != str(VERSION):
             print(f"A new release is available: {latest_release_version}. Current version: {VERSION}")
+            print("https://github.com/jabbey1/UGDownloader/releases\n")
+
         else:
             print(f"No new release found. Current version: {VERSION}")
     else:
