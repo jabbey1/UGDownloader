@@ -37,7 +37,8 @@ class GUI:
         # start layout
         left_column = [
             [sg.Text(text='Artist', size=(10, 1)), sg.Input(size=(25, 1), pad=(0, 10), key="-ARTIST-"),
-             sg.Button(button_text='Save Info'), sg.Checkbox('Bypass cookies (E.U.), Chrome', default=False, key="-COOKIES-")],
+             sg.Button(button_text='Save Info'),
+             sg.Checkbox('Bypass cookies (E.U.), Chrome', default=False, key="-COOKIES-")],
             [sg.Text(text='Username', size=(10, 1)), sg.Input(size=(25, 1), pad=(0, 10), key="-USERNAME-"),
              sg.Button(button_text='Autofill'), sg.Checkbox('Run in background', default=True, key="-HEADLESS-")],
             [sg.Text(text='Password', size=(10, 1)), sg.Input(size=(25, 1), pad=(0, 10), key="-PASSWORD-"),
@@ -100,18 +101,23 @@ class GUI:
             if event == "Autofill":
                 autofill_user(window)
 
-            if event == "Download" and not downloading:
+            if event == "Download":
                 artist, user, password = values['-ARTIST-'], values['-USERNAME-'], values['-PASSWORD-']
 
+                if downloading:
+                    print("Download already in progress. Please wait.")
+                    continue
                 if not validate(artist, user, password):
                     continue
 
+                downloading = True
                 driver = start_browser(artist, values['-HEADLESS-'], values['-BROWSER-'], values['-COOKIES-'])
                 try:
-                    window.start_thread(lambda: start_download
-                    (driver, artist, user, password, window, values['-FILETYPE-']),
-                                        (THREAD_KEY, DL_THREAD_EXITING))
+                    window.start_thread(
+                        lambda: start_download(driver, artist, user, password, window, values['-FILETYPE-']),
+                        (THREAD_KEY, DL_THREAD_EXITING))
                 except Exception as e:
+                    downloading = False
                     print(e)
                     driver.quit()
                     sg.popup_error("Something went wrong with the download. Try again- The most common problem is that"
@@ -132,9 +138,9 @@ class GUI:
             if event == "Cancel Download":
                 print('Canceling...')
                 GUI.CANCELED = True
+
             if event == "Exit" or event == sg.WIN_CLOSED:
                 print('Exiting.')
-
                 GUI.EXITING = True
                 break
 
@@ -142,7 +148,6 @@ class GUI:
             elif event[0] == THREAD_KEY:
                 if event[1] == DL_START_KEY:
                     max_value = values[event]
-                    downloading = True
                     window['-PROGRESS-'].update(0, max_value)
                 elif event[1] == DL_COUNT_KEY:
                     window['-PROGRESS-'].update(values[event], max_value)
@@ -151,51 +156,55 @@ class GUI:
                 elif event[1] == DL_THREAD_EXITING:
                     pass
         window.close()
+        # just to make sure driver has quit to prevent orphaned instances, doesn't matter if there's an exception at
+        # this point
         try:
-            driver.quit()  # Still exits very slowly but at least it's behind the scenes
+            driver.quit()
         except Exception as e:
             pass
 
 
 def start_browser(artist: str, headless: bool, which_browser: str, no_cookies: bool) -> webdriver:
+    """Builds the driver objects, depending on the browser selected. Provides driver with the download path,
+    and options tailored to each browser. Sets the path of and installs the relevant driver."""
     dl_path = DLoader.create_artist_folder(artist)
     if which_browser == 'Firefox':
-        ff_options = set_firefox_options(dl_path, headless, no_cookies)
-        print(f'Starting Firefox, downloading latest Gecko driver.')
-        driver = webdriver.Firefox(options=ff_options,
+        firefox_options = set_firefox_options(dl_path, headless, no_cookies)
+        print(f'Starting Firefox, downloading latest Gecko driver.\n')
+        driver = webdriver.Firefox(options=firefox_options,
                                    service=FirefoxService(GeckoDriverManager(path='_UGDownloaderFiles').install()))
         # driver = webdriver.Firefox(options=options, executable_path='geckodriver.exe')  # get local copy of driver
-        print('\n')
 
     if which_browser == 'Chrome':
-        c_options = set_chrome_options(dl_path, headless, no_cookies)
-        print(f'Starting Chrome, downloading latest chromedriver.')
-        # driver = webdriver.Chrome(options=c_options, executable_path='chromedriver.exe')  # gets local copy of driver
-        driver = webdriver.Chrome(options=c_options,
+        chrome_options = set_chrome_options(dl_path, headless, no_cookies)
+        print(f'Starting Chrome, downloading latest chromedriver.\n')
+        # driver = webdriver.Chrome(options=chrome_options, executable_path='chromedriver.exe')  # gets local copy
+        driver = webdriver.Chrome(options=chrome_options,
                                   service=ChromeService(ChromeDriverManager(path='_UGDownloaderFiles').install()))
         # next three lines allow chrome to download files while in headless mode
         driver.command_executor._commands["send_command"] = ("POST", '/session/$sessionId/chromium/send_command')
         params = {'cmd': 'Page.setDownloadBehavior', 'params': {'behavior': 'allow', 'downloadPath': dl_path}}
         driver.execute("send_command", params)
-        print('\n')
     driver.which_browser = which_browser
     return driver
 
 
 def autofill_user(window: sg.Window):
-    # dummy account: user=mygoodusername, pass=passyword
-    userinfo = open('_UGDownloaderFiles/userinfo.txt', 'r')
-    data = ''
-    for line in userinfo:
-        data = line.split()
-    if len(data) == 2:
-        window["-USERNAME-"].update(data[0])
-        window["-PASSWORD-"].update(data[1])
-    else:
-        print('There is either no user info saved or the data saved is invalid.')
+    """Update the user and password text fields with user's data from text file, if it exists and is valid."""
+    with open('_UGDownloaderFiles/userinfo.txt', 'r') as userinfo:
+        data = []
+        for line in userinfo:
+            data = line.split()
+        if len(data) == 2:
+            window["-USERNAME-"].update(data[0])
+            window["-PASSWORD-"].update(data[1])
+        else:
+            print('There is either no user info saved or the data saved is invalid.')
 
 
 def set_firefox_options(dl_path: str, headless: bool, no_cookies: bool) -> FFOptions:
+    """Configure the firefox driver. Sets the download directory, and browser options including headless mode. No
+    cookies pop-up workaround for firefox at this point"""
     firefox_options = FFOptions()
     firefox_options.set_preference("browser.download.folderList", 2)
     firefox_options.set_preference("browser.download.manager.showWhenStarting", False)
@@ -215,6 +224,8 @@ def set_firefox_options(dl_path: str, headless: bool, no_cookies: bool) -> FFOpt
 
 
 def set_chrome_options(dl_path: str, headless: bool, no_cookies: bool) -> COptions:
+    """Configure the Chrome Browser. Sets the download path, headless mode, and adds the I don't Care About Cookies
+    extension if desired."""
     chrome_options = COptions()
     chrome_options.add_argument('--no-sandbox')  # not sure why this makes it work better
     preferences = {"download.default_directory": dl_path,  # pass the variable
@@ -231,20 +242,25 @@ def set_chrome_options(dl_path: str, headless: bool, no_cookies: bool) -> COptio
     chrome_options.add_experimental_option('prefs', preferences)
     # to add I don't care about cookies, only works when headless is disabled
     if no_cookies:
-        chrome_options.add_extension(fetch_resource('_UGDownloaderFiles/extension_3_4_6_0.crx'))
+        extension_path = Path('_UGDownloaderFiles/extension_3_4_6_0.crx')
+        chrome_options.add_extension(str(fetch_resource(extension_path)))
     elif headless:
         chrome_options.headless = True
     return chrome_options
 
 
 def start_download(driver: webdriver, artist: str, user: str, password: str, window: sg.Window, file_type_wanted: str):
-    # create log of download attempt
+    """Set up the failure log, and then plug the desired artist into UG's search function. Artists have an id
+    associated with them, so you can't navigate directly to their page with only their name. Searching and then
+    attempting to click on the artists name on the page will get you to the artists page or let you know if you've
+    made a mistake with typing the artist's name. Once at the artist's page, you can collect links to all the files
+    that you want to download. Once the actual download process begins, interruptions are allowed. Retrying failed
+    attempts are handled in this method, as well as tracking failures, successes, and reporting overall progress"""
     failure_log_new_attempt()
-    # first search for artist
     driver.get('https://www.ultimate-guitar.com/search.php?search_type=bands&value=' + artist)
     # setting the window size seems to help some element obfuscation issues
     driver.set_window_size(1100, 1000)
-    # Then, click on artist from search results
+    # click on artist from search results
     try:
         driver.find_element(By.LINK_TEXT, artist).click()
     except (TypeError, selenium.common.exceptions.NoSuchElementException):
@@ -276,13 +292,13 @@ def start_download(driver: webdriver, artist: str, user: str, password: str, win
         results = DLoader.download_tab(driver, link)
         # try again after failure, 3 tries. Results[0] == 1 means a download was made
         tries = 1
-        while results[0] == 0 and tries < 3:
+        while results[0] == 0 and tries < 4:
             tries += 1
             print(f'Download failed, trying again. Attempt {tries}')
-            temp = DLoader.download_tab(driver, link)
-            results[0] += temp[0]
-            results[1] += temp[1]
-        if tries >= 3:
+            attempt_results = DLoader.download_tab(driver, link)
+            results[0] += attempt_results[0]
+            results[1] += attempt_results[1]
+        if tries >= 4:
             failure_log_failed_attempt(link)
             print(f'Too many download attempts. Moving on')
         tabs_attempted += 1
@@ -302,11 +318,14 @@ def failure_log_new_attempt():
 
 
 def failure_log_failed_attempt(text: str):
+    """This puts the url's of failed downloads in the failure log, so you could potentially go back and manually
+    download files missed by the program."""
     with open('_UGDownloaderFiles\\failurelog.txt', 'a') as failurelog:
         failurelog.write(text + '\n')
 
 
 def login(driver: webdriver, user: str, password: str):
+    """logs in, but will be defeated if a captcha is present"""
     driver.find_element(By.CSS_SELECTOR, '.exTWY').click()  # login button
     sleep(1)
     form = driver.find_element(By.CSS_SELECTOR, "form > div.PictU")
@@ -341,7 +360,7 @@ def validate(artist: str, user: str, password: str) -> bool:
 
 
 def folder_check():
-    # makes sure that the Tabs folder and the userinfo.txt files exist
+    # makes sure that the Tabs folder and the userinfo.txt, todownload.txt files exist
     if not path.isdir('Tabs'):
         mkdir('Tabs')
     if not path.isdir('_UGDownloaderFiles'):
@@ -355,12 +374,14 @@ def folder_check():
 
 
 def get_todl_data() -> list:
+    """updates to download data from the text file"""
     with open("_UGDownloaderFiles\\todownload.txt", 'r') as f:
         todl_data = [[line.rstrip()] for line in f]
     return todl_data
 
 
 def add_to_todl_list(window: sg.Window, values: dict):
+    """To add data to your to download list. Calls method to update the list, and updates the table in the window"""
     if not values['-TODLINPUT-']:
         print('No artist to add. Please type one in the input box.')
         return
@@ -372,6 +393,7 @@ def add_to_todl_list(window: sg.Window, values: dict):
 
 
 def delete_from_todl(window: sg.Window, values: dict, todl_data: list):
+    """Gets the selected value to delete from the table in the window, and then rewrites text file to reflect change"""
     selected_index = values['-TODLTABLE-'][0]
     if selected_index:
         print(f'Removed {todl_data.pop(selected_index)[0]} from to download list.')
@@ -402,7 +424,7 @@ def save_user_info(user, password):
 
 def fetch_resource(resource_path: Path) -> Path:
     """Grabs resource from local path when running as a script, grabs from a temp directory when running
-        as a pyinstaller .exe. Keeps hardcoded relative paths intact. Use with pyinstaller '--add-data command
+        as a pyinstaller .exe. Keeps hardcoded relative paths intact. Use with pyinstaller '--add-data' command
         to add data files."""
     try:  # running as *.exe; fetch resource from temp directory
         base_path = Path(sys._MEIPASS)
@@ -413,6 +435,7 @@ def fetch_resource(resource_path: Path) -> Path:
 
 
 def check_update():
+    """Uses the github api to check my release page, and notifies and the newest release is different."""
     # Make a request to the GitHub API to get the releases
     api_url = f"https://api.github.com/repos/jabbey1/UGDownloader/releases"
     response = requests.get(api_url)

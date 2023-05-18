@@ -9,6 +9,9 @@ from selenium.webdriver.support import expected_conditions as ec
 
 
 def download_tab(driver: webdriver, url: str) -> list[int, int]:
+    """Download the file. Navigates to page, scrolls to the bottom where the download button is, and then clicks. If
+    the click fails, or the button isn't there, the fallback method is called. Returns values to keep track of total
+    number of downloads and failures"""
     download_count, failure_count = 0, 0
     driver.get(url)
     print(f'Downloading tab @ {url}')
@@ -18,7 +21,7 @@ def download_tab(driver: webdriver, url: str) -> list[int, int]:
                                      "form[action='https://tabs.ultimate-guitar.com/tab/download'] button")
         driver.execute_script('arguments[0].click();', WebDriverWait(driver, 4)
                               .until(ec.element_to_be_clickable(button)))
-        # seem to need to give firefox time on page after a download, still necessary?
+        # seem to need to give firefox time on page after a download
         if driver.which_browser == 'Firefox':
             sleep(.65)
         download_count += 1
@@ -45,20 +48,13 @@ def download_tab_fallback(driver: webdriver, url: str):
     sleep(.5)
     uid = url.split('-')[-1]
     js_dl = f"window.open('https://tabs.ultimate-guitar.com/tab/download?id={uid}');"
-
-    # # testing
-    # response = requests.get('https://tabs.ultimate-guitar.com/tab/download?id=1986257')
-    # response = requests.get(url)
-    # with open('hhhhhhh', 'wb') as f:
-    #     f.write(response.content)
-    # urllib.urlretrieve(url, file_name)
-
     driver.execute_script(js_dl)
     sleep(.5)
 
 
 def link_handler(driver: webdriver, tab_links: list, file_type_wanted: str) -> list:
-    # collect a list of the urls to download from, depending on file type desired
+    """Collect a list of the urls to download from, depending on file type desired, building a list containing all
+    links of every requested filetype in tab_links."""
     if file_type_wanted in ('Guitar Pro', 'Both'):
         try:
             driver.find_element(By.LINK_TEXT, 'Guitar Pro').click()
@@ -116,8 +112,9 @@ def collect_links_powertab(driver: webdriver) -> list:
 
 
 def create_artist_folder(artist: str) -> str:
+    """Build a path to the artist's folder, inside of Tabs where the files will be downloaded. First, builds path,
+    and then determines if there's a folder there already. If not, creates folder. Returns the path to the folder."""
     dl_path = str(Path.cwd()) + '\\Tabs\\' + artist
-    # thanks, sawyersteven
     if path.isdir(dl_path):
         print("Using folder at " + dl_path)
         return dl_path
@@ -131,6 +128,7 @@ def create_artist_folder(artist: str) -> str:
 
 
 def scroll_to_bottom(driver: webdriver):
+    """scrolls to the bottom of the page, twice, to deal with the browser 'bouncing' upwards as elements load."""
     # todo check if times can be cut/shortened
     sleep(.1)
     driver.execute_script(
@@ -140,10 +138,12 @@ def scroll_to_bottom(driver: webdriver):
         "window.scrollTo(0,document.body.scrollHeight)")  # would be nice to get rid of browser bounce
     sleep(.1)
 
-    # # Alternatively, use scrollIntoView to scroll the button into view
-    # button = driver.find_element_by_xpath("//button[contains(text(), 'Button text')]")
-    # driver.execute_script("arguments[0].scrollIntoView();", button)
-    # button.click()
+
+def scroll_to_bottom_and_click_button(driver: webdriver, button_text: str):
+    # Alternatively, use scrollIntoView to scroll the button into view
+    button = driver.find_element_by_xpath(f"//button[contains(text(), '{button_text}')]")
+    driver.execute_script("arguments[0].scrollIntoView();", button)
+    button.click()
 
 
 def get_tabs(driver: webdriver) -> list:
