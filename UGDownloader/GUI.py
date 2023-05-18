@@ -1,3 +1,4 @@
+import sys
 from datetime import datetime
 from os import path, mkdir
 from time import sleep
@@ -14,6 +15,7 @@ from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.wait import WebDriverWait
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.firefox import GeckoDriverManager
+import requests
 import DLoader
 
 THREAD_KEY = '-THREAD-'
@@ -21,8 +23,7 @@ DL_START_KEY = '-START DOWNLOAD-'
 DL_COUNT_KEY = '-COUNT-'
 DL_END_KEY = '-END DOWNLOAD-'
 DL_THREAD_EXITING = '-THREAD EXITING-'
-# EXITING = False
-# CANCELED = False
+VERSION = 1.5
 
 
 class GUI:
@@ -36,7 +37,7 @@ class GUI:
         # start layout
         left_column = [
             [sg.Text(text='Artist', size=(10, 1)), sg.Input(size=(25, 1), pad=(0, 10), key="-ARTIST-"),
-             sg.Button(button_text='Save Info'), sg.Checkbox('Bypass cookies (E.U.)', default=False, key="-COOKIES-")],
+             sg.Button(button_text='Save Info'), sg.Checkbox('Bypass cookies (E.U.), Chrome', default=False, key="-COOKIES-")],
             [sg.Text(text='Username', size=(10, 1)), sg.Input(size=(25, 1), pad=(0, 10), key="-USERNAME-"),
              sg.Button(button_text='Autofill'), sg.Checkbox('Run in background', default=True, key="-HEADLESS-")],
             [sg.Text(text='Password', size=(10, 1)), sg.Input(size=(25, 1), pad=(0, 10), key="-PASSWORD-"),
@@ -63,7 +64,7 @@ class GUI:
             [sg.Text(size=(30, 4), justification='left',
                      text="-Files will be downloaded to the folder this program is in.")],
             [sg.Text(size=(30, 4), justification='left', text='-You will need Chrome or firefox installed, select '
-                                                                'which one you have.')],
+                                                              'which one you have.')],
             [sg.Text(size=(30, 6), justification='left',
                      text="-Ultimate Guitar requires a login to download tabs. If you just created an account, "
                           "you may have to wait a day or two for the captcha to stop appearing (this program won't "
@@ -84,11 +85,15 @@ class GUI:
         # end layout
 
         window = sg.Window("Ultimate Guitar Downloader", layout)
+
         downloading = False
+        window.finalize()
+        check_update()
 
         # Run loop start
         while True:
             event, values = window.read()
+
             if event == "Save Info":
                 save_user_info(values['-USERNAME-'], values['-PASSWORD-'])
 
@@ -104,7 +109,7 @@ class GUI:
                 driver = start_browser(artist, values['-HEADLESS-'], values['-BROWSER-'], values['-COOKIES-'])
                 try:
                     window.start_thread(lambda: start_download
-                                        (driver, artist, user, password, window, values['-FILETYPE-']),
+                    (driver, artist, user, password, window, values['-FILETYPE-']),
                                         (THREAD_KEY, DL_THREAD_EXITING))
                 except Exception as e:
                     print(e)
@@ -125,7 +130,7 @@ class GUI:
                 todl_data = get_todl_data()
 
             if event == "Cancel Download":
-                print(f'Canceling...')
+                print('Canceling...')
                 GUI.CANCELED = True
             if event == "Exit" or event == sg.WIN_CLOSED:
                 print('Exiting.')
@@ -152,7 +157,6 @@ class GUI:
             pass
 
 
-
 def start_browser(artist: str, headless: bool, which_browser: str, no_cookies: bool) -> webdriver:
     dl_path = DLoader.create_artist_folder(artist)
     if which_browser == 'Firefox':
@@ -169,7 +173,7 @@ def start_browser(artist: str, headless: bool, which_browser: str, no_cookies: b
         # driver = webdriver.Chrome(options=c_options, executable_path='chromedriver.exe')  # gets local copy of driver
         driver = webdriver.Chrome(options=c_options,
                                   service=ChromeService(ChromeDriverManager(path='_UGDownloaderFiles').install()))
-        # next three lines are allowing chrome to download files while in headless mode
+        # next three lines allow chrome to download files while in headless mode
         driver.command_executor._commands["send_command"] = ("POST", '/session/$sessionId/chromium/send_command')
         params = {'cmd': 'Page.setDownloadBehavior', 'params': {'behavior': 'allow', 'downloadPath': dl_path}}
         driver.execute("send_command", params)
@@ -188,10 +192,10 @@ def autofill_user(window: sg.Window):
         window["-USERNAME-"].update(data[0])
         window["-PASSWORD-"].update(data[1])
     else:
-        print(f'There is either no user info saved or the data saved is invalid.')
+        print('There is either no user info saved or the data saved is invalid.')
 
 
-def set_firefox_options(dl_path: str, headless: bool) -> FFOptions:
+def set_firefox_options(dl_path: str, headless: bool, no_cookies: bool) -> FFOptions:
     firefox_options = FFOptions()
     firefox_options.set_preference("browser.download.folderList", 2)
     firefox_options.set_preference("browser.download.manager.showWhenStarting", False)
@@ -200,8 +204,10 @@ def set_firefox_options(dl_path: str, headless: bool) -> FFOptions:
     firefox_options.set_preference('permissions.default.stylesheet', 2)
     firefox_options.set_preference('permissions.default.image', 2)
     firefox_options.set_preference('dom.ipc.plugins.enabled.libflashplayer.so', 'false')
-    # possible cookie fix
-    # ff_options.set_preference("network.cookie.cookieBehavior", 2)
+
+    if no_cookies:
+        print('Currently, no cookies pop-up removing add-on is included for Firefox, please try Chrome instead if you '
+              'are having cookies pop-up problems.')
     if headless:
         firefox_options.headless = True
 
@@ -209,8 +215,8 @@ def set_firefox_options(dl_path: str, headless: bool) -> FFOptions:
 
 
 def set_chrome_options(dl_path: str, headless: bool, no_cookies: bool) -> COptions:
-    c_options = COptions()
-    c_options.add_argument('--no-sandbox')  # not sure why this makes it work better
+    chrome_options = COptions()
+    chrome_options.add_argument('--no-sandbox')  # not sure why this makes it work better
     preferences = {"download.default_directory": dl_path,  # pass the variable
                    "download.prompt_for_download": False,
                    "directory_upgrade": True,
@@ -218,23 +224,17 @@ def set_chrome_options(dl_path: str, headless: bool, no_cookies: bool) -> COptio
                    "profile.managed_default_content_settings.images": 2,
                    "profile.default_content_setting_values.notifications": 2,
                    "profile.managed_default_content_settings.stylesheets": 2,
-                   # possible cookies fix?
-                   # 2 blocks all cookies, 1 just blocks 3rd party
-                   # "profile.managed_default_content_settings.cookies": 2,
-                   # not sure how this line behaves differently than previous
-                   # "profile.block_third_party_cookies": True,
-                   # "profile.managed_default_content_settings.javascript": 1,
                    "profile.managed_default_content_settings.plugins": 2,
                    "profile.managed_default_content_settings.popups": 2,
                    "profile.managed_default_content_settings.geolocation": 2,
                    "profile.managed_default_content_settings.media_stream": 2}
-    c_options.add_experimental_option('prefs', preferences)
+    chrome_options.add_experimental_option('prefs', preferences)
     # to add I don't care about cookies, only works when headless is disabled
     if no_cookies:
-        c_options.add_extension(str(Path.cwd()) + r'\\_UGDownloaderFiles\\extension_3_4_6_0.crx')
+        chrome_options.add_extension(fetch_resource('_UGDownloaderFiles/extension_3_4_6_0.crx'))
     elif headless:
-        c_options.headless = True
-    return c_options
+        chrome_options.headless = True
+    return chrome_options
 
 
 def start_download(driver: webdriver, artist: str, user: str, password: str, window: sg.Window, file_type_wanted: str):
@@ -248,8 +248,7 @@ def start_download(driver: webdriver, artist: str, user: str, password: str, win
     try:
         driver.find_element(By.LINK_TEXT, artist).click()
     except (TypeError, selenium.common.exceptions.NoSuchElementException):
-        print("Cannot find artist. Did you type it in with the exact spelling and capitalization?")
-        print('\n')
+        print("Cannot find artist. Did you type it in with the exact spelling and capitalization?\n")
         return
     if driver.which_browser == 'Firefox':
         sleep(1)
@@ -267,7 +266,7 @@ def start_download(driver: webdriver, artist: str, user: str, password: str, win
         # download interruptions
         if GUI.EXITING:
             driver.quit()
-            break #
+            break
         if GUI.CANCELED:
             window.write_event_value((THREAD_KEY, DL_END_KEY), download_count)
             GUI.CANCELED = False
@@ -299,6 +298,7 @@ def start_download(driver: webdriver, artist: str, user: str, password: str, win
 def failure_log_new_attempt():
     with open('_UGDownloaderFiles/failurelog.txt', 'a+') as failurelog:
         failurelog.write(f"\nDownload attempt at: {str(datetime.now())}\n")
+        failurelog.write(f"URLs of failed downloads:\n")
 
 
 def failure_log_failed_attempt(text: str):
@@ -367,14 +367,14 @@ def add_to_todl_list(window: sg.Window, values: dict):
     with open('_UGDownloaderFiles/todownload.txt', 'a') as file:
         file.write('\n' + values['-TODLINPUT-'])
     todl_data = get_todl_data()
-    print(f'New artist added to To Download: {values["-TODLINPUT-"]}')
+    print(f'New artist added to download list: {values["-TODLINPUT-"]}')
     window['-TODLTABLE-'].update(values=todl_data[:])
 
 
 def delete_from_todl(window: sg.Window, values: dict, todl_data: list):
     selected_index = values['-TODLTABLE-'][0]
     if selected_index:
-        print(f' removed {todl_data.pop(selected_index)} from to download list.')
+        print(f'Removed {todl_data.pop(selected_index)[0]} from to download list.')
         window['-TODLTABLE-'].update(values=todl_data[:])
         # todo not tested
         with open('_UGDownloaderFiles/todownload.txt', 'w+') as file:
@@ -399,3 +399,32 @@ def save_user_info(user, password):
         userinfo.write(f'{user} {password}')
     print(f'New User info saved.')
 
+
+def fetch_resource(resource_path: Path) -> Path:
+    """Grabs resource from local path when running as a script, grabs from a temp directory when running
+        as a pyinstaller .exe. Keeps hardcoded relative paths intact. Use with pyinstaller '--add-data command
+        to add data files."""
+    try:  # running as *.exe; fetch resource from temp directory
+        base_path = Path(sys._MEIPASS)
+    except AttributeError:  # running as script; return unmodified path
+        return resource_path
+    else:  # return temp resource path
+        return base_path.joinpath(resource_path)
+
+
+def check_update():
+    # Make a request to the GitHub API to get the releases
+    api_url = f"https://api.github.com/repos/jabbey1/UGDownloader/releases"
+    response = requests.get(api_url)
+    print('Checking for updated .exe release.')
+    # Check if the request was successful
+    if response.status_code == 200:
+        releases = response.json()
+        # Get the latest release
+        latest_release_version = releases[0]["tag_name"]  # Assumes the API returns releases in descending order
+        if latest_release_version != str(VERSION):
+            print(f"A new release is available: {latest_release_version}. Current version: {VERSION}")
+        else:
+            print(f"No new release found. Current version: {VERSION}")
+    else:
+        print("Error occurred while checking for update.")
