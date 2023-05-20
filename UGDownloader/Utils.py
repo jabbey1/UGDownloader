@@ -1,3 +1,4 @@
+import os
 import sys
 from datetime import datetime
 from os import path, mkdir
@@ -92,3 +93,4 @@ def failure_log_failed_attempt(text: str):
     download files missed by the program."""
     with open('_UGDownloaderFiles\\failurelog.txt', 'a') as failurelog:
         failurelog.write(text + '\n')
+

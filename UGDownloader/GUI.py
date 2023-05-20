@@ -1,3 +1,4 @@
+import os
 from time import sleep
 import PySimpleGUI as sG
 import selenium.common.exceptions
@@ -149,8 +150,13 @@ class GUI:
         # this point
         try:
             driver.quit()
+        except:
+            pass
+        try:
+            os.remove('geckodriver.log')
         except Exception as e:
             pass
+
 
 
 def autofill_user(window: sG.Window):
