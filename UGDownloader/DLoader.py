@@ -147,7 +147,7 @@ def scroll_to_bottom_and_click_button(driver: webdriver, button_text: str):
 
 
 def get_tabs(driver: webdriver) -> list:
-    """don't use this anymore"""
+    """Old, first, not so great method"""
     tab_links = collect_links_guitar_pro(driver)
     # download for each element, skipping pro or official
     download_count, failure_count = 0, 0
