@@ -1,5 +1,4 @@
-import GUI
+import CTKGUI
 
-gui = GUI.GUI()
-
-
+app = CTKGUI.App()
+app.mainloop()
