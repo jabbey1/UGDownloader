@@ -6,6 +6,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.firefox import GeckoDriverManager
 from selenium.webdriver.chrome.options import Options as COptions
 from selenium.webdriver.chrome.service import Service as ChromeService
+from subprocess import CREATE_NO_WINDOW
 import DLoader
 import Utils
 
@@ -17,16 +18,18 @@ def start_browser(artist: str, headless: bool, which_browser: str, no_cookies: b
     if which_browser == 'Firefox':
         firefox_options = set_firefox_options(dl_path, headless, no_cookies)
         print(f'Starting Firefox, downloading latest Gecko driver.\n')
+        firefox_service = FirefoxService(GeckoDriverManager(path='_UGDownloaderFiles').install())
+        firefox_service.creation_flags = CREATE_NO_WINDOW
         driver = webdriver.Firefox(options=firefox_options,
-                                   service=FirefoxService(GeckoDriverManager(path='_UGDownloaderFiles').install()))
+                                   service=firefox_service)
         # driver = webdriver.Firefox(options=options, executable_path='geckodriver.exe')  # get local copy of driver
 
     if which_browser == 'Chrome':
         chrome_options = set_chrome_options(dl_path, headless, no_cookies)
         print(f'Starting Chrome, downloading latest chromedriver.\n')
-        # driver = webdriver.Chrome(options=chrome_options, executable_path='chromedriver.exe')  # gets local copy
-        driver = webdriver.Chrome(options=chrome_options,
-                                  service=ChromeService(ChromeDriverManager(path='_UGDownloaderFiles').install()))
+        chrome_service = ChromeService(ChromeDriverManager(path='_UGDownloaderFiles').install())
+        chrome_service.creation_flags = CREATE_NO_WINDOW
+        driver = webdriver.Chrome(options=chrome_options, service=chrome_service)
         # next three lines allow chrome to download files while in headless mode
         driver.command_executor._commands["send_command"] = ("POST", '/session/$sessionId/chromium/send_command')
         params = {'cmd': 'Page.setDownloadBehavior', 'params': {'behavior': 'allow', 'downloadPath': dl_path}}

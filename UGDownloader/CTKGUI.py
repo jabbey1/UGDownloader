@@ -1,4 +1,5 @@
 import os
+import subprocess
 import sys
 import threading
 from pathlib import Path
@@ -338,6 +339,8 @@ class App(customtkinter.CTk):
         # except:
         #     pass
         self.destroy()
+        subprocess.call("taskkill /F /IM chromedriver.exe", shell=True)
+        subprocess.call("taskkill /F /IM geckodriver.exe", shell=True)
         try:
             os.remove('geckodriver.log')
         except Exception:
