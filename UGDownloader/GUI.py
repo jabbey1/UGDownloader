@@ -272,7 +272,7 @@ def delete_from_todl(window: sG.Window, values: dict, todl_data: list):
     if selected_index:
         print(f'Removed {todl_data.pop(selected_index)[0]} from to download list.')
         window['-TODLTABLE-'].update(values=todl_data[:])
-        # todo not tested
+
         with open('_UGDownloaderFiles/todownload.txt', 'w+') as file:
             for i in range(len(todl_data)):
                 file.write(todl_data[i][0])
