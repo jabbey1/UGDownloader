@@ -14,7 +14,7 @@ import DriverSetup
 import Utils
 
 customtkinter.set_appearance_mode("System")  # Modes: "System" (standard), "Dark", "Light"
-customtkinter.set_default_color_theme("blue")  # Themes: "blue" (standard), "green", "dark-blue"
+customtkinter.set_default_color_theme("dark-blue")  # Themes: "blue" (standard), "green", "dark-blue"
 
 THREAD_KEY = '-THREAD-'
 DL_START_KEY = '-START DOWNLOAD-'
@@ -34,16 +34,16 @@ class App(customtkinter.CTk):
     def __init__(self, ):
         super().__init__()
         Utils.folder_check()
-        # todl_data = get_todl_data()
-
+        self.resizable(False, False)
         self.title('Ultimate Guitar Downloader')
         self.geometry(f"{900}x{620}")
+
         # configure grid
         self.grid_columnconfigure(1, weight=1)
         self.grid_columnconfigure(2, weight=0)
         self.grid_rowconfigure((0, 1, 2), weight=1)
 
-        # left sidebar
+        """left sidebar"""
         self.sidebar_frame = customtkinter.CTkFrame(self, width=140, corner_radius=0)
         self.sidebar_frame.grid(row=0, column=0, rowspan=11, sticky="nsew")
         self.sidebar_frame.rowconfigure(8, weight=1)
@@ -55,7 +55,7 @@ class App(customtkinter.CTk):
         # text entry
         self.user_text_entry = customtkinter.CTkEntry(self.sidebar_frame, placeholder_text='username')
         self.user_text_entry.grid(row=1, column=0, padx=20, )
-        self.password_text_entry = customtkinter.CTkEntry(self.sidebar_frame, placeholder_text='password')
+        self.password_text_entry = customtkinter.CTkEntry(self.sidebar_frame, placeholder_text='password', show='*')
         self.password_text_entry.grid(row=2, column=0, padx=20, pady=10, )
 
         # text buttons
@@ -79,20 +79,24 @@ class App(customtkinter.CTk):
         self.cookies_checkbox.grid(row=6, column=0, padx=20, pady=(10, 0), sticky='w')
 
         # Exiting/control buttons
+        self.appearance_mode_option_menu = customtkinter.CTkOptionMenu(self.sidebar_frame,
+                                                                       values=["Light", "Dark", "System"],
+                                                                       command=change_appearance_mode_event)
+        self.appearance_mode_option_menu.grid(row=8, column=0, sticky='s')
         self.cancel_button = customtkinter.CTkButton(self.sidebar_frame, text='Cancel Download',
                                                      command=self.cancel_button_event)
         self.cancel_button.grid(row=9, column=0, pady=10)
         self.exit_button = customtkinter.CTkButton(self.sidebar_frame, text='Exit', command=self.exit_button_event)
         self.exit_button.grid(row=10, column=0, pady=(0, 20))
 
-        # Middle
+        """Middle"""
         self.console_output = customtkinter.CTkTextbox(self, width=350, border_color='white', border_width=1,
                                                        wrap='word', )
         self.console_output.grid(row=0, column=1, rowspan=3, padx=6, pady=10, sticky='nsew')
         self.progress_bar = customtkinter.CTkProgressBar(self, mode='determinate')
         self.progress_bar.grid(row=9, column=1, padx=20, pady=10, sticky='ew')
 
-        # right bar
+        """right bar"""
         self.right_frame = customtkinter.CTkFrame(self, )
         self.right_frame.grid(row=0, column=2, sticky='nsew', columnspan=3, rowspan=10, padx=6, pady=10)
         self.right_frame.grid_columnconfigure(1, weight=1)
@@ -111,14 +115,14 @@ class App(customtkinter.CTk):
 
         self.todl_table.column("#1", anchor="c", minwidth=50, width=50)
         self.todl_table.heading('1', text='Artists to download')
-        self.scrollbar = ttk.Scrollbar(self.right_frame, orient='vertical', command=self.todl_table.yview)
+        self.scrollbar = customtkinter.CTkScrollbar(self.right_frame, orientation='vertical',
+                                                    command=self.todl_table.yview)
         self.todl_table.configure(yscrollcommand=self.scrollbar.set)
         self.todl_table.grid(row=1, column=0, sticky='nsew', padx=10, pady=10)
-        self.scrollbar.grid(row=1, column=1, sticky='nse', pady=10)
+        self.scrollbar.grid(row=1, column=1, sticky='nse', pady=5)
 
         self.get_todl_data()
 
-        # self.todl_table.bind('<Button-1>', self.table_selection)
         self.selected_table_item = self.todl_table.selection()
         self.todl_table.grid(row=1, column=0, padx=10, columnspan=2, rowspan=1, sticky='news')
         # table styling
@@ -132,13 +136,11 @@ class App(customtkinter.CTk):
                         bordercolor="#343638",
                         borderwidth=0)
         style.map('Treeview', background=[('selected', '#22559b')])
-
         style.configure("Treeview.Heading",
                         background="#565b5e",
                         foreground="white",
                         relief="flat")
-        style.map("Treeview.Heading",
-                  background=[('active', '#3484F0')])
+        style.map("Treeview.Heading", background=[('active', '#3484F0')])
         # table buttons
         self.copy_button = customtkinter.CTkButton(self.right_frame, width=130, text='Copy',
                                                    command=self.copy_button_event)
@@ -180,6 +182,7 @@ class App(customtkinter.CTk):
         self.browser_button.set('Chrome')
         self.headless_checkbox.select()
         self.filetype_drop_down.set('Guitar Pro')
+        self.appearance_mode_option_menu.set('System')
         self.information_tabview.set('Notes')
         # Set notes
         self.note_1_text.insert('0.0', "-Ultimate Guitar requires a login to download tabs. If you just created an "
@@ -192,13 +195,15 @@ class App(customtkinter.CTk):
                                        "is in.")
         # Redirect console output
         sys.stdout = StdoutRedirector(self.console_output)
-
         Utils.check_update()
+        self.autofill_button_event(True)
 
     def copy_button_event(self):
+        """Copies selection from to download table into the artist text entry """
         if not self.todl_table.selection():
             print('Nothing selected')
             return
+
         selected_item = self.todl_table.focus()
         item_text = self.todl_table.item(selected_item)['values'][0]
 
@@ -207,11 +212,12 @@ class App(customtkinter.CTk):
 
     def delete_button_event(self):
         """Gets the selected value to delete from the table in the window, and then rewrites text file to reflect
-        change"""
+        change. Logic necessary to prevent leaving a blank line at the end of the file"""
 
         if not self.todl_table.selection():
             print('Nothing selected')
             return
+
         selected_item = self.todl_table.focus()
         item_text = self.todl_table.item(selected_item)['values'][0]
         print(f'Removed {item_text} from to download list.')
@@ -244,7 +250,7 @@ class App(customtkinter.CTk):
         self.get_todl_data()
         print(f'New artist added to download list: {new_artist}')
 
-    def autofill_button_event(self):
+    def autofill_button_event(self, startup=None):
         """Update the user and password text fields with user's data from text file, if it exists and is valid."""
         with open(self.user_info_path, 'r') as userinfo:
             data = []
@@ -255,10 +261,11 @@ class App(customtkinter.CTk):
                 self.password_text_entry.delete(0, 'end')
                 self.user_text_entry.insert(0, data[0])
                 self.password_text_entry.insert(0, data[1])
-            else:
+            elif startup is None:
                 print('There is either no user info saved or the data saved is invalid.')
 
     def save_info_button_event(self):
+        """Saves username and password to .txt file"""
         user, password = self.user_text_entry.get(), self.password_text_entry.get()
         if not validate('A', user, password):
             return  # faked artist field to not trip validate
@@ -267,6 +274,9 @@ class App(customtkinter.CTk):
         print(f'New User info saved.')
 
     def download_button_event(self):
+        """Collect all information from the text fields to send to a new thread. Prevents downloading if a download
+        is already in progress. Driver quits if the thread fails, otherwise driver must be quit inside the
+        download method"""
         # pull options from GUI fields
         artist, user, password = self.artist_entry.get(), self.user_text_entry.get(), self.password_text_entry.get()
         headless, browser, cookies, filetype = bool(self.headless_checkbox.get()), self.browser_button.get(), \
@@ -283,7 +293,7 @@ class App(customtkinter.CTk):
         driver = DriverSetup.start_browser(artist, headless, browser, cookies)
         try:
             thread = threading.Thread(target=lambda: start_download(driver, artist, user, password, self,
-                                                                    filetype))  # ,(THREAD_KEY, DL_THREAD_EXITING))
+                                                                    filetype))
             thread.start()
         except Exception as e:
             self.DOWNLOADING = False
@@ -308,7 +318,7 @@ class App(customtkinter.CTk):
         self.exit_program()
 
     def get_todl_data(self):
-        """updates to download data from the text file, updates table with new data"""
+        """updates 'to download data' from the text file, updates table with new data"""
         with open(self.todl_path, 'r') as f:
             todl_data = [[line.rstrip()] for line in f]
         self.todl_table.delete(*self.todl_table.get_children())
@@ -338,6 +348,10 @@ def validate(artist: str, user: str, password: str) -> bool:
         sG.popup_error('Password cannot be blank.')
         return False
     return True
+
+
+def change_appearance_mode_event(new_appearance_mode: str):
+    customtkinter.set_appearance_mode(new_appearance_mode)
 
 
 def start_download(driver: webdriver, artist: str, user: str, password: str, gui: App, file_type_wanted: str):
