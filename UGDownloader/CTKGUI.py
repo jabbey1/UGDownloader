@@ -30,6 +30,7 @@ class App(customtkinter.CTk):
     selected_table_item = ''
     todl_path = Path('_UGDownloaderFiles/todownload.txt')
     user_info_path = Path('_UGDownloaderFiles/userinfo.txt')
+    os.environ['WDM_PROGRESS_BAR'] = str(0)
 
     def __init__(self, ):
         super().__init__()
@@ -410,7 +411,6 @@ def start_download(driver: webdriver, artist: str, user: str, password: str, gui
         tabs_attempted += 1
         download_count += results[0]
         failure_count += results[1]
-        print(tabs_attempted * 100 / len(tab_links))
         gui.progress_bar.set(tabs_attempted / len(tab_links))
     driver.quit()
     print(f'Downloads Finished. Total number of downloads: {str(download_count)}.')
