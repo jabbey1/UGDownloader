@@ -4,6 +4,13 @@ Ultimate Guitar tab downloader
 Enter the name of the artist, and this will download every available Guitar Pro file in a batch from ultimate-guitar.com. This will avoid the 'Official' and 'Pro'
 versions of songs. Uses Firefox or Chrome w/ Selenium in Python.
 
+As of v2.0:
+
+-New improved GUI!
+
+![image](https://github.com/jabbey1/UGDownloader/assets/9942757/877f3f2f-6030-41ce-8019-0a6d6188bc79)
+
+
 As of v1.5:
 
 -Save your login info
@@ -19,6 +26,8 @@ As of v1.5:
 -Shows progress/cancelable download actions
 
 -Fallback download method
+
+old GUI:
 
 
 ![Untitled picture](https://user-images.githubusercontent.com/9942757/236566975-d5896f6e-6124-44d8-bc4e-4270b584906b.png)
