@@ -9,7 +9,7 @@ import requests
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
-VERSION = 1.6
+VERSION = 2.0
 
 
 def check_update():
@@ -54,8 +54,8 @@ def folder_check():
     if not path.isfile('_UGDownloaderFiles/userinfo.txt'):
         with open('_UGDownloaderFiles/userinfo.txt', 'x'):
             pass
-    if not path.isfile('_UGDownloaderFiles/todownload.txt'):
-        with open('_UGDownloaderFiles/todownload.txt', 'x'):
+    if not path.isfile('_UGDownloaderFiles/todownload.csv'):
+        with open('_UGDownloaderFiles/todownload.csv', 'x'):
             pass
 
 

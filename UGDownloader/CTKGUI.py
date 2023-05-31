@@ -9,6 +9,7 @@ import customtkinter
 import selenium.common.exceptions
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+import csv
 import DLoader
 import DriverSetup
 import Utils
@@ -28,7 +29,7 @@ class App(customtkinter.CTk):
     CANCELED = False
     DOWNLOADING = False
     selected_table_item = ''
-    todl_path = Path('_UGDownloaderFiles/todownload.txt')
+    todl_path = Path('_UGDownloaderFiles/todownload.csv')
     user_info_path = Path('_UGDownloaderFiles/userinfo.txt')
     os.environ['WDM_PROGRESS_BAR'] = str(0)
 
@@ -156,19 +157,21 @@ class App(customtkinter.CTk):
         # add tabs to tabview
         self.information_tabview.add('Notes')
         self.information_tabview.add('2')
-        # self.information_tabview.add('3')
+        self.information_tabview.add('3')
         # Configure tab layouts
         self.information_tabview.tab('Notes').grid_columnconfigure(0, weight=1)
         self.information_tabview.tab('Notes').grid_rowconfigure(0, weight=1)
         self.information_tabview.tab('2').grid_columnconfigure(0, weight=1)
         self.information_tabview.tab('2').grid_rowconfigure(0, weight=1)
-        # self.information_tabview.tab('3').grid_columnconfigure(0, weight=1)
-        # self.information_tabview.tab('3').grid_rowconfigure(0, weight=1)
+        self.information_tabview.tab('3').grid_columnconfigure(0, weight=1)
+        self.information_tabview.tab('3').grid_rowconfigure(0, weight=1)
         # configure textboxes inside tabs
         self.note_1_text = customtkinter.CTkTextbox(self.information_tabview.tab('Notes'), wrap='word')
         self.note_1_text.grid(row=0, column=0, sticky='nsew')
         self.note_2_text = customtkinter.CTkTextbox(self.information_tabview.tab('2'), wrap='word')
         self.note_2_text.grid(row=0, column=0, sticky='nsew')
+        self.note_3_text = customtkinter.CTkTextbox(self.information_tabview.tab('3'), wrap='word')
+        self.note_3_text.grid(row=0, column=0, sticky='nsew')
 
         # bottom
         self.artist_entry = customtkinter.CTkEntry(self, placeholder_text='Artist')
@@ -188,12 +191,15 @@ class App(customtkinter.CTk):
         # Set notes
         self.note_1_text.insert('0.0', "-Ultimate Guitar requires a login to download tabs. If you just created an "
                                        "account, you may have to wait a day or two for the captcha to stop appearing "
-                                       "(this program won't work while that's appearing).\n\n"
-                                       "-You will need Chrome or firefox installed, select "
-                                       "which one you have.")
+                                       "(this program won't work while that's appearing)."
+                                       "\n\n-You will need Chrome or firefox installed, select which one you have.")
         self.note_2_text.insert('0.0', "-Artist entered must be an exact, case sensitive match to what Ultimate "
-                                       "Guitar has listed.\n\n -Files will be downloaded to the folder this program "
-                                       "is in.")
+                                       "Guitar has listed."
+                                       "\n\n-Tabs will be downloaded to the folder this program is in."
+                                       "\n\n-You can edit the 'to download' list manually, it is located in the "
+                                       "_UGDownloaderFiles folder.")
+        self.note_3_text.insert('0.0', "-Bypass Cookies uses the I don't care about cookies add-on, and will only "
+                                       "work using Chrome and will not run in the background.")
         # Redirect console output
         sys.stdout = StdoutRedirector(self.console_output)
         Utils.check_update()
@@ -223,22 +229,14 @@ class App(customtkinter.CTk):
         item_text = self.todl_table.item(selected_item)['values'][0]
         print(f'Removed {item_text} from to download list.')
         with open(self.todl_path, 'r') as file:
-            lines = file.readlines()
-
+            content = file.readline()
+            items = content.split(',')
         with open(self.todl_path, 'w') as file:
-            for line in lines:
-                if line.strip() != item_text and line.strip() != "":
-                    file.write(line)
-
+            for item in items:
+                if item != item_text and item != "":
+                    new_entry = item + ','
+                    file.write(new_entry)
         self.get_todl_data()
-        # delete trailing new line as a result of deleting the last value
-        with open(self.todl_path, 'r+') as file:
-            file.seek(0, 2)
-            file.seek(file.tell() - 2, 0)
-            if file.read() == "\n":
-                print('hey')
-                file.seek(file.tell() - 2, 0)
-                file.truncate()
 
     def add_artist_button_event(self):
         """adds new artist to the to download list text file, and then updates the table."""
@@ -246,10 +244,11 @@ class App(customtkinter.CTk):
         if not new_artist:
             print('No artist to add. Please type one in the input box.')
             return
+        new_entry = ',' + new_artist.strip()
         with open(self.todl_path, 'a') as file:
-            file.write('\n' + new_artist)
+            file.write(new_entry)
         self.get_todl_data()
-        print(f'New artist added to download list: {new_artist}')
+        print(f'New artist added to download list: {new_artist.strip()}')
 
     def autofill_button_event(self, startup=None):
         """Update the user and password text fields with user's data from text file, if it exists and is valid."""
@@ -279,6 +278,8 @@ class App(customtkinter.CTk):
         is already in progress. Driver quits if the thread fails, otherwise driver must be quit inside the
         download method"""
         # pull options from GUI fields
+        self.progress_bar.configure(mode="indeterminate")
+        self.progress_bar.start()
         artist, user, password = self.artist_entry.get(), self.user_text_entry.get(), self.password_text_entry.get()
         headless, browser, cookies, filetype = bool(self.headless_checkbox.get()), self.browser_button.get(), \
             bool(self.cookies_checkbox.get()), self.filetype_drop_down.get()
@@ -305,6 +306,9 @@ class App(customtkinter.CTk):
                            "guitar pro files available. Other errors possible.")
 
     def cancel_button_event(self):
+        if not self.DOWNLOADING:
+            print('No download to cancel')
+            return
         print('Canceling...')
         self.CANCELED = True
 
@@ -320,11 +324,13 @@ class App(customtkinter.CTk):
 
     def get_todl_data(self):
         """updates 'to download data' from the text file, updates table with new data"""
-        with open(self.todl_path, 'r') as f:
-            todl_data = [[line.rstrip()] for line in f]
+        with open(self.todl_path, 'r') as file:
+            content = file.readline()
+            todl_data = content.split(',')
         self.todl_table.delete(*self.todl_table.get_children())
         for item in todl_data:
-            self.todl_table.insert('', 'end', values=item)
+            if item != '':
+                self.todl_table.insert('', 'end', values=(f'{item}',))
 
     def exit_program(self):
         # try:
@@ -371,6 +377,8 @@ def start_download(driver: webdriver, artist: str, user: str, password: str, gui
         driver.find_element(By.LINK_TEXT, artist).click()
     except (TypeError, selenium.common.exceptions.NoSuchElementException):
         print("Cannot find artist. Did you type it in with the exact spelling and capitalization?\n")
+        gui.DOWNLOADING = False
+        gui.progress_bar.stop()
         return
     if driver.which_browser == 'Firefox':
         sleep(1)
@@ -382,6 +390,9 @@ def start_download(driver: webdriver, artist: str, user: str, password: str, gui
     tab_links = DLoader.link_handler(driver, tab_links, file_type_wanted)
 
     print(f'Attempting {len(tab_links)} downloads.')
+    gui.progress_bar.stop()
+    gui.progress_bar.set(0)
+    gui.progress_bar.configure(mode="determinate")
     gui.progress_bar["maximum"] = len(tab_links)
     tabs_attempted = 0
     for link in tab_links:
