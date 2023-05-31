@@ -10,7 +10,6 @@ import customtkinter
 import selenium.common.exceptions
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-import csv
 import DLoader
 import DriverSetup
 import Utils
@@ -334,13 +333,13 @@ class App(customtkinter.CTk):
                 self.todl_table.insert('', 'end', values=(f'{item}',))
 
     def exit_program(self):
-        # try:
-        #     driver.quit()
-        # except:
-        #     pass
+        try:
+            driver.quit() # unresolved reference
+        except:
+            pass
         self.destroy()
-        subprocess.call("taskkill /F /IM chromedriver.exe", shell=True)
-        subprocess.call("taskkill /F /IM geckodriver.exe", shell=True)
+        # subprocess.call("taskkill /F /IM chromedriver.exe", shell=True)
+        # subprocess.call("taskkill /F /IM geckodriver.exe", shell=True)
         try:
             os.remove('geckodriver.log')
         except Exception:
