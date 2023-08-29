@@ -19,4 +19,4 @@ PyInstaller.__main__.run([
     'UGDownloader.pyw'
 ])
 
-pyinstaller --noconfirm --onefile --windowed --icon "C:/Users/jake/AppData/Roaming/JetBrains/PyCharmCE2023.1/scratches/icons8-python-64.ico" --clean --add-data "C:/Users/jake/PycharmProjects/UGDownloader/venv/Lib/site-packages/customtkinter;customtkinter/" --add-data "C:\Users\jake\PycharmProjects\UGDownloader\UGDownloader\_UGDownloaderFiles\extension_3_4_6_0.crx;_UGDownloaderFiles/"  "C:/Users/jake/PycharmProjects/UGDownloader/UGDownloader/UGDownloader.pyw"
+# pyinstaller --noconfirm --onefile --windowed --icon "C:/Users/jake/AppData/Roaming/JetBrains/PyCharmCE2023.1/scratches/icons8-python-64.ico" --clean --add-data "C:/Users/jake/PycharmProjects/UGDownloader/venv/Lib/site-packages/customtkinter;customtkinter/" --add-data "C:\Users\jake\PycharmProjects\UGDownloader\UGDownloader\_UGDownloaderFiles\extension_3_4_6_0.crx;_UGDownloaderFiles/"  "C:/Users/jake/PycharmProjects/UGDownloader/UGDownloader/UGDownloader.pyw"

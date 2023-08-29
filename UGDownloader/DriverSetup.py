@@ -6,6 +6,8 @@ from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.firefox import GeckoDriverManager
 from selenium.webdriver.chrome.options import Options as COptions
 from selenium.webdriver.chrome.service import Service as ChromeService
+from selenium.webdriver.chrome.service import Service
+# from seleniumbase import Driver
 from subprocess import CREATE_NO_WINDOW
 import DLoader
 import Utils
@@ -27,8 +29,9 @@ def start_browser(artist: str, headless: bool, which_browser: str, no_cookies: b
     if which_browser == 'Chrome':
         chrome_options = set_chrome_options(dl_path, headless, no_cookies)
         print(f'Starting Chrome, downloading latest chromedriver.\n')
-        chrome_service = ChromeService(ChromeDriverManager(path='_UGDownloaderFiles').install())
-        chrome_service.creation_flags = CREATE_NO_WINDOW
+        # chrome_service = Service(ChromeDriverManager().install()) # not working anymore?
+        # todo Changed to below, which works, but will not keep up to date
+        chrome_service = Service(executable_path="_UGDownloaderFiles/.wdm/drivers/chromedriver/chromedriver.exe")
         driver = webdriver.Chrome(options=chrome_options, service=chrome_service)
         # next three lines allow chrome to download files while in headless mode
         driver.command_executor._commands["send_command"] = ("POST", '/session/$sessionId/chromium/send_command')
