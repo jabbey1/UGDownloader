@@ -2,12 +2,9 @@ from pathlib import Path
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options as FFOptions
 from selenium.webdriver.firefox.service import Service as FirefoxService
-from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.firefox import GeckoDriverManager
 from selenium.webdriver.chrome.options import Options as COptions
-# from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.chrome.service import Service
-# from seleniumbase import Driver
 from subprocess import CREATE_NO_WINDOW
 import DLoader
 import Utils
