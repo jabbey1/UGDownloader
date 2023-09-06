@@ -8,7 +8,7 @@ import requests
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
-VERSION = 2.0
+VERSION = 2.2
 
 
 def check_update():

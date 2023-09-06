@@ -17,7 +17,7 @@ def start_browser(artist: str, headless: bool, which_browser: str, no_cookies: b
     if which_browser == 'Firefox':
         firefox_options = set_firefox_options(dl_path, headless, no_cookies)
         print(f'Starting Firefox, downloading latest Gecko driver.\n')
-        firefox_service = FirefoxService(GeckoDriverManager(path='_UGDownloaderFiles').install())
+        firefox_service = Service(path='_UGDownloaderFiles')
         firefox_service.creation_flags = CREATE_NO_WINDOW
         driver = webdriver.Firefox(options=firefox_options,
                                    service=firefox_service)
@@ -27,6 +27,7 @@ def start_browser(artist: str, headless: bool, which_browser: str, no_cookies: b
         chrome_options = set_chrome_options(dl_path, headless, no_cookies)
         print(f'Starting Chrome, downloading latest chromedriver.\n')
         chrome_service = Service(path='_UGDownloaderFiles')
+        chrome_service.creation_flags = CREATE_NO_WINDOW
         driver = webdriver.Chrome(options=chrome_options, service=chrome_service)
         # next three lines allow chrome to download files while in headless mode
         driver.command_executor._commands["send_command"] = ("POST", '/session/$sessionId/chromium/send_command')
