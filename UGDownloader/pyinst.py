@@ -1,4 +1,4 @@
-import PyInstaller.__main__
+# import PyInstaller.__main__
 # pysimplegui
 # PyInstaller.__main__.run([
 #     '--windowed',
@@ -9,7 +9,7 @@ import PyInstaller.__main__
 #     'UGDownloader.pyw'
 # ])
 # customtkinter not working
-PyInstaller.__main__.run([
+# PyInstaller.__main__.run([
     '--noconfirm',
     '--windowed',
     '--noconsole',
