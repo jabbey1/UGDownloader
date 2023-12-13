@@ -34,7 +34,6 @@ class App(customtkinter.CTk):
 
     def __init__(self, ):
         super().__init__()
-        # todo
         self.driver = None
         Utils.folder_check()
         self.resizable(False, False)
@@ -294,6 +293,7 @@ class App(customtkinter.CTk):
         self.DOWNLOADING = True
 
         driver = DriverSetup.start_browser(artist, headless, browser, cookies)
+
         try:
             thread = threading.Thread(target=lambda: start_download(driver, artist, user, password, self,
                                                                     filetype))
@@ -336,7 +336,6 @@ class App(customtkinter.CTk):
                 self.todl_table.insert('', 'end', values=(f'{item}',))
 
     def exit_program(self):
-
         try:
             print('Closing browser...')
             driver.quit()
@@ -344,12 +343,8 @@ class App(customtkinter.CTk):
         except:
             pass
         self.destroy()
-        # subprocess.call("taskkill /F /IM chromedriver.exe", shell=True)
-        # subprocess.call("taskkill /F /IM geckodriver.exe", shell=True)
-        try:
+        if os.path.exists('geckodriver.log'):
             os.remove('geckodriver.log')
-        except Exception:
-            pass
 
 
 def validate(artist: str, user: str, password: str) -> bool:
@@ -457,7 +452,7 @@ class StdoutRedirector(object):
         self.console_output.configure(state='disabled')
 
     def flush(self):
-        pass
+        self.console_output.update_idletasks()
 
 
 if __name__ == "__main__":

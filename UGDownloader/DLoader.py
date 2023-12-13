@@ -13,7 +13,8 @@ from selenium.common.exceptions import NoSuchElementException
 DOWNLOAD_BUTTON_SELECTOR = "button[class='rPQkl yDkT4 IxFbd exTWY lTEpj qOnLe']"
 TAB_BLOCKED_SELECTOR = '.XqAW0.ViYGM.g2AHx'
 
-def download_tab(driver: webdriver, url: str) -> List[int, int]:
+
+def download_tab(driver: webdriver, url: str) -> List[int]:
     """Download the file. Navigates to page, scrolls to the bottom where the download button is, and then clicks. If
     the click fails, or the button isn't there, the fallback method is called. Returns values to keep track of total
     number of downloads and failures"""
@@ -83,13 +84,13 @@ def link_handler(driver: webdriver, tab_links: list, file_type_wanted: str) -> l
     if file_type_wanted in ('Guitar Pro', 'Both'):
         try:
             driver.find_element(By.LINK_TEXT, 'Guitar Pro').click()
-            tab_links += collect_links_guitar_pro(driver)
+            tab_links.extend(collect_links_guitar_pro(driver))
         except (TypeError, selenium.common.exceptions.NoSuchElementException):
             print('There are no available Guitar Pro tabs for this artist.')
     if file_type_wanted in ('Powertab', 'Both'):
         try:
             driver.find_element(By.LINK_TEXT, 'Power').click()
-            tab_links += collect_links_powertab(driver)
+            tab_links.extend(collect_links_powertab(driver))
         except (TypeError, selenium.common.exceptions.NoSuchElementException):
             print('There are no available Powertabs for this artist.')
     elif file_type_wanted == 'Text':
@@ -136,19 +137,15 @@ def collect_links_powertab(driver: webdriver) -> list:
     return tab_links
 
 
-def create_artist_folder(artist: str) -> str:
+def create_artist_folder(artist: str) -> Path:
     """Build a path to the artist's folder, inside of Tabs where the files will be downloaded. First, builds path,
     and then determines if there's a folder there already. If not, creates folder. Returns the path to the folder."""
-    dl_path = str(Path.cwd()) + '\\Tabs\\' + artist
-    if path.isdir(dl_path):
-        print("Using folder at " + dl_path)
+    dl_path = Path.cwd() / 'Tabs' / artist
+    if dl_path.is_dir():
+        print("Using folder at " + str(dl_path))
         return dl_path
-    try:
-        mkdir(dl_path)
-    except OSError as error:
-        print(error)
-    else:
-        print("Folder created at " + dl_path)
+    dl_path.mkdir(parents=True, exist_ok=True)
+    print("Folder created at " + str(dl_path))
     return dl_path  # return path so GUI can set download directory in browser
 
 

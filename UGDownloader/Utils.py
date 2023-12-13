@@ -1,3 +1,5 @@
+from selenium.common.exceptions import NoSuchElementException
+import logging
 import sys
 from datetime import datetime
 from os import path, mkdir
@@ -66,27 +68,40 @@ def folder_check():
 def login(driver: webdriver, user: str, password: str):
     """logs in, but will be defeated if a captcha is present. Must be used when the driver is on
     a page where a login button exists. If you aren't already logged in, this will be most pages"""
-    driver.find_element(By.CSS_SELECTOR, '.exTWY').click()  # login button
-    sleep(1)
-    form = driver.find_element(By.CSS_SELECTOR, "form > div.PictU")
-    # todo test below
-    # form = WebDriverWait(driver, 20).until(ec.presence_of_element_located((By.CSS_SELECTOR, "form > div.PictU")))
-    username_textbox = form.find_element(By.CSS_SELECTOR, 'input[name=username]')
-    password_textbox = form.find_element(By.CSS_SELECTOR, 'input[name=password]')
-    submit_button = form.find_element(By.CSS_SELECTOR, 'button[type=submit]')
-
-    username_textbox.send_keys(user)
-    password_textbox.send_keys(password)
-    sleep(1)
-    submit_button.click()
-    # call method from captcha class, if figure out how to bypass captcha
-    # this popup sometimes takes some time to appear, wait until it's clickable
-    element = WebDriverWait(driver, 20).until(
-        ec.element_to_be_clickable((By.CSS_SELECTOR,
-                                    'button.RwBUh:nth-child(1) > svg:nth-child(1) > path:nth-child(1)')))
-    element.click()
-    sleep(.5)
-    print('Logged in')
+    
+    # CSS selectors
+    login_button_selector = '.exTWY'
+    form_selector = "form > div.PictU"
+    username_selector = 'input[name=username]'
+    password_selector = 'input[name=password]'
+    submit_selector = 'button[type=submit]'
+    popup_selector = 'button.RwBUh:nth-child(1) > svg:nth-child(1) > path:nth-child(1)'
+    
+    try:
+        # Click on login button
+        driver.find_element(By.CSS_SELECTOR, login_button_selector).click()
+        
+        # Wait for form to be present
+        form = WebDriverWait(driver, 20).until(ec.presence_of_element_located((By.CSS_SELECTOR, form_selector)))
+        # Find login elements
+        username_textbox = form.find_element(By.CSS_SELECTOR, username_selector)
+        password_textbox = form.find_element(By.CSS_SELECTOR, password_selector)
+        submit_button = form.find_element(By.CSS_SELECTOR, submit_selector)
+        
+        # Enter username and password
+        username_textbox.send_keys(user)
+        password_textbox.send_keys(password)
+        sleep(1)
+        submit_button.click()
+        
+        # Wait for popup to be clickable
+        popup_element = WebDriverWait(driver, 20).until(ec.element_to_be_clickable((By.CSS_SELECTOR, popup_selector)))
+        popup_element.click()
+        sleep(.5)
+        print('Logged in')
+        
+    except NoSuchElementException:
+        print('Error: Could not find one of the login elements.')
 
 
 def failure_log_new_attempt():

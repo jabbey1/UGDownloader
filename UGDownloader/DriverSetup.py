@@ -13,7 +13,7 @@ def start_browser(artist: str, headless: bool, which_browser: str, no_cookies: b
     and options tailored to each browser. Sets the path of and installs the relevant driver."""
     dl_path = DLoader.create_artist_folder(artist)
     if which_browser == 'Firefox':
-        firefox_options = set_firefox_options(dl_path, headless, no_cookies)
+        firefox_options = set_firefox_options(str(dl_path), headless, no_cookies)
         print(f'Starting Firefox, downloading latest Gecko driver.\n')
         firefox_service = Service(path='_UGDownloaderFiles')
         firefox_service.creation_flags = CREATE_NO_WINDOW
@@ -22,14 +22,14 @@ def start_browser(artist: str, headless: bool, which_browser: str, no_cookies: b
         # driver = webdriver.Firefox(options=options, executable_path='geckodriver.exe')  # get local copy of driver
 
     else:
-        chrome_options = set_chrome_options(dl_path, headless, no_cookies)
+        chrome_options = set_chrome_options(str(dl_path), headless, no_cookies)
         print(f'Starting Chrome, downloading latest chromedriver.\n')
         chrome_service = Service(path='_UGDownloaderFiles')
         chrome_service.creation_flags = CREATE_NO_WINDOW
         driver = webdriver.Chrome(options=chrome_options, service=chrome_service)
         # next three lines allow chrome to download files while in headless mode
         driver.command_executor._commands["send_command"] = ("POST", '/session/$sessionId/chromium/send_command')
-        params = {'cmd': 'Page.setDownloadBehavior', 'params': {'behavior': 'allow', 'downloadPath': dl_path}}
+        params = {'cmd': 'Page.setDownloadBehavior', 'params': {'behavior': 'allow', 'downloadPath': str(dl_path)}}
         driver.execute("send_command", params)
     driver.which_browser = which_browser
     return driver
@@ -39,13 +39,19 @@ def set_firefox_options(dl_path: str, headless: bool, no_cookies: bool) -> FFOpt
     """Configure the firefox driver. Sets the download directory, and browser options including headless mode. No
     cookies pop-up workaround for firefox at this point"""
     firefox_options = FFOptions()
-    firefox_options.set_preference("browser.download.folderList", 2)
-    firefox_options.set_preference("browser.download.manager.showWhenStarting", False)
-    firefox_options.set_preference("browser.download.dir", dl_path)
-    firefox_options.set_preference("browser.helperApps.neverAsk.saveToDisk", "application/x-gzip")
-    firefox_options.set_preference('permissions.default.stylesheet', 2)
-    firefox_options.set_preference('permissions.default.image', 2)
-    firefox_options.set_preference('dom.ipc.plugins.enabled.libflashplayer.so', 'false')
+    
+    preferences = {
+        "browser.download.folderList": 2,
+        "browser.download.manager.showWhenStarting": False,
+        "browser.download.dir": dl_path,
+        "browser.helperApps.neverAsk.saveToDisk": "application/x-gzip",
+        "permissions.default.stylesheet": 2,
+        "permissions.default.image": 2,
+        "dom.ipc.plugins.enabled.libflashplayer.so": 'false'
+    }
+    
+    for key, value in preferences.items():
+        firefox_options.set_preference(key, value)
 
     if no_cookies:
         print('Currently, no cookies pop-up removing add-on is included for Firefox, please try Chrome instead if you '
