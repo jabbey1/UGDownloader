@@ -396,6 +396,7 @@ def start_download(driver: webdriver, artist: str, user: str, password: str, gui
     gui.progress_bar.configure(mode="determinate")
     gui.progress_bar["maximum"] = len(tab_links)
     tabs_attempted = 0
+    driver.wait_on_first_tab = True
     for link in tab_links:
         # download interruptions
         if gui.EXITING:
