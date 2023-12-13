@@ -1,3 +1,5 @@
+from typing import List, Tuple
+from selenium.webdriver.remote.webdriver import WebDriver
 from os import path, mkdir
 from time import sleep
 import selenium.common.exceptions
@@ -6,47 +8,55 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
+from selenium.common.exceptions import NoSuchElementException
 
+DOWNLOAD_BUTTON_SELECTOR = "button[class='rPQkl yDkT4 IxFbd exTWY lTEpj qOnLe']"
+TAB_BLOCKED_SELECTOR = '.XqAW0.ViYGM.g2AHx'
 
-def download_tab(driver: webdriver, url: str) -> list[int, int]:
+def download_tab(driver: webdriver, url: str) -> List[int, int]:
     """Download the file. Navigates to page, scrolls to the bottom where the download button is, and then clicks. If
     the click fails, or the button isn't there, the fallback method is called. Returns values to keep track of total
     number of downloads and failures"""
     download_count, failure_count = 0, 0
     driver.get(url)
+
+    if is_tab_blocked(driver):
+        print('This tab has been blocked. Now trying fallback download method, may or may not be successful.')
+        download_tab_fallback(driver, url)
+        # increments download count regardless of whether it downloads, as we don't want to loop thru additional
+        # downloads
+        download_count += 1
+        return [download_count, failure_count]
+
     print(f'Downloading tab @ {url}')
-    if driver.wait_on_first_tab:
-        driver.wait_on_first_tab = False
-        sleep(1)
 
     try:
-        scroll_to_bottom(driver)
-        button = driver.find_element(By.CSS_SELECTOR,
-                                     "button[class='rPQkl yDkT4 IxFbd exTWY lTEpj qOnLe']")
-        driver.execute_script('arguments[0].click();', WebDriverWait(driver, 4)
-                              .until(ec.element_to_be_clickable(button)))
+        button = WebDriverWait(driver, 10).until(
+            ec.element_to_be_clickable((By.CSS_SELECTOR, DOWNLOAD_BUTTON_SELECTOR))
+        )
+        driver.execute_script('arguments[0].click();', button)
         # seem to need to give firefox time on page after a download
         if driver.which_browser == 'Firefox':
             sleep(.65)
         download_count += 1
+    except NoSuchElementException:
+        print("Is the button obscured or not clickable? Trying again.")
+        failure_count += 1
     except Exception as e:  # sometimes the button is obscured by other elements, or button doesn't exist
+        print('Error. Printing information below. Will try again.')
         print(e)
-        print('Button obscured? Trying fallback method.')
-        # download_tab_fallback(driver, url)
         failure_count += 1
     sleep(0.5)
     return [download_count, failure_count]
 
-    # Either remove try block (after testing to see if the fallback method is what's actually downloading the files)
-    # or, use selector extension to find a better selector
-    # //span[normalize-space()='DOWNLOAD Guitar Pro TAB']
-    # Works most of the time:
-    # .Z_7o4 > button:nth-child(2)
-    # //form[@action='https://www.ultimate-guitar.com/tab/download']//button[@type='submit']
 
-
-
-
+def is_tab_blocked(driver: webdriver) -> bool:
+    # call after navigating to page that you want to check
+    try:
+        driver.find_element(By.CSS_SELECTOR, TAB_BLOCKED_SELECTOR)
+        return True
+    except NoSuchElementException:
+        return False
 
 
 def download_tab_fallback(driver: webdriver, url: str):
@@ -58,12 +68,11 @@ def download_tab_fallback(driver: webdriver, url: str):
     actually exist on UG's server. So this should not be used as the primary
     download strategy, but only as a fallback.
     """
-    # TODO handle download/failure count here
     if driver.current_url != url:
         driver.get(url)
     sleep(.5)
     uid = url.split('-')[-1]
-    js_dl = f"window.open('https://tabs.ultimate-guitar.com/tab/download?id={uid}');"
+    js_dl = f"window.location.href='https://tabs.ultimate-guitar.com/tab/download?id={uid}';"
     driver.execute_script(js_dl)
     sleep(.5)
 
@@ -145,7 +154,6 @@ def create_artist_folder(artist: str) -> str:
 
 def scroll_to_bottom(driver: webdriver):
     """scrolls to the bottom of the page, twice, to deal with the browser 'bouncing' upwards as elements load."""
-    # todo check if times can be cut/shortened
     sleep(.1)
     driver.execute_script(
         "window.scrollTo(0,document.body.scrollHeight)")  # scroll to bottom of page to see button
@@ -153,13 +161,6 @@ def scroll_to_bottom(driver: webdriver):
     driver.execute_script(
         "window.scrollTo(0,document.body.scrollHeight)")  # would be nice to get rid of browser bounce
     sleep(.1)
-
-
-def scroll_to_bottom_and_click_button(driver: webdriver, button_text: str):
-    # Alternatively, use scrollIntoView to scroll the button into view
-    button = driver.find_element_by_xpath(f"//button[contains(text(), '{button_text}')]")
-    driver.execute_script("arguments[0].scrollIntoView();", button)
-    button.click()
 
 
 def get_tabs(driver: webdriver) -> list:
@@ -191,7 +192,7 @@ def get_tabs(driver: webdriver) -> list:
                 driver.execute_script('arguments[0].click();', WebDriverWait(driver, 20)
                                       .until(ec.element_to_be_clickable(button)))
                 if driver.which_browser == 'Firefox':
-                    sleep(.65)  # think this can go down to .5 at least todo optimize
+                    sleep(.65)
                 download_count += 1
                 tries = 0
                 break

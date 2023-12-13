@@ -34,6 +34,8 @@ class App(customtkinter.CTk):
 
     def __init__(self, ):
         super().__init__()
+        # todo
+        self.driver = None
         Utils.folder_check()
         self.resizable(False, False)
         self.title('Ultimate Guitar Downloader')
@@ -299,10 +301,12 @@ class App(customtkinter.CTk):
         except Exception as e:
             self.DOWNLOADING = False
             print(e)
-            driver.quit()
             sG.popup_error("Something went wrong with the download. Try again- The most common problem is that"
                            "the artist is not typed in exactly the way UG expects it, or the artist has no"
                            "guitar pro files available. Other errors possible.")
+            print('Closing browser...')
+            driver.quit()
+            print('Browser closed.')
 
     def cancel_button_event(self):
         if not self.DOWNLOADING:
@@ -332,8 +336,11 @@ class App(customtkinter.CTk):
                 self.todl_table.insert('', 'end', values=(f'{item}',))
 
     def exit_program(self):
+
         try:
-            driver.quit() # unresolved reference
+            print('Closing browser...')
+            driver.quit()
+            print('Browser closed.')  # unresolved reference
         except:
             pass
         self.destroy()
@@ -380,6 +387,9 @@ def start_download(driver: webdriver, artist: str, user: str, password: str, gui
         print("Cannot find artist. Did you type it in with the exact spelling and capitalization?\n")
         gui.DOWNLOADING = False
         gui.progress_bar.stop()
+        print('Closing browser...')
+        driver.quit()
+        print('Browser closed.')
         return
     if driver.which_browser == 'Firefox':
         sleep(1)
@@ -401,33 +411,38 @@ def start_download(driver: webdriver, artist: str, user: str, password: str, gui
         # download interruptions
         if gui.EXITING:
             gui.DOWNLOADING = False
+            print('Closing browser...')
             driver.quit()
+            print('Browser closed.')
             return
         if gui.CANCELED:
             gui.CANCELED = False
-            driver.quit()
             print('Download canceled.')
             gui.DOWNLOADING = False
-            return
+            break
         results = DLoader.download_tab(driver, link)
         # try again after failure, 3 tries. Results[0] == 1 means a download was made
         tries = 1
-        while results[0] == 0 and tries < 4:
+        while results[0] == 0 and tries < 2:
             tries += 1
             print(f'Download failed, trying again. Attempt {tries}')
             attempt_results = DLoader.download_tab(driver, link)
             results[0] += attempt_results[0]
             results[1] += attempt_results[1]
-        if tries >= 4:
+        if tries >= 3:
             Utils.failure_log_failed_attempt(link)
             print(f'Too many download attempts. Moving on')
         tabs_attempted += 1
         download_count += results[0]
         failure_count += results[1]
         gui.progress_bar.set(tabs_attempted / len(tab_links))
-    driver.quit()
-    print(f'Downloads Finished. Total number of downloads: {str(download_count)}.')
+
+    print(f'Downloads Finished.')
+    print(f'Total number of downloads: {str(download_count)}.')
     print(f'Total number of failures: {str(failure_count)}')
+    print('Closing browser...')
+    driver.quit()
+    print('Browser closed.')
     gui.DOWNLOADING = False
 
 

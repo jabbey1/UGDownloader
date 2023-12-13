@@ -21,7 +21,7 @@ def start_browser(artist: str, headless: bool, which_browser: str, no_cookies: b
                                    service=firefox_service)
         # driver = webdriver.Firefox(options=options, executable_path='geckodriver.exe')  # get local copy of driver
 
-    if which_browser == 'Chrome':
+    else:
         chrome_options = set_chrome_options(dl_path, headless, no_cookies)
         print(f'Starting Chrome, downloading latest chromedriver.\n')
         chrome_service = Service(path='_UGDownloaderFiles')
@@ -60,7 +60,7 @@ def set_chrome_options(dl_path: str, headless: bool, no_cookies: bool) -> COptio
     """Configure the Chrome Browser. Sets the download path, headless mode, and adds the 'I don't Care About Cookies'
     extension if desired."""
     chrome_options = COptions()
-    chrome_options.add_argument('--no-sandbox')  # not sure why this makes it work better
+    # chrome_options.add_argument('--no-sandbox')  # not sure why this makes it work better
     preferences = {"download.default_directory": dl_path,  # pass the variable
                    "download.prompt_for_download": False,
                    "directory_upgrade": True,

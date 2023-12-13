@@ -8,15 +8,20 @@ import requests
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
-VERSION = 2.2
+VERSION = 2.3
 
 
 def check_update():
     """Uses the GitHub api to check my release page, and notifies and the newest release is different."""
     # Make a request to the GitHub API to get the releases
     api_url = f"https://api.github.com/repos/jabbey1/UGDownloader/releases"
-    response = requests.get(api_url)
     print('Checking for updated .exe release.')
+    try:
+        response = requests.get(api_url)
+    except Exception as e:
+        print(f"Error occurred while checking for update: {e}")
+        return
+
     # Check if the request was successful
     if response.status_code == 200:
         releases = response.json()
@@ -64,9 +69,12 @@ def login(driver: webdriver, user: str, password: str):
     driver.find_element(By.CSS_SELECTOR, '.exTWY').click()  # login button
     sleep(1)
     form = driver.find_element(By.CSS_SELECTOR, "form > div.PictU")
+    # todo test below
+    # form = WebDriverWait(driver, 20).until(ec.presence_of_element_located((By.CSS_SELECTOR, "form > div.PictU")))
     username_textbox = form.find_element(By.CSS_SELECTOR, 'input[name=username]')
     password_textbox = form.find_element(By.CSS_SELECTOR, 'input[name=password]')
     submit_button = form.find_element(By.CSS_SELECTOR, 'button[type=submit]')
+
     username_textbox.send_keys(user)
     password_textbox.send_keys(password)
     sleep(1)
