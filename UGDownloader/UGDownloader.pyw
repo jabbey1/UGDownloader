@@ -1,7 +1,7 @@
 import logging
 import CTKGUI
 
-logging.basicConfig(filename='myapp.log', level=logging.DEBUG, format='%(levelname)s:%(message)s')
+logging.basicConfig(filename='myapp.log', level=logging.INFO, format='%(levelname)s:%(message)s')
 logging.info('Started')
 
 app = CTKGUI.App()
