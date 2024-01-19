@@ -63,7 +63,6 @@ def set_chrome_options(dl_path: str, headless: bool, no_cookies: bool) -> Chrome
     """Configure the Chrome Browser. Sets the download path, headless mode, and adds the 'I don't Care About Cookies'
     extension if desired."""
     chrome_options = ChromeOptions()
-    # todo need this for headless?
     chrome_options.add_argument('--no-sandbox')  # not sure why this makes it work better
     preferences = {"download.default_directory": dl_path,  # pass the variable
                    "download.prompt_for_download": False,

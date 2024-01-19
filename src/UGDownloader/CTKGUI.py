@@ -40,6 +40,7 @@ class App(customtkinter.CTk):
         self.title('Ultimate Guitar Downloader')
         self.geometry(f"{900}x{620}")
 
+        """GUI arrangement begin"""
         # configure grid
         self.grid_columnconfigure(1, weight=1)
         self.grid_columnconfigure(2, weight=0)
@@ -173,7 +174,7 @@ class App(customtkinter.CTk):
         self.note_3_text = customtkinter.CTkTextbox(self.information_tabview.tab('3'), wrap='word')
         self.note_3_text.grid(row=0, column=0, sticky='nsew')
 
-        # bottom
+        """bottom"""
         self.artist_entry = customtkinter.CTkEntry(self, placeholder_text='Artist')
         self.artist_entry.grid(row=10, column=1, pady=(10, 20), padx=10, sticky='ew')
         self.filetype_drop_down = customtkinter.CTkOptionMenu(self, values=['Guitar Pro', 'Powertab', 'Both'])
@@ -181,6 +182,8 @@ class App(customtkinter.CTk):
         self.download_button = customtkinter.CTkButton(self, text='Download', command=self.download_button_event)
         self.download_button.grid(row=10, column=3, pady=(10, 20), padx=10)
         self.progress_bar.set(0)
+
+        """GUI arrangement over"""
 
         # set default values
         self.browser_button.set('Chrome')
@@ -205,6 +208,7 @@ class App(customtkinter.CTk):
         Utils.check_update()
         self.autofill_button_event(True)
 
+    """GUI button events"""
     def copy_button_event(self):
         """Copies selection from to download table into the artist text entry """
         if not self.todl_table.selection():
@@ -432,6 +436,8 @@ def start_download(driver: webdriver, artist: str, user: str, password: str, gui
         failure_count += results[1]
         gui.progress_bar.set(tabs_attempted / len(tab_links))
 
+    # A wait here allows the browser to finish downloads before being closed.
+    sleep(2)
     print(f'Downloads Finished.')
     print(f'Total number of downloads: {str(download_count)}.')
     print(f'Total number of failures: {str(failure_count)}')

@@ -1,6 +1,4 @@
-from typing import List, Tuple
-from selenium.webdriver.remote.webdriver import WebDriver
-from os import path, mkdir
+from typing import List
 from time import sleep
 import selenium.common.exceptions
 from pathlib import Path

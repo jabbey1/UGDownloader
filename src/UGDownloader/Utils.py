@@ -1,5 +1,5 @@
-from selenium.common.exceptions import NoSuchElementException
 import logging
+from selenium.common.exceptions import NoSuchElementException
 import sys
 from datetime import datetime
 from os import path, mkdir
@@ -68,7 +68,6 @@ def folder_check():
 def login(driver: webdriver, user: str, password: str):
     """logs in, but will be defeated if a captcha is present. Must be used when the driver is on
     a page where a login button exists. If you aren't already logged in, this will be most pages"""
-    
     # CSS selectors
     login_button_selector = '.exTWY'
     form_selector = "form > div.PictU"
@@ -104,15 +103,12 @@ def login(driver: webdriver, user: str, password: str):
         print('Error: Could not find one of the login elements.')
 
 
+
 def failure_log_new_attempt():
-    with open('_UGDownloaderFiles/failurelog.txt', 'a+') as failurelog:
-        failurelog.write(f"\nDownload attempt at: {str(datetime.now())}\n")
-        failurelog.write(f"URLs of failed downloads:\n")
+    logging.info(f"Download attempt at: {str(datetime.now())}")
 
 
 def failure_log_failed_attempt(text: str):
     """This puts the url's of failed downloads in the failure log, so you could potentially go back and manually
     download files missed by the program."""
-    with open('_UGDownloaderFiles\\failurelog.txt', 'a') as failurelog:
-        failurelog.write(text + '\n')
-
+    logging.error('Failed download:' + text)

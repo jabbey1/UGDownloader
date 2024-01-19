@@ -1,3 +1,0 @@
-PySimpleGUI~=4.60.3
-selenium==4.8.3
-webdriver_manager==3.8.6

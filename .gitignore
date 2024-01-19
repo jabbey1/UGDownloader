@@ -1,9 +1,10 @@
-/UGDownloader/geckodriver.log
-/UGDownloader/_UGDownloaderFiles/todownload.txt
+/src/UGDownloader/geckodriver.log
+/src/UGDownloader/_UGDownloaderFiles/todownload.txt
 /.idea/UGDownloader.iml
-/UGDownloader/_UGDownloaderFiles/userinfo.txt
-/UGDownloader/_UGDownloaderFiles/.wdm/
-/UGDownloader/_UGDownloaderFiles/failurelog.txt
+/src/UGDownloader/_UGDownloaderFiles/userinfo.txt
+/src/UGDownloader/_UGDownloaderFiles/.wdm/
+/src/UGDownloader/_UGDownloaderFiles/failurelog.txt
+/src/UGDownloader/captcha.py
 /.idea/
 Tabs/
 
@@ -250,4 +251,6 @@ fabric.properties
 # Android studio 3.1+ serialized cache file
 .idea/caches/build_file_checksums.ser
 
-/UGDownloader/test.txt
+/src/UGDownloader/test.txt
+/src/UGDownloader/_UGDownloaderFiles/todownload.csv
+/todo.txt
