@@ -1,4 +1,6 @@
 import logging
+import subprocess
+
 from selenium.common.exceptions import NoSuchElementException
 import sys
 from datetime import datetime
@@ -10,13 +12,23 @@ import requests
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
-VERSION = 2.3
+
+VERSION = 2.4
+tab_download_path = Path('Tabs')
+program_data_path = Path('_UGDownloaderFiles')
+
+
+def open_download_folder():
+    try:
+        subprocess.Popen(['explorer', tab_download_path], shell=True)
+    except Exception as e:
+        print(f'Error: {e}')
 
 
 def check_update():
     """Uses the GitHub api to check my release page, and notifies and the newest release is different."""
     # Make a request to the GitHub API to get the releases
-    api_url = f"https://api.github.com/repos/jabbey1/UGDownloader/releases"
+    api_url = "https://api.github.com/repos/jabbey1/UGDownloader/releases"
     print('Checking for updated .exe release.')
     try:
         response = requests.get(api_url)
@@ -53,10 +65,11 @@ def fetch_resource(resource_path: Path) -> Path:
 
 def folder_check():
     # makes sure that the Tabs folder and the userinfo.txt, todownload.txt files exist
-    if not path.isdir('Tabs'):
-        mkdir('Tabs')
-    if not path.isdir('_UGDownloaderFiles'):
-        mkdir('_UGDownloaderFiles')
+    if not path.isdir(tab_download_path):
+        mkdir(tab_download_path)
+    if not path.isdir(program_data_path):
+        mkdir(program_data_path)
+    # todo remove these hardcoded paths
     if not path.isfile('_UGDownloaderFiles/userinfo.txt'):
         with open('_UGDownloaderFiles/userinfo.txt', 'x'):
             pass
@@ -75,33 +88,32 @@ def login(driver: webdriver, user: str, password: str):
     password_selector = 'input[name=password]'
     submit_selector = 'button[type=submit]'
     popup_selector = 'button.RwBUh:nth-child(1) > svg:nth-child(1) > path:nth-child(1)'
-    
+
     try:
         # Click on login button
         driver.find_element(By.CSS_SELECTOR, login_button_selector).click()
-        
+
         # Wait for form to be present
         form = WebDriverWait(driver, 20).until(ec.presence_of_element_located((By.CSS_SELECTOR, form_selector)))
         # Find login elements
         username_textbox = form.find_element(By.CSS_SELECTOR, username_selector)
         password_textbox = form.find_element(By.CSS_SELECTOR, password_selector)
         submit_button = form.find_element(By.CSS_SELECTOR, submit_selector)
-        
+
         # Enter username and password
         username_textbox.send_keys(user)
         password_textbox.send_keys(password)
         sleep(1)
         submit_button.click()
-        
+
         # Wait for popup to be clickable
         popup_element = WebDriverWait(driver, 20).until(ec.element_to_be_clickable((By.CSS_SELECTOR, popup_selector)))
         popup_element.click()
         sleep(.5)
         print('Logged in')
-        
+
     except NoSuchElementException:
         print('Error: Could not find one of the login elements.')
-
 
 
 def failure_log_new_attempt():

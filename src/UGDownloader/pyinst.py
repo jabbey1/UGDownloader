@@ -1,3 +1,4 @@
+# flake8: noqa: E501
 # import PyInstaller.__main__
 # pysimplegui
 # PyInstaller.__main__.run([

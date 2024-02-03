@@ -86,11 +86,15 @@ class App(customtkinter.CTk):
                                                                        values=["Light", "Dark", "System"],
                                                                        command=change_appearance_mode_event)
         self.appearance_mode_option_menu.grid(row=8, column=0, sticky='s')
+        self.open_folder_button = customtkinter.CTkButton(self.sidebar_frame, text='Open Tab Folder',
+                                                          command=self.open_folder_button_event)
+        self.open_folder_button.grid(row=9, column=0, pady=(10, 0))
+
         self.cancel_button = customtkinter.CTkButton(self.sidebar_frame, text='Cancel Download',
                                                      command=self.cancel_button_event)
-        self.cancel_button.grid(row=9, column=0, pady=10)
+        self.cancel_button.grid(row=10, column=0, pady=10)
         self.exit_button = customtkinter.CTkButton(self.sidebar_frame, text='Exit', command=self.exit_button_event)
-        self.exit_button.grid(row=10, column=0, pady=(0, 20))
+        self.exit_button.grid(row=11, column=0, pady=(0, 20))
 
         """Middle"""
         self.console_output = customtkinter.CTkTextbox(self, width=350, border_color='white', border_width=1,
@@ -209,6 +213,12 @@ class App(customtkinter.CTk):
         self.autofill_button_event(True)
 
     """GUI button events"""
+
+    def open_folder_button_event(self):
+        print('Opening "Tabs" folder.')
+        Utils.open_download_folder()
+        pass
+
     def copy_button_event(self):
         """Copies selection from to download table into the artist text entry """
         if not self.todl_table.selection():
@@ -275,7 +285,7 @@ class App(customtkinter.CTk):
             return  # faked artist field to not trip validate
         with open(self.user_info_path, 'w+') as userinfo:
             userinfo.write(f'{user} {password}')
-        print(f'New User info saved.')
+        print('New User info saved.')
 
     def download_button_event(self):
         """Collect all information from the text fields to send to a new thread. Prevents downloading if a download
@@ -430,7 +440,7 @@ def start_download(driver: webdriver, artist: str, user: str, password: str, gui
             results[1] += attempt_results[1]
         if tries >= 3:
             Utils.failure_log_failed_attempt(link)
-            print(f'Too many download attempts. Moving on')
+            print('Too many download attempts. Moving on')
         tabs_attempted += 1
         download_count += results[0]
         failure_count += results[1]
@@ -438,7 +448,7 @@ def start_download(driver: webdriver, artist: str, user: str, password: str, gui
 
     # A wait here allows the browser to finish downloads before being closed.
     sleep(2)
-    print(f'Downloads Finished.')
+    print('Downloads Finished.')
     print(f'Total number of downloads: {str(download_count)}.')
     print(f'Total number of failures: {str(failure_count)}')
     print('Closing browser...')

@@ -14,7 +14,7 @@ def start_browser(artist: str, headless: bool, which_browser: str, no_cookies: b
     dl_path = DLoader.create_artist_folder(artist)
     if which_browser == 'Firefox':
         firefox_options = set_firefox_options(str(dl_path), headless, no_cookies)
-        print(f'Starting Firefox, downloading latest Gecko driver.\n')
+        print('Starting Firefox, downloading latest Gecko driver.\n')
         firefox_service = Service(path='_UGDownloaderFiles')
         firefox_service.creation_flags = CREATE_NO_WINDOW
         driver = webdriver.Firefox(options=firefox_options,
@@ -23,7 +23,7 @@ def start_browser(artist: str, headless: bool, which_browser: str, no_cookies: b
 
     else:
         chrome_options = set_chrome_options(str(dl_path), headless, no_cookies)
-        print(f'Starting Chrome, downloading latest chromedriver.\n')
+        print('Starting Chrome, downloading latest chromedriver.\n')
         chrome_service = Service(path='_UGDownloaderFiles')
         chrome_service.creation_flags = CREATE_NO_WINDOW
         driver = webdriver.Chrome(options=chrome_options, service=chrome_service)
@@ -35,7 +35,6 @@ def set_firefox_options(dl_path: str, headless: bool, no_cookies: bool) -> Firef
     """Configure the firefox driver. Sets the download directory, and browser options including headless mode. No
     cookies pop-up workaround for firefox at this point"""
     firefox_options = FirefoxOptions()
-    
     preferences = {
         "browser.download.folderList": 2,
         "browser.download.manager.showWhenStarting": False,
@@ -45,7 +44,7 @@ def set_firefox_options(dl_path: str, headless: bool, no_cookies: bool) -> Firef
         "permissions.default.image": 2,
         "dom.ipc.plugins.enabled.libflashplayer.so": 'false'
     }
-    
+
     for key, value in preferences.items():
         firefox_options.set_preference(key, value)
 
