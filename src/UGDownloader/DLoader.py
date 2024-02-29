@@ -12,6 +12,9 @@ from Utils import config
 
 DOWNLOAD_BUTTON_SELECTOR = config.get('Selectors', 'DOWNLOAD_BUTTON_SELECTOR')
 TAB_BLOCKED_SELECTOR = config.get('Selectors', 'TAB_BLOCKED_SELECTOR')
+TAB_ROW_SELECTOR = config.get('Selectors', 'TAB_ROW_SELECTOR')
+TAB_LINK_CONTAINER = config.get('Selectors', 'TAB_LINK_CONTAINER')
+NEXT_PAGE_SELECTOR = config.get('Selectors', 'NEXT_PAGE_SELECTOR')
 
 
 def download_tab(driver: webdriver, url: str) -> List[int]:
@@ -79,8 +82,8 @@ def download_tab_fallback(driver: webdriver, url: str):
 
 
 def link_handler(driver: webdriver, tab_links: list, file_type_wanted: str) -> list:
-    """Collect a list of the urls to download from, depending on file type desired, building a list containing all
-    links of every requested filetype in tab_links."""
+    """Take a list and call methods to add links to tabs of requested filetypes. Driver must be navigated to artist
+    page. Will navigate to filetype filtered page before handing off to collect_links"""
     if file_type_wanted in ('Guitar Pro', 'Both'):
         try:
             driver.find_element(By.LINK_TEXT, 'Guitar Pro').click()
@@ -106,14 +109,14 @@ def collect_links_guitar_pro(driver: webdriver, verbose: bool) -> list:
     while True:
         if verbose:
             print(f"Reading page {page}")
-        tabs_from_page = [x for x in driver.find_elements(By.CLASS_NAME, 'LQUZJ') if 'Guitar Pro' in x.text]
+        tabs_from_page = [x for x in driver.find_elements(By.CLASS_NAME, TAB_ROW_SELECTOR) if 'Guitar Pro' in x.text]
         for tab in tabs_from_page:
-            tab_links.append(tab.find_element(By.CSS_SELECTOR, '.HT3w5').get_attribute('href'))
+            tab_links.append(tab.find_element(By.CSS_SELECTOR, TAB_LINK_CONTAINER).get_attribute('href'))
 
-        if not driver.find_elements(By.CLASS_NAME, 'BvSfz'):
+        if not driver.find_elements(By.CLASS_NAME, NEXT_PAGE_SELECTOR):
             break
         page += 1
-        driver.find_element(By.CLASS_NAME, 'BvSfz').click()
+        driver.find_element(By.CLASS_NAME, NEXT_PAGE_SELECTOR).click()
 
     if verbose:
         print(f'Found {len(tab_links)} Guitar Pro Files')
@@ -127,14 +130,14 @@ def collect_links_powertab(driver: webdriver, verbose: bool) -> list:
     while True:
         if verbose:
             print(f"Reading page {page}")
-        tabs_from_page = [x for x in driver.find_elements(By.CLASS_NAME, 'LQUZJ') if 'Power' in x.text]
+        tabs_from_page = [x for x in driver.find_elements(By.CLASS_NAME, TAB_ROW_SELECTOR) if 'Power' in x.text]
         for tab in tabs_from_page:
-            tab_links.append(tab.find_element(By.CSS_SELECTOR, '.HT3w5').get_attribute('href'))
+            tab_links.append(tab.find_element(By.CSS_SELECTOR, TAB_LINK_CONTAINER).get_attribute('href'))
 
-        if not driver.find_elements(By.CLASS_NAME, 'BvSfz'):
+        if not driver.find_elements(By.CLASS_NAME, NEXT_PAGE_SELECTOR):
             break
         page += 1
-        driver.find_element(By.CLASS_NAME, 'BvSfz').click()
+        driver.find_element(By.CLASS_NAME, NEXT_PAGE_SELECTOR).click()
 
     if verbose:
         print(f'Found {len(tab_links)} Powertab Files')
@@ -175,9 +178,6 @@ def search_for_artist(driver: webdriver, artist: str):
 
     search_url = Utils.search_url
     driver.get(search_url + artist)
-    # setting the window size seems to help some element obfuscation issues
-    # driver.set_window_size(1100, 1000)
-    # click on artist from search results
     try:
         driver.find_element(By.LINK_TEXT, artist).click()
     except (TypeError, selenium.common.exceptions.NoSuchElementException):

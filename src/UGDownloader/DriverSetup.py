@@ -1,5 +1,3 @@
-import os
-import signal
 from pathlib import Path
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
@@ -7,7 +5,6 @@ from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.firefox.service import Service as FirefoxService
 from subprocess import CREATE_NO_WINDOW
-import psutil
 import DLoader
 import Utils
 
@@ -33,18 +30,6 @@ def start_browser(artist: str, headless: bool, which_browser: str, no_cookies: b
     return driver
 
 
-def quit_browser(driver: webdriver):
-    pid = driver.service.process.pid
-    print(pid)
-    process = psutil.Process(pid)
-    driver.quit()
-    try:
-        print('aayyyy')
-        os.kill(int(pid), signal.SIGTERM)
-    except ProcessLookupError as ex:
-        pass
-
-
 def set_firefox_options(dl_path: str, headless: bool, no_cookies: bool) -> FirefoxOptions:
     """Configure the firefox driver. Sets the download directory, and browser options including headless mode. No
     cookies pop-up workaround for firefox at this point"""
@@ -66,7 +51,6 @@ def set_firefox_options(dl_path: str, headless: bool, no_cookies: bool) -> Firef
         print('Currently, no cookies pop-up removing add-on is included for Firefox, please try Chrome instead if you '
               'are having cookies pop-up problems.\n')
     if headless:
-        # firefox_options.headless = True
         firefox_options.add_argument("-headless")
 
     return firefox_options
@@ -76,9 +60,6 @@ def set_chrome_options(dl_path: str, headless: bool, no_cookies: bool) -> Chrome
     """Configure the Chrome Browser. Sets the download path, headless mode, and adds the 'I don't Care About Cookies'
     extension if desired."""
     chrome_options = ChromeOptions()
-    # chrome_options.enable_downloads = True
-    # todo is this causing zombies??
-    # chrome_options.add_argument('--no-sandbox')
     preferences = {"download.default_directory": dl_path,  # give chrome download path
                    "download.prompt_for_download": False,
                    "directory_upgrade": True,

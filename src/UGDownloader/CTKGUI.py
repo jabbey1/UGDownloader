@@ -53,6 +53,7 @@ class App(customtkinter.CTk):
         # text entry
         self.user_text_entry = customtkinter.CTkEntry(self.sidebar_frame, placeholder_text='username')
         self.user_text_entry.grid(row=1, column=0, padx=20, )
+
         self.password_text_entry = customtkinter.CTkEntry(self.sidebar_frame, placeholder_text='password', show='*')
         self.password_text_entry.grid(row=2, column=0, padx=20, pady=10, )
 
@@ -85,7 +86,7 @@ class App(customtkinter.CTk):
                                                           command=self.open_folder_button_event)
         self.open_folder_button.grid(row=9, column=0, pady=(10, 0))
         self.check_for_new_tabs_button = customtkinter.CTkButton(self.sidebar_frame, text='Check Artist Tab Count',
-                                                          command=self.check_for_new_tabs_event)
+                                                                 command=self.check_for_new_tabs_event)
         self.check_for_new_tabs_button.grid(row=10, column=0, pady=(10, 0))
         self.cancel_button = customtkinter.CTkButton(self.sidebar_frame, text='Cancel Download',
                                                      command=self.cancel_button_event)
@@ -106,7 +107,7 @@ class App(customtkinter.CTk):
         self.right_frame.grid_columnconfigure(1, weight=1)
         self.right_frame.grid_rowconfigure(3, weight=1)
 
-        # todl section
+        # to download section
         self.add_artist_button = customtkinter.CTkButton(self.right_frame, width=10, text='Add',
                                                          command=self.add_artist_button_event)
         self.add_artist_button.grid(row=0, column=0, padx=10, pady=10, sticky='w')
@@ -211,11 +212,14 @@ class App(customtkinter.CTk):
 
     """GUI button events"""
 
-    def open_folder_button_event(self):
+    @staticmethod
+    def open_folder_button_event():
         print('Opening "Tabs" folder.')
         Utils.open_download_folder()
 
     def check_for_new_tabs_event(self):
+        """Takes the entered artist and runs the new tabs checker, which counts the number of tabs you already have from
+        an artist, and how many are online, and reports back without downloading any. Creates driver instance"""
         print('\nPlease wait...\n')
         artist = self.artist_entry.get()
         if not validate(artist, 'user', 'password'):
@@ -224,21 +228,17 @@ class App(customtkinter.CTk):
         headless, browser, cookies, filetype = bool(self.headless_checkbox.get()), self.browser_button.get(), \
             bool(self.cookies_checkbox.get()), self.filetype_drop_down.get()
 
-        # todo put in thread
         driver = DriverSetup.start_browser(artist, headless, browser, cookies)
         try:
             thread = threading.Thread(target=lambda: DLoader.new_tabs_checker(driver, artist, filetype))
             thread.start()
 
         except Exception as e:
+            print(f'Error: {e}')
             print('Finding tab count failed.')
             print('Closing browser...')
             driver.quit()
             print('Browser closed.')
-
-
-
-
 
     def copy_button_event(self):
         """Copies selection from to download table into the artist text entry """
@@ -254,7 +254,7 @@ class App(customtkinter.CTk):
 
     def delete_button_event(self):
         """Gets the selected value to delete from the table in the window, and then rewrites text file to reflect
-        change. Logic necessary to prevent leaving a blank line at the end of the file"""
+        change."""
 
         if not self.todl_table.selection():
             print('Nothing selected')
@@ -312,28 +312,31 @@ class App(customtkinter.CTk):
         """Collect all information from the text fields to send to a new thread. Prevents downloading if a download
         is already in progress. Driver quits if the thread fails, otherwise driver must be quit inside the
         download method"""
-        # pull options from GUI fields
-        self.progress_bar.configure(mode="indeterminate")
-        self.progress_bar.start()
-        artist, user, password = self.artist_entry.get(), self.user_text_entry.get(), self.password_text_entry.get()
-        headless, browser, cookies, filetype = bool(self.headless_checkbox.get()), self.browser_button.get(), \
-            bool(self.cookies_checkbox.get()), self.filetype_drop_down.get()
 
         if self.DOWNLOADING:
             print("Download already in progress. Please wait.")
             return
+
+        # pull options from GUI fields
+
+        artist, user, password = self.artist_entry.get(), self.user_text_entry.get(), self.password_text_entry.get()
+        headless, browser, cookies, filetype = bool(self.headless_checkbox.get()), self.browser_button.get(), \
+            bool(self.cookies_checkbox.get()), self.filetype_drop_down.get()
+
         if not validate(artist, user, password):
             return
 
+        # set download state and prepare progress bar
         self.DOWNLOADING = True
+        self.progress_bar.configure(mode="indeterminate")
+        self.progress_bar.start()
 
         driver = DriverSetup.start_browser(artist, headless, browser, cookies)
         count = DLoader.get_already_downloaded_count(artist)
         print(f'There are already {count} files in the "{artist}" directory.\n')
 
         try:
-            thread = threading.Thread(target=lambda: start_download(driver, artist, user, password, self,
-                                                                    filetype))
+            thread = threading.Thread(target=lambda: start_download(driver, artist, user, password, self, filetype))
             thread.start()
         except Exception as e:
             self.DOWNLOADING = False
@@ -342,13 +345,9 @@ class App(customtkinter.CTk):
             print('Closing browser...')
             driver.quit()
             print('Browser closed.')
-        # if driver:
-        #     # todo test if arriving here
-        #     print('Closing browser...')
-        #     driver.quit()
-        #     print('Browser closed.')
 
     def cancel_button_event(self):
+        """Cancels current download. Has to wait for the download thread to notice the new state."""
         if not self.DOWNLOADING:
             print('No download to cancel')
             return
@@ -376,13 +375,13 @@ class App(customtkinter.CTk):
                 self.todl_table.insert('', 'end', values=(f'{item}',))
 
     def exit_program(self):
-        # todo is this better?
         try:
             if driver:
                 print('Closing browser...')
                 driver.quit()
-                print('Browser closed.')  # unresolved reference
-        except:
+                print('Browser closed.')
+        except Exception as e:
+            print(e)
             pass
         self.destroy()
         if os.path.exists('geckodriver.log'):
@@ -436,6 +435,8 @@ def start_download(driver: webdriver, artist: str, user: str, password: str, gui
     Utils.login(driver, user, password)
     download_count, failure_count, tab_links = 0, 0, []
 
+    if check_canceled(gui):
+        return
     print('Grabbing urls of requested files.')
     tab_links = DLoader.link_handler(driver, tab_links, file_type_wanted)
 
@@ -448,18 +449,11 @@ def start_download(driver: webdriver, artist: str, user: str, password: str, gui
     driver.wait_on_first_tab = True
     for link in tab_links:
         # download interruptions
-        if gui.EXITING:
-            gui.DOWNLOADING = False
-            print('Closing browser...')
-            driver.quit()
-            print('Browser closed.')
+        if check_exiting(gui):
             return
-        if gui.CANCELED:
-            # todo make sure this path quits driver
-            gui.CANCELED = False
-            print('Download canceled.')
-            gui.DOWNLOADING = False
+        if check_canceled(gui):
             break
+
         results = DLoader.download_tab(driver, link)
         # try again after failure, 3 tries. Results[0] == 1 means a download was made
         tries = 1
@@ -486,6 +480,25 @@ def start_download(driver: webdriver, artist: str, user: str, password: str, gui
     driver.quit()
     print('Browser closed.')
     gui.DOWNLOADING = False
+
+
+def check_exiting(gui: App):
+    if gui.EXITING:
+        gui.DOWNLOADING = False
+        print('Closing browser...')
+        driver.quit()
+        print('Browser closed.')
+        return True
+    return False
+
+
+def check_canceled(gui: App):
+    if gui.CANCELED:
+        gui.CANCELED = False
+        print('Download canceled.')
+        gui.DOWNLOADING = False
+        return True
+    return False
 
 
 class StdoutRedirector(object):

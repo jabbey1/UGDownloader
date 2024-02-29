@@ -21,6 +21,7 @@ def read_config(file_path='_UGDownloaderFiles/config.ini'):
     return config
 
 
+# Load configuration from .ini
 config = read_config()
 
 VERSION = config.get('Version', 'version')
@@ -33,6 +34,12 @@ log_path = Path(program_data_path / 'myapp.log')
 github_api_url = config.get('Urls', 'github_api_url')
 github_releases = config.get('Urls', 'github_releases')
 search_url = config.get('Urls', 'search_url')
+LOGIN_BUTTON_SELECTOR = config.get('Selectors', 'LOGIN_BUTTON_SELECTOR')
+LOGIN_FORM_SELECTOR = config.get('Selectors', 'LOGIN_FORM_SELECTOR')
+LOGIN_USERNAME_SELECTOR = config.get('Selectors', 'LOGIN_USERNAME_SELECTOR')
+LOGIN_PASSWORD_SELECTOR = config.get('Selectors', 'LOGIN_PASSWORD_SELECTOR')
+LOGIN_SUBMIT_SELECTOR = config.get('Selectors', 'LOGIN_SUBMIT_SELECTOR')
+LOGIN_POPUP_SELECTOR = config.get('Selectors', 'LOGIN_POPUP_SELECTOR')
 
 
 def write_config_to_file(config: configparser.ConfigParser):
@@ -42,6 +49,7 @@ def write_config_to_file(config: configparser.ConfigParser):
 
 
 def open_download_folder():
+    """Opens user's tab download folder in explorer."""
     try:
         subprocess.Popen(['explorer', tab_download_path])
     except Exception as e:
@@ -87,8 +95,7 @@ def fetch_resource(resource_path: Path) -> Path:
 
 
 def folder_check():
-    # todo needs testing after rewrite
-    # makes sure that the Tabs folder and the userinfo.txt, todownload.txt files exist
+    """Checks for and creates the necessary files and directories."""
     if not tab_download_path.is_dir():
         mkdir(tab_download_path)
     if not program_data_path.is_dir():
@@ -107,24 +114,17 @@ def folder_check():
 def login(driver, user: str, password: str):
     """logs in, but will be defeated if a captcha is present. Must be used when the driver is on
     a page where a login button exists. If you aren't already logged in, this will be most pages"""
-    # CSS selectors
-    login_button_selector = '.exTWY'
-    form_selector = "form > div.PictU"
-    username_selector = 'input[name=username]'
-    password_selector = 'input[name=password]'
-    submit_selector = 'button[type=submit]'
-    popup_selector = 'button.RwBUh:nth-child(1) > svg:nth-child(1) > path:nth-child(1)'
 
     try:
         # Click on login button
-        driver.find_element(By.CSS_SELECTOR, login_button_selector).click()
+        driver.find_element(By.CSS_SELECTOR, LOGIN_BUTTON_SELECTOR).click()
 
         # Wait for form to be present
-        form = WebDriverWait(driver, 20).until(ec.presence_of_element_located((By.CSS_SELECTOR, form_selector)))
+        form = WebDriverWait(driver, 20).until(ec.presence_of_element_located((By.CSS_SELECTOR, LOGIN_FORM_SELECTOR)))
         # Find login elements
-        username_textbox = form.find_element(By.CSS_SELECTOR, username_selector)
-        password_textbox = form.find_element(By.CSS_SELECTOR, password_selector)
-        submit_button = form.find_element(By.CSS_SELECTOR, submit_selector)
+        username_textbox = form.find_element(By.CSS_SELECTOR, LOGIN_USERNAME_SELECTOR)
+        password_textbox = form.find_element(By.CSS_SELECTOR, LOGIN_PASSWORD_SELECTOR)
+        submit_button = form.find_element(By.CSS_SELECTOR, LOGIN_SUBMIT_SELECTOR)
 
         # Enter username and password
         username_textbox.send_keys(user)
@@ -133,7 +133,8 @@ def login(driver, user: str, password: str):
         submit_button.click()
 
         # Wait for popup to be clickable
-        popup_element = WebDriverWait(driver, 20).until(ec.element_to_be_clickable((By.CSS_SELECTOR, popup_selector)))
+        popup_element = WebDriverWait(driver, 20).until(
+            ec.element_to_be_clickable((By.CSS_SELECTOR, LOGIN_POPUP_SELECTOR)))
         popup_element.click()
         sleep(.5)
         print('Logged in')
