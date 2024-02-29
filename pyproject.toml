@@ -3,9 +3,13 @@ requires = ["setuptools >= 68.2.2", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [tool.pytest.ini_options]
-addopts = "--cov=UGDownloader"
+pythonpath = "src"
+addopts = [
+    "--cov=UGDownloader",
+    "--import-mode=importlib"
+]
 testpaths = [
-    "tests",
+    "tests"
 ]
 
 [tool.mypy]

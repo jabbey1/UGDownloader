@@ -1,26 +1,49 @@
 import logging
 import subprocess
-
 from selenium.common.exceptions import NoSuchElementException
 import sys
 from datetime import datetime
-from os import path, mkdir
+from os import mkdir
 from pathlib import Path
 from time import sleep
 from selenium.webdriver.support import expected_conditions as ec
 import requests
-from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
+import configparser
 
-VERSION = 2.4
-tab_download_path = Path('Tabs')
-program_data_path = Path('_UGDownloaderFiles')
+
+def read_config(file_path='_UGDownloaderFiles/config.ini'):
+    current_dir = Path(__file__).resolve().parent
+    file_path = current_dir / file_path
+    config = configparser.ConfigParser()
+    config.read(file_path)
+    return config
+
+
+config = read_config()
+
+VERSION = config.get('Version', 'version')
+tab_download_path = config.get('Paths', 'tab_download_path', fallback=Path.cwd() / 'Tabs')
+program_data_path = Path(config.get('Paths', 'program_data_path'))
+userinfo_path = Path(program_data_path / 'userinfo.txt')
+todownload_txt_path = Path(program_data_path / 'todownload.csv')
+config_path = Path(program_data_path / 'config.ini')
+log_path = Path(program_data_path / 'myapp.log')
+github_api_url = config.get('Urls', 'github_api_url')
+github_releases = config.get('Urls', 'github_releases')
+search_url = config.get('Urls', 'search_url')
+
+
+def write_config_to_file(config: configparser.ConfigParser):
+    with open(config_path, 'w') as configfile:
+        config.write(configfile)
+    # todo test
 
 
 def open_download_folder():
     try:
-        subprocess.Popen(['explorer', tab_download_path], shell=True)
+        subprocess.Popen(['explorer', tab_download_path])
     except Exception as e:
         print(f'Error: {e}')
 
@@ -28,10 +51,10 @@ def open_download_folder():
 def check_update():
     """Uses the GitHub api to check my release page, and notifies and the newest release is different."""
     # Make a request to the GitHub API to get the releases
-    api_url = "https://api.github.com/repos/jabbey1/UGDownloader/releases"
+
     print('Checking for updated .exe release.')
     try:
-        response = requests.get(api_url)
+        response = requests.get(github_api_url)
     except Exception as e:
         print(f"Error occurred while checking for update: {e}")
         return
@@ -43,7 +66,7 @@ def check_update():
         latest_release_version = releases[0]["tag_name"]  # Assumes the API returns releases in descending order
         if latest_release_version != str(VERSION):
             print(f"A new release is available: {latest_release_version}. Current version: {VERSION}")
-            print("https://github.com/jabbey1/UGDownloader/releases\n")
+            print(f"{github_releases}\n")
 
         else:
             print(f"No new release found. Current version: {VERSION}")
@@ -56,29 +79,32 @@ def fetch_resource(resource_path: Path) -> Path:
         as a pyinstaller .exe. Keeps hardcoded relative paths intact. Use with pyinstaller '--add-data' command
         to add data files."""
     try:  # running as *.exe; fetch resource from temp directory
-        base_path = Path(sys._MEIPASS)
+        base_path = Path(sys._MEIPASS)  # type: ignore
     except AttributeError:  # running as script; return unmodified path
         return resource_path
-    else:  # return temp resource path
+    else:  # return temp resource pathIn python
         return base_path.joinpath(resource_path)
 
 
 def folder_check():
+    # todo needs testing after rewrite
     # makes sure that the Tabs folder and the userinfo.txt, todownload.txt files exist
-    if not path.isdir(tab_download_path):
+    if not tab_download_path.is_dir():
         mkdir(tab_download_path)
-    if not path.isdir(program_data_path):
+    if not program_data_path.is_dir():
         mkdir(program_data_path)
-    # todo remove these hardcoded paths
-    if not path.isfile('_UGDownloaderFiles/userinfo.txt'):
-        with open('_UGDownloaderFiles/userinfo.txt', 'x'):
+    if not userinfo_path.is_file():
+        with open(userinfo_path, 'x'):
             pass
-    if not path.isfile('_UGDownloaderFiles/todownload.csv'):
-        with open('_UGDownloaderFiles/todownload.csv', 'x'):
+    if not todownload_txt_path.is_file():
+        with open(todownload_txt_path, 'x'):
+            pass
+    if not log_path.is_file():
+        with open(log_path, 'x'):
             pass
 
 
-def login(driver: webdriver, user: str, password: str):
+def login(driver, user: str, password: str):
     """logs in, but will be defeated if a captcha is present. Must be used when the driver is on
     a page where a login button exists. If you aren't already logged in, this will be most pages"""
     # CSS selectors

@@ -4,12 +4,14 @@ import selenium.common.exceptions
 from pathlib import Path
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support.ui import WebDriverWait  # type: ignore
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.common.exceptions import NoSuchElementException
+import Utils
+from Utils import config
 
-DOWNLOAD_BUTTON_SELECTOR = "button[class='rPQkl yDkT4 IxFbd exTWY lTEpj qOnLe']"
-TAB_BLOCKED_SELECTOR = '.XqAW0.ViYGM.g2AHx'
+DOWNLOAD_BUTTON_SELECTOR = config.get('Selectors', 'DOWNLOAD_BUTTON_SELECTOR')
+TAB_BLOCKED_SELECTOR = config.get('Selectors', 'TAB_BLOCKED_SELECTOR')
 
 
 def download_tab(driver: webdriver, url: str) -> List[int]:
@@ -82,13 +84,13 @@ def link_handler(driver: webdriver, tab_links: list, file_type_wanted: str) -> l
     if file_type_wanted in ('Guitar Pro', 'Both'):
         try:
             driver.find_element(By.LINK_TEXT, 'Guitar Pro').click()
-            tab_links.extend(collect_links_guitar_pro(driver))
+            tab_links.extend(collect_links_guitar_pro(driver, True))
         except (TypeError, selenium.common.exceptions.NoSuchElementException):
             print('There are no available Guitar Pro tabs for this artist.')
     if file_type_wanted in ('Powertab', 'Both'):
         try:
             driver.find_element(By.LINK_TEXT, 'Power').click()
-            tab_links.extend(collect_links_powertab(driver))
+            tab_links.extend(collect_links_powertab(driver, True))
         except (TypeError, selenium.common.exceptions.NoSuchElementException):
             print('There are no available Powertabs for this artist.')
     elif file_type_wanted == 'Text':
@@ -97,12 +99,13 @@ def link_handler(driver: webdriver, tab_links: list, file_type_wanted: str) -> l
     return tab_links
 
 
-def collect_links_guitar_pro(driver: webdriver) -> list:
+def collect_links_guitar_pro(driver: webdriver, verbose: bool) -> list:
     """ Collects links to guitar pro files only, page by page"""
     tab_links, page = [], 1
 
     while True:
-        print(f"Reading page {page}")
+        if verbose:
+            print(f"Reading page {page}")
         tabs_from_page = [x for x in driver.find_elements(By.CLASS_NAME, 'LQUZJ') if 'Guitar Pro' in x.text]
         for tab in tabs_from_page:
             tab_links.append(tab.find_element(By.CSS_SELECTOR, '.HT3w5').get_attribute('href'))
@@ -112,16 +115,18 @@ def collect_links_guitar_pro(driver: webdriver) -> list:
         page += 1
         driver.find_element(By.CLASS_NAME, 'BvSfz').click()
 
-    print(f'Found {len(tab_links)} Guitar Pro Files')
+    if verbose:
+        print(f'Found {len(tab_links)} Guitar Pro Files')
     return tab_links
 
 
-def collect_links_powertab(driver: webdriver) -> list:
+def collect_links_powertab(driver: webdriver, verbose: bool) -> list:
     """ Collects links to powertab files only, page by page"""
     tab_links, page = [], 1
 
     while True:
-        print(f"Reading page {page}")
+        if verbose:
+            print(f"Reading page {page}")
         tabs_from_page = [x for x in driver.find_elements(By.CLASS_NAME, 'LQUZJ') if 'Power' in x.text]
         for tab in tabs_from_page:
             tab_links.append(tab.find_element(By.CSS_SELECTOR, '.HT3w5').get_attribute('href'))
@@ -131,20 +136,27 @@ def collect_links_powertab(driver: webdriver) -> list:
         page += 1
         driver.find_element(By.CLASS_NAME, 'BvSfz').click()
 
-    print(f'Found {len(tab_links)} Powertab Files')
+    if verbose:
+        print(f'Found {len(tab_links)} Powertab Files')
     return tab_links
 
 
 def create_artist_folder(artist: str) -> Path:
     """Build a path to the artist's folder, inside of Tabs where the files will be downloaded. First, builds path,
     and then determines if there's a folder there already. If not, creates folder. Returns the path to the folder."""
-    dl_path = Path.cwd() / 'Tabs' / artist
+    dl_path = Path(Utils.tab_download_path / artist)
     if dl_path.is_dir():
-        print("Using folder at " + str(dl_path))
+        print(f"Using folder at {dl_path}")
         return dl_path
     dl_path.mkdir(parents=True, exist_ok=True)
-    print("Folder created at " + str(dl_path))
+    print(f"Folder created at {dl_path}")
     return dl_path  # return path so GUI can set download directory in browser
+
+
+def get_already_downloaded_count(artist: str):
+    dl_path = Path(Utils.tab_download_path / artist)
+    file_count = sum(1 for file in dl_path.iterdir() if file.is_file())
+    return file_count
 
 
 def scroll_to_bottom(driver: webdriver):
@@ -158,47 +170,31 @@ def scroll_to_bottom(driver: webdriver):
     sleep(.1)
 
 
-def get_tabs(driver: webdriver) -> list:
-    """Old, first, not so great method"""
-    tab_links = collect_links_guitar_pro(driver)
-    # download for each element, skipping pro or official
-    download_count, failure_count = 0, 0
-    for i in range(len(tab_links)):
-        tries = 0
-        while True:  # used to restart iterations of for loop
-            tries += 1
-            if tries > 8:  # Count # of tries for current file, to prevent getting stuck
-                print('Too many download attempts, moving on.')
-                # GUI.failure_log_failed_attempt(tab_links[i])
-                break
-            print(tab_links[i])
-            driver.get(str(tab_links[i]))
+def search_for_artist(driver: webdriver, artist: str):
+    """ Navigates to the search page for a particular artist. Raises exception if it can't find artist. """
 
-            scroll_to_bottom(driver)
-            try:
-                button = driver.find_element(By.CSS_SELECTOR, 'button.exTWY:nth-child(2)')
-            except Exception as e:  # sometimes the button is obscured by other elements
-                print(e)
-                print('Button obscured? trying again.')  # I don't think this error is ever hitting
-                failure_count += 1
-                continue
-            # Actual download button clicking here
-            try:
-                driver.execute_script('arguments[0].click();', WebDriverWait(driver, 20)
-                                      .until(ec.element_to_be_clickable(button)))
-                if driver.which_browser == 'Firefox':
-                    sleep(.65)
-                download_count += 1
-                tries = 0
-                break
-            except (TypeError, selenium.common.exceptions.ElementNotInteractableException):
-                print('ElementNotInteractableException, retrying page.')
-                print("Try number: " + str(tries))
-                failure_count += 1
-            except Exception as e:
-                print(e.args[0])
-                print('Something went wrong, retrying page')
-                print("Try number: " + str(tries))
-                failure_count += 1
-    sleep(.5)
-    return [download_count, failure_count]
+    search_url = Utils.search_url
+    driver.get(search_url + artist)
+    # setting the window size seems to help some element obfuscation issues
+    # driver.set_window_size(1100, 1000)
+    # click on artist from search results
+    try:
+        driver.find_element(By.LINK_TEXT, artist).click()
+    except (TypeError, selenium.common.exceptions.NoSuchElementException):
+        print("Cannot find artist. Did you type it in with the exact spelling and capitalization?\n")
+        return
+    if driver.which_browser == 'Firefox':
+        sleep(1)
+
+
+def new_tabs_checker(driver: webdriver, artist: str, filetype: str):
+    search_for_artist(driver, artist)
+    count = get_already_downloaded_count(artist)
+    tab_links = []
+    tab_links = link_handler(driver, tab_links, filetype)
+
+    print(f'\nYour {artist} folder has {count} files.')
+    print(f'Online, there are {len(tab_links)} of type: {filetype} available.')
+    print('\nClosing browser...')
+    driver.quit()
+    print('Browser closed.')

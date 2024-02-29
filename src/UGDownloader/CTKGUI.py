@@ -1,10 +1,8 @@
 import os
 import sys
 import threading
-from pathlib import Path
 from time import sleep
 from tkinter import ttk
-import PySimpleGUI as sG
 import customtkinter
 import selenium.common.exceptions
 from selenium import webdriver
@@ -13,14 +11,8 @@ import DLoader
 import DriverSetup
 import Utils
 
-customtkinter.set_appearance_mode("System")  # Modes: "System" (standard), "Dark", "Light"
+customtkinter.set_appearance_mode("Dark")  # Modes: "System" (standard), "Dark", "Light"
 customtkinter.set_default_color_theme("dark-blue")  # Themes: "blue" (standard), "green", "dark-blue"
-
-THREAD_KEY = '-THREAD-'
-DL_START_KEY = '-START DOWNLOAD-'
-DL_COUNT_KEY = '-COUNT-'
-DL_END_KEY = '-END DOWNLOAD-'
-DL_THREAD_EXITING = '-THREAD EXITING-'
 
 
 class App(customtkinter.CTk):
@@ -28,8 +20,9 @@ class App(customtkinter.CTk):
     CANCELED = False
     DOWNLOADING = False
     selected_table_item = ''
-    todl_path = Path('_UGDownloaderFiles/todownload.csv')
-    user_info_path = Path('_UGDownloaderFiles/userinfo.txt')
+    program_data_path = Utils.program_data_path
+    todl_path = Utils.todownload_txt_path
+    user_info_path = Utils.userinfo_path
     os.environ['WDM_PROGRESS_BAR'] = str(0)
 
     def __init__(self, ):
@@ -44,7 +37,9 @@ class App(customtkinter.CTk):
         # configure grid
         self.grid_columnconfigure(1, weight=1)
         self.grid_columnconfigure(2, weight=0)
-        self.grid_rowconfigure((0, 1, 2), weight=1)
+        self.grid_rowconfigure(0, weight=1)
+        self.grid_rowconfigure(1, weight=1)
+        self.grid_rowconfigure(2, weight=1)
 
         """left sidebar"""
         self.sidebar_frame = customtkinter.CTkFrame(self, width=140, corner_radius=0)
@@ -89,12 +84,14 @@ class App(customtkinter.CTk):
         self.open_folder_button = customtkinter.CTkButton(self.sidebar_frame, text='Open Tab Folder',
                                                           command=self.open_folder_button_event)
         self.open_folder_button.grid(row=9, column=0, pady=(10, 0))
-
+        self.check_for_new_tabs_button = customtkinter.CTkButton(self.sidebar_frame, text='Check Artist Tab Count',
+                                                          command=self.check_for_new_tabs_event)
+        self.check_for_new_tabs_button.grid(row=10, column=0, pady=(10, 0))
         self.cancel_button = customtkinter.CTkButton(self.sidebar_frame, text='Cancel Download',
                                                      command=self.cancel_button_event)
-        self.cancel_button.grid(row=10, column=0, pady=10)
+        self.cancel_button.grid(row=11, column=0, pady=10)
         self.exit_button = customtkinter.CTkButton(self.sidebar_frame, text='Exit', command=self.exit_button_event)
-        self.exit_button.grid(row=11, column=0, pady=(0, 20))
+        self.exit_button.grid(row=12, column=0, pady=(0, 20))
 
         """Middle"""
         self.console_output = customtkinter.CTkTextbox(self, width=350, border_color='white', border_width=1,
@@ -193,7 +190,7 @@ class App(customtkinter.CTk):
         self.browser_button.set('Chrome')
         self.headless_checkbox.select()
         self.filetype_drop_down.set('Guitar Pro')
-        self.appearance_mode_option_menu.set('System')
+        self.appearance_mode_option_menu.set('Dark')
         self.information_tabview.set('Notes')
         # Set notes
         self.note_1_text.insert('0.0', "-Ultimate Guitar requires a login to download tabs. If you just created an "
@@ -217,7 +214,31 @@ class App(customtkinter.CTk):
     def open_folder_button_event(self):
         print('Opening "Tabs" folder.')
         Utils.open_download_folder()
-        pass
+
+    def check_for_new_tabs_event(self):
+        print('\nPlease wait...\n')
+        artist = self.artist_entry.get()
+        if not validate(artist, 'user', 'password'):
+            return
+
+        headless, browser, cookies, filetype = bool(self.headless_checkbox.get()), self.browser_button.get(), \
+            bool(self.cookies_checkbox.get()), self.filetype_drop_down.get()
+
+        # todo put in thread
+        driver = DriverSetup.start_browser(artist, headless, browser, cookies)
+        try:
+            thread = threading.Thread(target=lambda: DLoader.new_tabs_checker(driver, artist, filetype))
+            thread.start()
+
+        except Exception as e:
+            print('Finding tab count failed.')
+            print('Closing browser...')
+            driver.quit()
+            print('Browser closed.')
+
+
+
+
 
     def copy_button_event(self):
         """Copies selection from to download table into the artist text entry """
@@ -307,6 +328,8 @@ class App(customtkinter.CTk):
         self.DOWNLOADING = True
 
         driver = DriverSetup.start_browser(artist, headless, browser, cookies)
+        count = DLoader.get_already_downloaded_count(artist)
+        print(f'There are already {count} files in the "{artist}" directory.\n')
 
         try:
             thread = threading.Thread(target=lambda: start_download(driver, artist, user, password, self,
@@ -314,13 +337,16 @@ class App(customtkinter.CTk):
             thread.start()
         except Exception as e:
             self.DOWNLOADING = False
+            print('Something went wrong with starting the download. Error:')
             print(e)
-            sG.popup_error("Something went wrong with the download. Try again- The most common problem is that"
-                           "the artist is not typed in exactly the way UG expects it, or the artist has no"
-                           "guitar pro files available. Other errors possible.")
             print('Closing browser...')
             driver.quit()
             print('Browser closed.')
+        # if driver:
+        #     # todo test if arriving here
+        #     print('Closing browser...')
+        #     driver.quit()
+        #     print('Browser closed.')
 
     def cancel_button_event(self):
         if not self.DOWNLOADING:
@@ -350,10 +376,12 @@ class App(customtkinter.CTk):
                 self.todl_table.insert('', 'end', values=(f'{item}',))
 
     def exit_program(self):
+        # todo is this better?
         try:
-            print('Closing browser...')
-            driver.quit()
-            print('Browser closed.')  # unresolved reference
+            if driver:
+                print('Closing browser...')
+                driver.quit()
+                print('Browser closed.')  # unresolved reference
         except:
             pass
         self.destroy()
@@ -363,13 +391,13 @@ class App(customtkinter.CTk):
 
 def validate(artist: str, user: str, password: str) -> bool:
     if not artist:
-        sG.popup_error('Artist cannot be blank.')
+        print('Artist cannot be blank.')
         return False
     if not user:
-        sG.popup_error('Username cannot be blank.')
+        print('Username cannot be blank.')
         return False
     if not password:
-        sG.popup_error('Password cannot be blank.')
+        print('Password cannot be blank.')
         return False
     return True
 
@@ -386,7 +414,9 @@ def start_download(driver: webdriver, artist: str, user: str, password: str, gui
     that you want to download. Once the actual download process begins, interruptions are allowed. Retrying failed
     attempts are handled in this method, as well as tracking failures, successes, and reporting overall progress"""
     Utils.failure_log_new_attempt()
-    driver.get('https://www.ultimate-guitar.com/search.php?search_type=bands&value=' + artist)
+
+    search_url = Utils.search_url
+    driver.get(search_url + artist)
     # setting the window size seems to help some element obfuscation issues
     driver.set_window_size(1100, 1000)
     # click on artist from search results
@@ -425,6 +455,7 @@ def start_download(driver: webdriver, artist: str, user: str, password: str, gui
             print('Browser closed.')
             return
         if gui.CANCELED:
+            # todo make sure this path quits driver
             gui.CANCELED = False
             print('Download canceled.')
             gui.DOWNLOADING = False
