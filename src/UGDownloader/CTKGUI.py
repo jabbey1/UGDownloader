@@ -179,7 +179,7 @@ class App(customtkinter.CTk):
         """bottom"""
         self.artist_entry = customtkinter.CTkEntry(self, placeholder_text='Artist')
         self.artist_entry.grid(row=10, column=1, pady=(10, 20), padx=10, sticky='ew')
-        self.filetype_drop_down = customtkinter.CTkOptionMenu(self, values=['Text', 'Guitar Pro', 'Powertab', 'Both'])
+        self.filetype_drop_down = customtkinter.CTkOptionMenu(self, values=['Guitar Pro', 'Powertab', 'Text', 'All'])
         self.filetype_drop_down.grid(row=10, column=2, pady=(10, 20))
         self.download_button = customtkinter.CTkButton(self, text='Download', command=self.download_button_event)
         self.download_button.grid(row=10, column=3, pady=(10, 20), padx=10)
@@ -433,83 +433,77 @@ def start_download(driver: webdriver, artist: str, user: str, password: str, gui
         sleep(1)
 
     Utils.login(driver, user, password)
-    download_count, failure_count, tab_links = 0, 0, []
+    download_count, failure_count, tab_links = 0, 0, {'download': [], 'text': []}
 
     if check_canceled(gui):
         return
     print('Grabbing urls of requested files.')
     tab_links = DLoader.link_handler(driver, tab_links, file_type_wanted)
+    total_tabs = (len(tab_links['download'])+len(tab_links['text']))
 
-    if file_type_wanted == 'Text':
-        # don't download file as not implemented yet
-        print(f'Attempting {len(tab_links)} text file downloads.')
-        gui.progress_bar.stop()
-        gui.progress_bar.set(0)
-        gui.progress_bar.configure(mode="determinate")
-        gui.progress_bar["maximum"] = len(tab_links)
-        tabs_attempted = 0
-        driver.wait_on_first_tab = True
-        for link in tab_links:
-            # download interruptions
-            if check_exiting(gui):
-                return
-            if check_canceled(gui):
-                break
+    print(f'Attempting {total_tabs} downloads.')
+    gui.progress_bar.stop()
+    gui.progress_bar.set(0)
+    gui.progress_bar.configure(mode="determinate")
+    gui.progress_bar["maximum"] = total_tabs
+    tabs_attempted = 0
+    driver.wait_on_first_tab = True
+    for link in tab_links['download']:
+        # download interruptions
+        if check_exiting(gui):
+            return
+        if check_canceled(gui):
+            break
 
-            artist_title = (artist + ' ' + (link.split('/')[-1])).replace('%20', '-').replace(' ', '-')
-            filename = artist_title + '.txt'
-            filename_fullpath = Utils.tab_download_path / artist / filename
-            print(filename_fullpath)
+        results = DLoader.download_tab(driver, link)
+        # try again after failure, 3 tries. Results[0] == 1 means a download was made
+        tries = 1
+        while results[0] == 0 and tries < 2:
+            tries += 1
+            print(f'Download failed, trying again. Attempt {tries}')
+            attempt_results = DLoader.download_tab(driver, link)
+            results[0] += attempt_results[0]
+            results[1] += attempt_results[1]
+        if tries >= 3:
+            Utils.failure_log_failed_attempt(link)
+            print('Too many download attempts. Moving on')
+        tabs_attempted += 1
+        download_count += results[0]
+        failure_count += results[1]
+        gui.progress_bar.set(tabs_attempted / 
+                             total_tabs)
 
-            # if filename_fullpath exists, skip
-            # TODO @steveandroulakis count skipped files
-            if filename_fullpath.is_file():
-                print(f'{filename} already exists. Skipping.')
-            else:
-                tab_text_raw = DLoader.download_text(driver, link)
-                #print(tab_text_raw)
+    for link in tab_links['text']:
+        # download interruptions
+        if check_exiting(gui):
+            return
+        if check_canceled(gui):
+            break
 
-                tab_text = Utils.process_tab_string(tab_text_raw)
+        artist_title = (artist + ' ' + (link.split('/')[-1])).replace('%20', '-').replace(' ', '-')
+        filename = artist_title + '.txt'
+        filename_fullpath = Utils.tab_download_path / artist / filename
+        print(filename_fullpath)
 
-                # prepend artist_title to tab_text
-                tab_text = artist_title + '\n\n' + tab_text
-                Utils.write_to_file(tab_text, filename_fullpath)
+        # if filename_fullpath exists, skip
+        # TODO @steveandroulakis count skipped files
+        if filename_fullpath.is_file():
+            print(f'{filename} already exists. Skipping.')
+        else:
+            tab_text_raw = DLoader.download_text(driver, link)
+            #print(tab_text_raw)
 
-            tabs_attempted += 1
-            download_count += 1
-            failure_count += 0 # TODO @steveandroulakis failure attempts for text
-            gui.progress_bar.set(tabs_attempted / len(tab_links))
-    else:
-        print(f'Attempting {len(tab_links)} downloads.')
-        gui.progress_bar.stop()
-        gui.progress_bar.set(0)
-        gui.progress_bar.configure(mode="determinate")
-        gui.progress_bar["maximum"] = len(tab_links)
-        tabs_attempted = 0
-        driver.wait_on_first_tab = True
-        for link in tab_links:
-            # download interruptions
-            if check_exiting(gui):
-                return
-            if check_canceled(gui):
-                break
+            tab_text = Utils.process_tab_string(tab_text_raw)
 
-            results = DLoader.download_tab(driver, link)
-            # try again after failure, 3 tries. Results[0] == 1 means a download was made
-            tries = 1
-            while results[0] == 0 and tries < 2:
-                tries += 1
-                print(f'Download failed, trying again. Attempt {tries}')
-                attempt_results = DLoader.download_tab(driver, link)
-                results[0] += attempt_results[0]
-                results[1] += attempt_results[1]
-            if tries >= 3:
-                Utils.failure_log_failed_attempt(link)
-                print('Too many download attempts. Moving on')
-            tabs_attempted += 1
-            download_count += results[0]
-            failure_count += results[1]
-            gui.progress_bar.set(tabs_attempted / len(tab_links))
+            # prepend artist_title to tab_text
+            tab_text = artist_title + '\n\n' + tab_text
+            Utils.write_to_file(tab_text, filename_fullpath)
+
+        tabs_attempted += 1
+        download_count += 1
+        failure_count += 0 # TODO @steveandroulakis failure attempts for text
+        gui.progress_bar.set(tabs_attempted /
+                             total_tabs)
 
     # A wait here allows the browser to finish downloads before being closed.
     sleep(2)
