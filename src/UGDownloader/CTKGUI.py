@@ -456,20 +456,24 @@ def start_download(driver: webdriver, artist: str, user: str, password: str, gui
             if check_canceled(gui):
                 break
 
-            tab_text_raw = DLoader.download_text(driver, link)
-            #print(tab_text_raw)
-
-            tab_text = Utils.process_tab_string(tab_text_raw)
-
             artist_title = (artist + ' ' + (link.split('/')[-1])).replace('%20', '-').replace(' ', '-')
             filename = artist_title + '.txt'
             filename_fullpath = Utils.tab_download_path / artist / filename
             print(filename_fullpath)
 
-            # prepend artist_title to tab_text
-            tab_text = artist_title + '\n\n' + tab_text
+            # if filename_fullpath exists, skip
+            # TODO @steveandroulakis count skipped files
+            if filename_fullpath.is_file():
+                print(f'{filename} already exists. Skipping.')
+            else:
+                tab_text_raw = DLoader.download_text(driver, link)
+                #print(tab_text_raw)
 
-            Utils.write_to_file(tab_text, filename_fullpath)
+                tab_text = Utils.process_tab_string(tab_text_raw)
+
+                # prepend artist_title to tab_text
+                tab_text = artist_title + '\n\n' + tab_text
+                Utils.write_to_file(tab_text, filename_fullpath)
 
             tabs_attempted += 1
             download_count += 1
