@@ -4,6 +4,7 @@ from selenium.common.exceptions import NoSuchElementException
 import sys
 from datetime import datetime
 from os import mkdir
+import os
 from pathlib import Path
 from time import sleep
 from selenium.webdriver.support import expected_conditions as ec
@@ -12,12 +13,24 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 import configparser
 
+if getattr(sys, 'frozen', False):
+    # If the application is run as a bundle, the pyInstaller bootloader
+    # extends the sys module by a flag frozen=True and sets the app 
+    # path into variable _MEIPASS'.
+    application_path = sys._MEIPASS
+else:
+    application_path = os.path.dirname(os.path.abspath(__file__))
 
 def read_config(file_path='_UGDownloaderFiles/config.ini'):
-    current_dir = Path(__file__).resolve().parent
-    file_path = current_dir / file_path
+    # current_dir = Path(__file__).resolve().parent
+    # file_path = current_dir / file_path
     config = configparser.ConfigParser()
+    # config.read(file_path)
+
+    file_path = os.path.join(application_path, '_UGDownloaderFiles', 'config.ini')
     config.read(file_path)
+    print("CONFIG PATH STEVE")
+    print(file_path)
     return config
 
 

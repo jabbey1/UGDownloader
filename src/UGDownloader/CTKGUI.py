@@ -179,7 +179,7 @@ class App(customtkinter.CTk):
         """bottom"""
         self.artist_entry = customtkinter.CTkEntry(self, placeholder_text='Artist')
         self.artist_entry.grid(row=10, column=1, pady=(10, 20), padx=10, sticky='ew')
-        self.filetype_drop_down = customtkinter.CTkOptionMenu(self, values=['Guitar Pro', 'Powertab', 'Both'])
+        self.filetype_drop_down = customtkinter.CTkOptionMenu(self, values=['Text', 'Guitar Pro', 'Powertab', 'Both'])
         self.filetype_drop_down.grid(row=10, column=2, pady=(10, 20))
         self.download_button = customtkinter.CTkButton(self, text='Download', command=self.download_button_event)
         self.download_button.grid(row=10, column=3, pady=(10, 20), padx=10)
@@ -190,7 +190,7 @@ class App(customtkinter.CTk):
         # set default values
         self.browser_button.set('Chrome')
         self.headless_checkbox.select()
-        self.filetype_drop_down.set('Guitar Pro')
+        self.filetype_drop_down.set('Text')
         self.appearance_mode_option_menu.set('Dark')
         self.information_tabview.set('Notes')
         # Set notes
