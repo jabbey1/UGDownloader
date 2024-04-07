@@ -12,6 +12,7 @@ import requests
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 import configparser
+import re
 
 if getattr(sys, 'frozen', False):
     # If the application is run as a bundle, the pyInstaller bootloader
@@ -29,7 +30,8 @@ def read_config(file_path='_UGDownloaderFiles/config.ini'):
 
     file_path = os.path.join(application_path, '_UGDownloaderFiles', 'config.ini')
     config.read(file_path)
-    print("CONFIG PATH STEVE")
+
+    print("Config Location:")
     print(file_path)
     return config
 
@@ -164,3 +166,23 @@ def failure_log_failed_attempt(text: str):
     """This puts the url's of failed downloads in the failure log, so you could potentially go back and manually
     download files missed by the program."""
     logging.error('Failed download:' + text)
+
+def extract_data_preserve_whitespace(line):
+    # Regular expression to find and replace HTML tags
+    pattern = r'<[^>]+>'
+    cleaned_line = re.sub(pattern, '', line)
+    return cleaned_line
+
+def process_tab_string(tab_text_raw):
+    # Splitting the input string into lines
+    lines = tab_text_raw.split('\n')
+
+    # Processing each line and storing the results
+    processed_lines = [extract_data_preserve_whitespace(line) for line in lines]
+
+    # Joining the processed lines back into a single string
+    return '\n'.join(processed_lines)
+
+def write_to_file(data, filename):
+    with open(filename, 'w', encoding='utf-8') as file:
+        file.write(data)

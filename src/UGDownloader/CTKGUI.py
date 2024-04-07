@@ -440,36 +440,72 @@ def start_download(driver: webdriver, artist: str, user: str, password: str, gui
     print('Grabbing urls of requested files.')
     tab_links = DLoader.link_handler(driver, tab_links, file_type_wanted)
 
-    print(f'Attempting {len(tab_links)} downloads.')
-    gui.progress_bar.stop()
-    gui.progress_bar.set(0)
-    gui.progress_bar.configure(mode="determinate")
-    gui.progress_bar["maximum"] = len(tab_links)
-    tabs_attempted = 0
-    driver.wait_on_first_tab = True
-    for link in tab_links:
-        # download interruptions
-        if check_exiting(gui):
-            return
-        if check_canceled(gui):
-            break
+    if file_type_wanted == 'Text':
+        # don't download file as not implemented yet
+        print(f'Attempting {len(tab_links)} text file downloads.')
+        gui.progress_bar.stop()
+        gui.progress_bar.set(0)
+        gui.progress_bar.configure(mode="determinate")
+        gui.progress_bar["maximum"] = len(tab_links)
+        tabs_attempted = 0
+        driver.wait_on_first_tab = True
+        for link in tab_links:
+            # download interruptions
+            if check_exiting(gui):
+                return
+            if check_canceled(gui):
+                break
 
-        results = DLoader.download_tab(driver, link)
-        # try again after failure, 3 tries. Results[0] == 1 means a download was made
-        tries = 1
-        while results[0] == 0 and tries < 2:
-            tries += 1
-            print(f'Download failed, trying again. Attempt {tries}')
-            attempt_results = DLoader.download_tab(driver, link)
-            results[0] += attempt_results[0]
-            results[1] += attempt_results[1]
-        if tries >= 3:
-            Utils.failure_log_failed_attempt(link)
-            print('Too many download attempts. Moving on')
-        tabs_attempted += 1
-        download_count += results[0]
-        failure_count += results[1]
-        gui.progress_bar.set(tabs_attempted / len(tab_links))
+            tab_text_raw = DLoader.download_text(driver, link)
+            #print(tab_text_raw)
+
+            tab_text = Utils.process_tab_string(tab_text_raw)
+
+            artist_title = (artist + ' ' + (link.split('/')[-1])).replace('%20', '-').replace(' ', '-')
+            filename = artist_title + '.txt'
+            filename_fullpath = Utils.tab_download_path / artist / filename
+            print(filename_fullpath)
+
+            # prepend artist_title to tab_text
+            tab_text = artist_title + '\n\n' + tab_text
+
+            Utils.write_to_file(tab_text, filename_fullpath)
+
+            tabs_attempted += 1
+            download_count += 1
+            failure_count += 0 # TODO @steveandroulakis failure attempts for text
+            gui.progress_bar.set(tabs_attempted / len(tab_links))
+    else:
+        print(f'Attempting {len(tab_links)} downloads.')
+        gui.progress_bar.stop()
+        gui.progress_bar.set(0)
+        gui.progress_bar.configure(mode="determinate")
+        gui.progress_bar["maximum"] = len(tab_links)
+        tabs_attempted = 0
+        driver.wait_on_first_tab = True
+        for link in tab_links:
+            # download interruptions
+            if check_exiting(gui):
+                return
+            if check_canceled(gui):
+                break
+
+            results = DLoader.download_tab(driver, link)
+            # try again after failure, 3 tries. Results[0] == 1 means a download was made
+            tries = 1
+            while results[0] == 0 and tries < 2:
+                tries += 1
+                print(f'Download failed, trying again. Attempt {tries}')
+                attempt_results = DLoader.download_tab(driver, link)
+                results[0] += attempt_results[0]
+                results[1] += attempt_results[1]
+            if tries >= 3:
+                Utils.failure_log_failed_attempt(link)
+                print('Too many download attempts. Moving on')
+            tabs_attempted += 1
+            download_count += results[0]
+            failure_count += results[1]
+            gui.progress_bar.set(tabs_attempted / len(tab_links))
 
     # A wait here allows the browser to finish downloads before being closed.
     sleep(2)

@@ -14,6 +14,7 @@ DOWNLOAD_BUTTON_SELECTOR = config.get('Selectors', 'DOWNLOAD_BUTTON_SELECTOR')
 TAB_BLOCKED_SELECTOR = config.get('Selectors', 'TAB_BLOCKED_SELECTOR')
 TAB_ROW_SELECTOR = config.get('Selectors', 'TAB_ROW_SELECTOR')
 TAB_LINK_CONTAINER = config.get('Selectors', 'TAB_LINK_CONTAINER')
+TAB_TEXT_SELECTOR = config.get('Selectors', 'TAB_TEXT_SELECTOR')
 NEXT_PAGE_SELECTOR = config.get('Selectors', 'NEXT_PAGE_SELECTOR')
 
 
@@ -81,6 +82,21 @@ def download_tab_fallback(driver: webdriver, url: str):
     sleep(.5)
 
 
+def download_text(driver: webdriver, url: str) -> List[int]:
+    """ Download the raw text of the tab
+    """
+    download_count, failure_count = 0, 0
+    driver.get(url)
+
+    print(f'Downloading tab text @ {url}')
+
+    # get html of element matching TAB_TEXT_SELECTOR
+    wait = WebDriverWait(driver, 5)  # Timeout after 10 seconds
+    tab_text_element = wait.until(ec.presence_of_element_located((By.CSS_SELECTOR, TAB_TEXT_SELECTOR)))
+    tab_text_raw = tab_text_element.text
+    return tab_text_raw
+
+
 def link_handler(driver: webdriver, tab_links: list, file_type_wanted: str) -> list:
     """Take a list and call methods to add links to tabs of requested filetypes. Driver must be navigated to artist
     page. Will navigate to filetype filtered page before handing off to collect_links"""
@@ -97,7 +113,26 @@ def link_handler(driver: webdriver, tab_links: list, file_type_wanted: str) -> l
         except (TypeError, selenium.common.exceptions.NoSuchElementException):
             print('There are no available Powertabs for this artist.')
     elif file_type_wanted == 'Text':
-        print("Not yet implemented")
+        try:
+            driver.find_element(By.LINK_TEXT, 'Chords').click()
+            tab_links.extend(collect_links_text(driver, True, 'Chords'))
+        except (TypeError, selenium.common.exceptions.NoSuchElementException):
+            print('There are no available Chord tabs for this artist.')
+        try:
+            driver.find_element(By.LINK_TEXT, 'Tab').click()
+            tab_links.extend(collect_links_text(driver, True, 'Tab'))
+        except (TypeError, selenium.common.exceptions.NoSuchElementException):
+            print('There are no available Tab tabs for this artist.')
+        try:
+            driver.find_element(By.LINK_TEXT, 'Bass').click()
+            tab_links.extend(collect_links_text(driver, True, 'Bass'))
+        except (TypeError, selenium.common.exceptions.NoSuchElementException):
+            print('There are no available Bass tabs for this artist.')
+        try:
+            driver.find_element(By.LINK_TEXT, 'Ukulele').click()
+            tab_links.extend(collect_links_text(driver, True, 'Ukulele'))
+        except (TypeError, selenium.common.exceptions.NoSuchElementException):
+            print('There are no available Ukulele tabs for this artist.')
 
     return tab_links
 
@@ -141,6 +176,27 @@ def collect_links_powertab(driver: webdriver, verbose: bool) -> list:
 
     if verbose:
         print(f'Found {len(tab_links)} Powertab Files')
+    return tab_links
+
+
+def collect_links_text(driver: webdriver, verbose: bool, type: str) -> list:
+    """ Collects links to chord files only, page by page"""
+    tab_links, page = [], 1
+
+    while True:
+        if verbose:
+            print(f"Reading page {page}")
+        tabs_from_page = [x for x in driver.find_elements(By.CLASS_NAME, TAB_ROW_SELECTOR) if type in x.text]
+        for tab in tabs_from_page:
+            tab_links.append(tab.find_element(By.CSS_SELECTOR, TAB_LINK_CONTAINER).get_attribute('href'))
+
+        if not driver.find_elements(By.CLASS_NAME, NEXT_PAGE_SELECTOR):
+            break
+        page += 1
+        driver.find_element(By.CLASS_NAME, NEXT_PAGE_SELECTOR).click()
+
+    if verbose:
+        print(f'Found {len(tab_links)} {type} files')
     return tab_links
 
 
