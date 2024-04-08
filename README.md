@@ -5,9 +5,10 @@ Enter the name of the artist, and this will download every available **Guitar Pr
 versions of songs. Uses Firefox or Chrome with Selenium in Python.
 
 ---
-### As of v2.1:
+### As of v2.6:
 
 - Can now download text tabs!
+- Can select 'My Tabs' to get your saved tabs
 
 ---
 ### As of v2.0:
