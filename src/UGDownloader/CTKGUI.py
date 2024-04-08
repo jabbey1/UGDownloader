@@ -31,7 +31,7 @@ class App(customtkinter.CTk):
         Utils.folder_check()
         self.resizable(False, False)
         self.title('Ultimate Guitar Downloader')
-        self.geometry(f"{1200}x{620}")
+        self.geometry(f"{1200}x{900}")
 
         """GUI arrangement begin"""
         # configure grid
@@ -433,7 +433,7 @@ def start_download(driver: webdriver, artist: str, user: str, password: str, gui
             search_url = search_url + "Wilco" # force a login popup
             driver.get(search_url)
             # setting the window size seems to help some element obfuscation issues
-            driver.set_window_size(1100, 1000)
+            driver.set_window_size(1100, 1200)
             # click on artist from search results        
         except (TypeError, selenium.common.exceptions.NoSuchElementException):
             print("Cannot find My Tabs. Do you have any saved tabs?\n")
