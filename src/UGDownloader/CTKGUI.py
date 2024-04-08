@@ -178,10 +178,11 @@ class App(customtkinter.CTk):
 
         """bottom"""
         self.artist_entry = customtkinter.CTkEntry(self, placeholder_text='Artist', width=300)
-        self.artist_entry.grid(row=10, column=1, columnspan=1, pady=(10, 20), padx=10, sticky='e') #steve
+        self.artist_entry.grid(row=10, column=1, columnspan=1, pady=(10, 20), padx=10, sticky='e')
+
         self.mytabs_checkbox = customtkinter.CTkCheckBox(self, onvalue=True, offvalue=False,
-                                                    text='Download \"My Tabs\"')
-        self.mytabs_checkbox.grid(row=10, column=2, pady=(10, 20), sticky='w') #steve
+                                                        text='Download "My Tabs"', command=self.on_mytabs_checkbox_toggle)
+        self.mytabs_checkbox.grid(row=10, column=2, pady=(10, 20), sticky='w')
         self.filetype_drop_down = customtkinter.CTkOptionMenu(self, values=['Guitar Pro', 'Powertab', 'Text', 'All'])
         self.filetype_drop_down.grid(row=10, column=3, pady=(10, 20))
         self.download_button = customtkinter.CTkButton(self, text='Download', command=self.download_button_event)
@@ -343,10 +344,8 @@ class App(customtkinter.CTk):
         driver = DriverSetup.start_browser(artist, headless, browser, cookies)
         count = DLoader.get_already_downloaded_count(artist)
 
-        if not my_tabs_requested:
-            print(f'There are {count} files in the "{artist}" directory.\n')
-
         try:
+            print('Starting download...')
             thread = threading.Thread(target=lambda: start_download(driver, artist, user, password, self, filetype))
             thread.start()
         except Exception as e:
@@ -356,6 +355,17 @@ class App(customtkinter.CTk):
             print('Closing browser...')
             driver.quit()
             print('Browser closed.')
+
+
+    def on_mytabs_checkbox_toggle(self):
+        if self.mytabs_checkbox.get() == True:
+            self.artist_entry.delete(0, 'end')  # Clear existing text
+            self.artist_entry.insert(0, "Downloading your saved tabs...")  # Insert new text
+            self.artist_entry.configure(state='disabled')
+
+        else:
+            self.artist_entry.configure(state='normal')
+
 
     def cancel_button_event(self):
         """Cancels current download. Has to wait for the download thread to notice the new state."""
@@ -518,10 +528,6 @@ def start_download(driver: webdriver, artist: str, user: str, password: str, gui
         if check_canceled(gui):
             break
 
-        # grab the artist and song title from the link
-        # TODO @steveandroulakis grab the artist and song title from the page
-        # and work to ensure uniqueness (across tab versions)
-        print(info) #steve
         if 'artist' in info and info['artist'] != '':
             artist = info['artist']
             DLoader.create_artist_folder(artist)
@@ -531,14 +537,12 @@ def start_download(driver: webdriver, artist: str, user: str, password: str, gui
         link = info['link']
         artist_title_type = f'{artist} - {title} - {type}'
 
-        filename = f'{artist_title_type}.txt'
+        filename = f'{Utils.sanitize_filename(artist_title_type)}.txt'
         fullpath = Utils.tab_download_path / artist
         filename_fullpath = fullpath / filename
 
         print(f'\n{artist_title_type}')
 
-        # if filename_fullpath exists, skip
-        # TODO @steveandroulakis count skipped files
         if filename_fullpath.is_file():
             print(f'File already exists. Skipping.\n')
         else:
@@ -550,8 +554,7 @@ def start_download(driver: webdriver, artist: str, user: str, password: str, gui
             # prepend artist_title to tab_text
             tab_text = artist_title_type + '\n\n' + tab_text
             print(f'Writing to file: {filename_fullpath} \n')
-            Utils.write_to_file(tab_text,
-                                Utils.sanitize_filename(filename_fullpath))
+            Utils.write_to_file(tab_text, filename_fullpath)
 
         tabs_attempted += 1
         download_count += 1

@@ -169,7 +169,6 @@ def collect_links_guitar_pro(driver: webdriver, verbose: bool) -> list:
         if verbose:
             print(f"Reading page {page} for {type} tabs")
         tabs_from_page = [x for x in driver.find_elements(By.CLASS_NAME, TAB_ROW_SELECTOR) if 'Guitar Pro' in x.text]
-        tabs_from_page.extend([x for x in driver.find_elements(By.CLASS_NAME, MY_TABS_ROW_SELECTOR) if 'Guitar Pro' in x.text])
         for tab in tabs_from_page:
             tab_links.append(tab.find_element(By.CSS_SELECTOR, TAB_LINK_CONTAINER).get_attribute('href'))
 
@@ -207,7 +206,6 @@ def get_tab_info(tabs_from_page, type: str, artist: str) -> list:
     tab_info_list = []
     for tab in tabs_from_page:
         if type in tab.text:
-            #print(type) steve
             parts = tab.text.split('\n')
 
             # determine if page is from My Tabs or not
@@ -238,7 +236,6 @@ def collect_links_text(driver: webdriver, verbose: bool, type: str, artist: str)
 
         tab_info = get_tab_info(tabs_from_page_unfiltered, type, artist)
 
-        # todo steve single page for testing
         # break
         if not driver.find_elements(By.CLASS_NAME, NEXT_PAGE_SELECTOR):
             break
@@ -303,7 +300,6 @@ def search_for_artist(driver: webdriver, artist: str):
         sleep(1)
 
 
-# TODO steve wire up GUI to 'my tabs' search_url and create function
 def new_tabs_checker(driver: webdriver, artist: str, filetype: str, my_tabs: bool):
     search_for_artist(driver, artist)
     count = get_already_downloaded_count(artist)

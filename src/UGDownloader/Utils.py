@@ -13,6 +13,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 import configparser
 import re
+import pathlib
 
 if getattr(sys, 'frozen', False):
     # If the application is run as a bundle, the pyInstaller bootloader
@@ -186,9 +187,14 @@ def process_tab_string(tab_text_raw):
     return '\n'.join(processed_lines)
 
 def write_to_file(data, filename):
+    filename_str = str(filename)
+    print('writing ' + filename_str)
     with open(filename, 'w', encoding='utf-8') as file:
         file.write(data)
 
 def sanitize_filename(filename):
+    # Convert Path object to string if necessary
+    if isinstance(filename, pathlib.Path):
+        filename = str(filename)
     # Remove invalid characters
     return re.sub(r'[<>:"/\\|?*]', '', filename)
