@@ -49,6 +49,7 @@ log_path = Path(program_data_path / 'myapp.log')
 github_api_url = config.get('Urls', 'github_api_url')
 github_releases = config.get('Urls', 'github_releases')
 search_url = config.get('Urls', 'search_url')
+my_tabs_url = config.get('Urls', 'my_tabs_url')
 LOGIN_BUTTON_SELECTOR = config.get('Selectors', 'LOGIN_BUTTON_SELECTOR')
 LOGIN_FORM_SELECTOR = config.get('Selectors', 'LOGIN_FORM_SELECTOR')
 LOGIN_USERNAME_SELECTOR = config.get('Selectors', 'LOGIN_USERNAME_SELECTOR')
@@ -146,12 +147,13 @@ def login(driver, user: str, password: str):
         password_textbox.send_keys(password)
         sleep(1)
         submit_button.click()
+        sleep(2)
 
         # Wait for popup to be clickable
-        popup_element = WebDriverWait(driver, 20).until(
-            ec.element_to_be_clickable((By.CSS_SELECTOR, LOGIN_POPUP_SELECTOR)))
-        popup_element.click()
-        sleep(.5)
+        # popup_element = WebDriverWait(driver, 20).until(
+        #     ec.element_to_be_clickable((By.CSS_SELECTOR, LOGIN_POPUP_SELECTOR)))
+        # popup_element.click()
+        sleep(1)
         print('Logged in')
 
     except NoSuchElementException:
