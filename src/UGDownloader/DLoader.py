@@ -118,7 +118,7 @@ def click_tab_type(driver: webdriver, type: str, my_tabs_wanted: bool):
 
 
 def link_handler(driver: webdriver, tab_links: dict, file_type_wanted: str,
-                 my_tabs_wanted: bool) -> list:
+                 my_tabs_wanted: bool, artist: str) -> list:
     """Take a list and call methods to add links to tabs of requested filetypes. Driver must be navigated to artist
     page. Will navigate to filetype filtered page before handing off to collect_links"""
     if file_type_wanted in ('Guitar Pro', 'All'):
@@ -136,17 +136,17 @@ def link_handler(driver: webdriver, tab_links: dict, file_type_wanted: str,
     if file_type_wanted in ('Text', 'All'):
         try:
             click_tab_type(driver, 'Chords', my_tabs_wanted)
-            tab_links['text'].extend(collect_links_text(driver, True, 'Chords'))
+            tab_links['text'].extend(collect_links_text(driver, True, 'Chords', artist))
         except (TypeError, selenium.common.exceptions.NoSuchElementException):
             print('There are no available Chord tabs for this artist.')
         try:
             click_tab_type(driver, 'Tab', my_tabs_wanted)
-            tab_links['text'].extend(collect_links_text(driver, True, 'Tab'))
+            tab_links['text'].extend(collect_links_text(driver, True, 'Tab', artist))
         except (TypeError, selenium.common.exceptions.NoSuchElementException):
             print('There are no available Tab tabs for this artist.')
         try:
             click_tab_type(driver, 'Bass', my_tabs_wanted)
-            tab_links['text'].extend(collect_links_text(driver, True, 'Bass'))
+            tab_links['text'].extend(collect_links_text(driver, True, 'Bass', artist))
         except (TypeError, selenium.common.exceptions.NoSuchElementException):
             print('There are no available Bass tabs for this artist.')
         try:
@@ -154,7 +154,7 @@ def link_handler(driver: webdriver, tab_links: dict, file_type_wanted: str,
                 pass # Uke isn't supported in My Tabs
             else:
                 click_tab_type(driver, 'Ukulele', my_tabs_wanted)
-                tab_links['text'].extend(collect_links_text(driver, True, 'Ukulele'))
+                tab_links['text'].extend(collect_links_text(driver, True, 'Ukulele', artist))
         except (TypeError, selenium.common.exceptions.NoSuchElementException):
             print('There are no available Ukulele tabs for this artist.')
 
@@ -203,14 +203,22 @@ def collect_links_powertab(driver: webdriver, verbose: bool) -> list:
         print(f'Found {len(tab_links)} Powertab Files\n')
     return tab_links
 
-def get_tab_info(tabs_from_page, type: str) -> list:
+def get_tab_info(tabs_from_page, type: str, artist: str) -> list:
     tab_info_list = []
     for tab in tabs_from_page:
         if type in tab.text:
+            print(type)
             parts = tab.text.split('\n')
-            artist = parts[0]
-            title = parts[1]
-            type = type  # Split the last line by spaces and take the last word
+
+            # determine if page is from My Tabs or not
+            if artist == parts[0]:
+                artist = parts[0]
+                title = parts[1]
+                type = type  # Split the last line by spaces and take the last word
+            else: # If not My Tabs, then the artist is the first part of the text
+                artist = artist
+                title = parts[0]
+                type = type
             link = tab.find_element(By.CSS_SELECTOR, TAB_LINK_CONTAINER).get_attribute('href')
             
             info = {'artist': artist, 'title': title, 'type': type, 'link': link}
@@ -218,7 +226,7 @@ def get_tab_info(tabs_from_page, type: str) -> list:
             tab_info_list.append(info)
     return tab_info_list
 
-def collect_links_text(driver: webdriver, verbose: bool, type: str) -> list:
+def collect_links_text(driver: webdriver, verbose: bool, type: str, artist: str) -> list:
     """ Collects links to chord files only, page by page"""
     tab_info, page = [], 1
 
@@ -228,7 +236,7 @@ def collect_links_text(driver: webdriver, verbose: bool, type: str) -> list:
         
         tabs_from_page_unfiltered = driver.find_elements(By.CLASS_NAME, TAB_ROW_SELECTOR)
 
-        tab_info = get_tab_info(tabs_from_page_unfiltered, type)
+        tab_info = get_tab_info(tabs_from_page_unfiltered, type, artist)
 
         # todo steve single page for testing
         break
@@ -300,7 +308,7 @@ def new_tabs_checker(driver: webdriver, artist: str, filetype: str, my_tabs: boo
     search_for_artist(driver, artist)
     count = get_already_downloaded_count(artist)
     tab_links = {'download': [], 'text': []}
-    tab_links = link_handler(driver, tab_links, filetype, my_tabs)
+    tab_links = link_handler(driver, tab_links, filetype, my_tabs, artist)
 
     print(f'\nYour {artist} folder has {count} files.')
     print(f'Online, there are {len(tab_links)} of type: {filetype} available.')

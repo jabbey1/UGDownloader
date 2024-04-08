@@ -310,7 +310,7 @@ class App(customtkinter.CTk):
     def save_info_button_event(self):
         """Saves username and password to .txt file"""
         user, password = self.user_text_entry.get(), self.password_text_entry.get()
-        if not validate('A', user, password):
+        if not validate('A', user, password, False):
             return  # faked artist field to not trip validate
         with open(self.user_info_path, 'w+') as userinfo:
             userinfo.write(f'{user} {password}')
@@ -344,7 +344,7 @@ class App(customtkinter.CTk):
         count = DLoader.get_already_downloaded_count(artist)
 
         if not my_tabs_requested:
-            print(f'There are already {count} files in the "{artist}" directory.\n')
+            print(f'There are {count} files in the "{artist}" directory.\n')
 
         try:
             thread = threading.Thread(target=lambda: start_download(driver, artist, user, password, self, filetype))
@@ -444,9 +444,8 @@ def start_download(driver: webdriver, artist: str, user: str, password: str, gui
             print('Browser closed.')
             return
     else:
-        driver.get(search_url + artist)
         try:
-            driver.get(search_url)
+            driver.get(search_url + artist)
             # setting the window size seems to help some element obfuscation issues
             driver.set_window_size(1100, 1000)
             # click on artist from search results        
@@ -475,7 +474,9 @@ def start_download(driver: webdriver, artist: str, user: str, password: str, gui
         return
     print('Grabbing urls of requested files.\n')
     tab_links = DLoader.link_handler(driver, tab_links,
-                                     file_type_wanted, bool(gui.mytabs_checkbox.get()))
+                                     file_type_wanted,
+                                     bool(gui.mytabs_checkbox.get(),
+                                     artist))
     total_tabs = (len(tab_links['download'])+len(tab_links['text']))
 
     print(f'Attempting {total_tabs} downloads.')
@@ -520,8 +521,10 @@ def start_download(driver: webdriver, artist: str, user: str, password: str, gui
         # grab the artist and song title from the link
         # TODO @steveandroulakis grab the artist and song title from the page
         # and work to ensure uniqueness (across tab versions)
-        artist = info['artist']
-        DLoader.create_artist_folder(artist)
+        print(info) #steve
+        if 'artist' in info and info['artist'] != '':
+            artist = info['artist']
+            DLoader.create_artist_folder(artist)
 
         title = info['title']
         type = info['type']
@@ -547,7 +550,8 @@ def start_download(driver: webdriver, artist: str, user: str, password: str, gui
             # prepend artist_title to tab_text
             tab_text = artist_title_type + '\n\n' + tab_text
             print(f'Writing to file: {filename_fullpath} \n')
-            Utils.write_to_file(tab_text, filename_fullpath)
+            Utils.write_to_file(tab_text,
+                                Utils.sanitize_filename(filename_fullpath))
 
         tabs_attempted += 1
         download_count += 1
