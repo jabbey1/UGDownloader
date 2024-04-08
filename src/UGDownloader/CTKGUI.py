@@ -475,8 +475,8 @@ def start_download(driver: webdriver, artist: str, user: str, password: str, gui
     print('Grabbing urls of requested files.\n')
     tab_links = DLoader.link_handler(driver, tab_links,
                                      file_type_wanted,
-                                     bool(gui.mytabs_checkbox.get(),
-                                     artist))
+                                     bool(gui.mytabs_checkbox.get()),
+                                     artist)
     total_tabs = (len(tab_links['download'])+len(tab_links['text']))
 
     print(f'Attempting {total_tabs} downloads.')

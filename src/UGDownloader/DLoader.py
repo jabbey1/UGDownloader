@@ -207,7 +207,7 @@ def get_tab_info(tabs_from_page, type: str, artist: str) -> list:
     tab_info_list = []
     for tab in tabs_from_page:
         if type in tab.text:
-            print(type)
+            #print(type) steve
             parts = tab.text.split('\n')
 
             # determine if page is from My Tabs or not
@@ -239,11 +239,11 @@ def collect_links_text(driver: webdriver, verbose: bool, type: str, artist: str)
         tab_info = get_tab_info(tabs_from_page_unfiltered, type, artist)
 
         # todo steve single page for testing
-        break
-        # if not driver.find_elements(By.CLASS_NAME, NEXT_PAGE_SELECTOR):
-        #     break
-        # page += 1
-        # driver.find_element(By.CLASS_NAME, NEXT_PAGE_SELECTOR).click()
+        # break
+        if not driver.find_elements(By.CLASS_NAME, NEXT_PAGE_SELECTOR):
+            break
+        page += 1
+        driver.find_element(By.CLASS_NAME, NEXT_PAGE_SELECTOR).click()
 
     if verbose:
         print(f'Found {len(tab_info)} {type} files\n')
