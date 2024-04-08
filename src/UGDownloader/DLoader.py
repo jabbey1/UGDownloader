@@ -136,17 +136,20 @@ def link_handler(driver: webdriver, tab_links: dict, file_type_wanted: str,
     if file_type_wanted in ('Text', 'All'):
         try:
             click_tab_type(driver, 'Chords', my_tabs_wanted)
-            tab_links['text'].extend(collect_links_text(driver, True, 'Chords', artist))
+            tab_links['text'].extend(collect_links_text(driver, True, 'Chords',
+                                                        my_tabs_wanted, artist))
         except (TypeError, selenium.common.exceptions.NoSuchElementException):
             print('There are no available Chord tabs for this artist.')
         try:
             click_tab_type(driver, 'Tab', my_tabs_wanted)
-            tab_links['text'].extend(collect_links_text(driver, True, 'Tab', artist))
+            tab_links['text'].extend(collect_links_text(driver, True, 'Tab',
+                                                        my_tabs_wanted, artist))
         except (TypeError, selenium.common.exceptions.NoSuchElementException):
             print('There are no available Tab tabs for this artist.')
         try:
             click_tab_type(driver, 'Bass', my_tabs_wanted)
-            tab_links['text'].extend(collect_links_text(driver, True, 'Bass', artist))
+            tab_links['text'].extend(collect_links_text(driver, True, 'Bass',
+                                                        my_tabs_wanted, artist))
         except (TypeError, selenium.common.exceptions.NoSuchElementException):
             print('There are no available Bass tabs for this artist.')
         try:
@@ -203,17 +206,24 @@ def collect_links_powertab(driver: webdriver, verbose: bool) -> list:
         print(f'Found {len(tab_links)} Powertab Files\n')
     return tab_links
 
-def get_tab_info(tabs_from_page, type: str, artist: str) -> list:
+def get_tab_info(tabs_from_page, type: str, my_tabs_wanted: bool,
+                 artist: str) -> list:
     tab_info_list = []
     for tab in tabs_from_page:
+        last_artist = artist
         if type in tab.text:
             parts = tab.text.split('\n')
 
             # determine if page is from My Tabs or not
-            if artist == parts[0] or artist == '':
-                info_artist = parts[0]
-                title = parts[1]
-                type = type  # Split the last line by spaces and take the last word
+            if my_tabs_wanted:
+                if len(parts) == 2:
+                    info_artist = last_artist
+                    title = parts[0]
+                else:
+                    info_artist = parts[0]
+                    last_artist = parts[0]
+                    title = parts[1]
+                type = type
             else: # If not My Tabs, then the artist is the first part of the text
                 info_artist = artist
                 title = parts[0]
@@ -225,7 +235,8 @@ def get_tab_info(tabs_from_page, type: str, artist: str) -> list:
             tab_info_list.append(info)
     return tab_info_list
 
-def collect_links_text(driver: webdriver, verbose: bool, type: str, artist: str) -> list:
+def collect_links_text(driver: webdriver, verbose: bool, type: str,
+                       my_tabs_wanted: bool, artist: str) -> list:
     """ Collects links to chord files only, page by page"""
     tab_info, page = [], 1
 
@@ -235,7 +246,8 @@ def collect_links_text(driver: webdriver, verbose: bool, type: str, artist: str)
         
         tabs_from_page_unfiltered = driver.find_elements(By.CLASS_NAME, TAB_ROW_SELECTOR)
 
-        tab_info.extend(get_tab_info(tabs_from_page_unfiltered, type, artist))
+        tab_info.extend(get_tab_info(tabs_from_page_unfiltered, type,
+                                     my_tabs_wanted, artist))
 
         # break
         if not driver.find_elements(By.CLASS_NAME, NEXT_PAGE_SELECTOR):
