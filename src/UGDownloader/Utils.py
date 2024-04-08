@@ -188,7 +188,7 @@ def process_tab_string(tab_text_raw):
 
 def write_to_file(data, filename):
     filename_str = str(filename)
-    print('writing ' + filename_str)
+    # print('writing ' + filename_str)
     with open(filename, 'w', encoding='utf-8') as file:
         file.write(data)
 
