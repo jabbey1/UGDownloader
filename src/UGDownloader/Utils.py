@@ -198,3 +198,15 @@ def sanitize_filename(filename):
         filename = str(filename)
     # Remove invalid characters
     return re.sub(r'[<>:"/\\|?*]', '', filename)
+
+def sanitize_directory(directory):
+    # Split the directory into parts
+    parts = pathlib.Path(directory).parts
+
+    # Sanitize each part of the directory
+    sanitized_parts = [re.sub(r'[<>:"|?*]', '', part) for part in parts]
+
+    # Reconstruct the path from sanitized parts
+    sanitized_path = pathlib.Path(*sanitized_parts)
+
+    return sanitized_path

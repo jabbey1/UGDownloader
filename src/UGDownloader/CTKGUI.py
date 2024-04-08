@@ -336,13 +336,15 @@ class App(customtkinter.CTk):
         if not validate(artist, user, password, my_tabs_requested):
             return
 
+        if my_tabs_requested: # no artist if my tabs is selected
+            artist = ''
+
         # set download state and prepare progress bar
         self.DOWNLOADING = True
         self.progress_bar.configure(mode="indeterminate")
         self.progress_bar.start()
 
         driver = DriverSetup.start_browser(artist, headless, browser, cookies)
-        count = DLoader.get_already_downloaded_count(artist)
 
         try:
             print('Starting download...')
@@ -530,6 +532,7 @@ def start_download(driver: webdriver, artist: str, user: str, password: str, gui
 
         if 'artist' in info and info['artist'] != '':
             artist = info['artist']
+            artist = Utils.sanitize_filename(artist)
             DLoader.create_artist_folder(artist)
 
         title = info['title']

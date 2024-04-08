@@ -194,6 +194,7 @@ def collect_links_powertab(driver: webdriver, verbose: bool) -> list:
             tab_links.append(tab.find_element(By.CSS_SELECTOR, TAB_LINK_CONTAINER).get_attribute('href'))
 
         if not driver.find_elements(By.CLASS_NAME, NEXT_PAGE_SELECTOR):
+            print('Found no more pages.')
             break
         page += 1
         driver.find_element(By.CLASS_NAME, NEXT_PAGE_SELECTOR).click()
@@ -209,17 +210,17 @@ def get_tab_info(tabs_from_page, type: str, artist: str) -> list:
             parts = tab.text.split('\n')
 
             # determine if page is from My Tabs or not
-            if artist == parts[0]:
-                artist = parts[0]
+            if artist == parts[0] or artist == '':
+                info_artist = parts[0]
                 title = parts[1]
                 type = type  # Split the last line by spaces and take the last word
             else: # If not My Tabs, then the artist is the first part of the text
-                artist = artist
+                info_artist = artist
                 title = parts[0]
                 type = type
             link = tab.find_element(By.CSS_SELECTOR, TAB_LINK_CONTAINER).get_attribute('href')
             
-            info = {'artist': artist, 'title': title, 'type': type, 'link': link}
+            info = {'artist': info_artist, 'title': title, 'type': type, 'link': link}
 
             tab_info_list.append(info)
     return tab_info_list
@@ -234,7 +235,7 @@ def collect_links_text(driver: webdriver, verbose: bool, type: str, artist: str)
         
         tabs_from_page_unfiltered = driver.find_elements(By.CLASS_NAME, TAB_ROW_SELECTOR)
 
-        tab_info = get_tab_info(tabs_from_page_unfiltered, type, artist)
+        tab_info.extend(get_tab_info(tabs_from_page_unfiltered, type, artist))
 
         # break
         if not driver.find_elements(By.CLASS_NAME, NEXT_PAGE_SELECTOR):
