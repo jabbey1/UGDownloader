@@ -194,7 +194,7 @@ class App(customtkinter.CTk):
         # set default values
         self.browser_button.set('Chrome')
         self.headless_checkbox.select()
-        self.filetype_drop_down.set('Text')
+        self.filetype_drop_down.set('Guitar Pro')
         self.appearance_mode_option_menu.set('Dark')
         self.information_tabview.set('Notes')
         # Set notes
