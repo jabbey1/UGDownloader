@@ -31,12 +31,12 @@ class App(customtkinter.CTk):
         Utils.folder_check()
         self.resizable(False, False)
         self.title('Ultimate Guitar Downloader')
-        self.geometry(f"{900}x{620}")
+        self.geometry(f"{1200}x{900}")
 
         """GUI arrangement begin"""
         # configure grid
         self.grid_columnconfigure(1, weight=1)
-        self.grid_columnconfigure(2, weight=0)
+        self.grid_columnconfigure(2, weight=1)
         self.grid_rowconfigure(0, weight=1)
         self.grid_rowconfigure(1, weight=1)
         self.grid_rowconfigure(2, weight=1)
@@ -97,13 +97,13 @@ class App(customtkinter.CTk):
         """Middle"""
         self.console_output = customtkinter.CTkTextbox(self, width=350, border_color='white', border_width=1,
                                                        wrap='word', )
-        self.console_output.grid(row=0, column=1, rowspan=3, padx=6, pady=10, sticky='nsew')
+        self.console_output.grid(row=0, column=1, rowspan=3, columnspan=2, padx=6, pady=10, sticky='nsew')
         self.progress_bar = customtkinter.CTkProgressBar(self, mode='determinate')
-        self.progress_bar.grid(row=9, column=1, padx=20, pady=10, sticky='ew')
+        self.progress_bar.grid(row=9, column=1, padx=20, pady=10, columnspan=2, sticky='ew')
 
         """right bar"""
         self.right_frame = customtkinter.CTkFrame(self, )
-        self.right_frame.grid(row=0, column=2, sticky='nsew', columnspan=3, rowspan=10, padx=6, pady=10)
+        self.right_frame.grid(row=0, column=3, sticky='nsew', columnspan=2, rowspan=10, padx=6, pady=10)
         self.right_frame.grid_columnconfigure(1, weight=1)
         self.right_frame.grid_rowconfigure(3, weight=1)
 
@@ -177,12 +177,16 @@ class App(customtkinter.CTk):
         self.note_3_text.grid(row=0, column=0, sticky='nsew')
 
         """bottom"""
-        self.artist_entry = customtkinter.CTkEntry(self, placeholder_text='Artist')
-        self.artist_entry.grid(row=10, column=1, pady=(10, 20), padx=10, sticky='ew')
-        self.filetype_drop_down = customtkinter.CTkOptionMenu(self, values=['Guitar Pro', 'Powertab', 'Both'])
-        self.filetype_drop_down.grid(row=10, column=2, pady=(10, 20))
+        self.artist_entry = customtkinter.CTkEntry(self, placeholder_text='Artist', width=300)
+        self.artist_entry.grid(row=10, column=1, columnspan=1, pady=(10, 20), padx=10, sticky='e')
+
+        self.mytabs_checkbox = customtkinter.CTkCheckBox(self, onvalue=True, offvalue=False,
+                                                        text='Download "My Tabs"', command=self.on_mytabs_checkbox_toggle)
+        self.mytabs_checkbox.grid(row=10, column=2, pady=(10, 20), sticky='w')
+        self.filetype_drop_down = customtkinter.CTkOptionMenu(self, values=['Guitar Pro', 'Powertab', 'Text', 'All'])
+        self.filetype_drop_down.grid(row=10, column=3, pady=(10, 20))
         self.download_button = customtkinter.CTkButton(self, text='Download', command=self.download_button_event)
-        self.download_button.grid(row=10, column=3, pady=(10, 20), padx=10)
+        self.download_button.grid(row=10, column=4, pady=(10, 20), padx=10)
         self.progress_bar.set(0)
 
         """GUI arrangement over"""
@@ -221,16 +225,21 @@ class App(customtkinter.CTk):
         """Takes the entered artist and runs the new tabs checker, which counts the number of tabs you already have from
         an artist, and how many are online, and reports back without downloading any. Creates driver instance"""
         print('\nPlease wait...\n')
-        artist = self.artist_entry.get()
-        if not validate(artist, 'user', 'password'):
-            return
+
+        my_tabs_requested = bool(self.mytabs_checkbox.get())
+
+        artist = ''
+        if not my_tabs_requested:
+            artist = self.artist_entry.get()
+            if not validate(artist, 'user', 'password', my_tabs_requested):
+                return
 
         headless, browser, cookies, filetype = bool(self.headless_checkbox.get()), self.browser_button.get(), \
             bool(self.cookies_checkbox.get()), self.filetype_drop_down.get()
 
         driver = DriverSetup.start_browser(artist, headless, browser, cookies)
         try:
-            thread = threading.Thread(target=lambda: DLoader.new_tabs_checker(driver, artist, filetype))
+            thread = threading.Thread(target=lambda: DLoader.new_tabs_checker(driver, artist, filetype, my_tabs_requested))
             thread.start()
 
         except Exception as e:
@@ -302,7 +311,7 @@ class App(customtkinter.CTk):
     def save_info_button_event(self):
         """Saves username and password to .txt file"""
         user, password = self.user_text_entry.get(), self.password_text_entry.get()
-        if not validate('A', user, password):
+        if not validate('A', user, password, False):
             return  # faked artist field to not trip validate
         with open(self.user_info_path, 'w+') as userinfo:
             userinfo.write(f'{user} {password}')
@@ -319,12 +328,16 @@ class App(customtkinter.CTk):
 
         # pull options from GUI fields
 
-        artist, user, password = self.artist_entry.get(), self.user_text_entry.get(), self.password_text_entry.get()
+        artist, user, password, my_tabs_requested = self.artist_entry.get(), self.user_text_entry.get(), \
+            self.password_text_entry.get(), bool(self.mytabs_checkbox.get())
         headless, browser, cookies, filetype = bool(self.headless_checkbox.get()), self.browser_button.get(), \
             bool(self.cookies_checkbox.get()), self.filetype_drop_down.get()
 
-        if not validate(artist, user, password):
+        if not validate(artist, user, password, my_tabs_requested):
             return
+
+        if my_tabs_requested: # no artist if my tabs is selected
+            artist = ''
 
         # set download state and prepare progress bar
         self.DOWNLOADING = True
@@ -332,10 +345,9 @@ class App(customtkinter.CTk):
         self.progress_bar.start()
 
         driver = DriverSetup.start_browser(artist, headless, browser, cookies)
-        count = DLoader.get_already_downloaded_count(artist)
-        print(f'There are already {count} files in the "{artist}" directory.\n')
 
         try:
+            print('Starting download...')
             thread = threading.Thread(target=lambda: start_download(driver, artist, user, password, self, filetype))
             thread.start()
         except Exception as e:
@@ -345,6 +357,17 @@ class App(customtkinter.CTk):
             print('Closing browser...')
             driver.quit()
             print('Browser closed.')
+
+
+    def on_mytabs_checkbox_toggle(self):
+        if self.mytabs_checkbox.get() == True:
+            self.artist_entry.delete(0, 'end')  # Clear existing text
+            self.artist_entry.insert(0, "Downloading your saved tabs...")  # Insert new text
+            self.artist_entry.configure(state='disabled')
+
+        else:
+            self.artist_entry.configure(state='normal')
+
 
     def cancel_button_event(self):
         """Cancels current download. Has to wait for the download thread to notice the new state."""
@@ -388,8 +411,9 @@ class App(customtkinter.CTk):
             os.remove('geckodriver.log')
 
 
-def validate(artist: str, user: str, password: str) -> bool:
-    if not artist:
+def validate(artist: str, user: str, password: str,
+             my_tabs_requested: bool) -> bool:
+    if not artist and not my_tabs_requested:
         print('Artist cannot be blank.')
         return False
     if not user:
@@ -414,40 +438,67 @@ def start_download(driver: webdriver, artist: str, user: str, password: str, gui
     attempts are handled in this method, as well as tracking failures, successes, and reporting overall progress"""
     Utils.failure_log_new_attempt()
 
+    # if mytabs checked
     search_url = Utils.search_url
-    driver.get(search_url + artist)
-    # setting the window size seems to help some element obfuscation issues
-    driver.set_window_size(1100, 1000)
-    # click on artist from search results
-    try:
-        driver.find_element(By.LINK_TEXT, artist).click()
-    except (TypeError, selenium.common.exceptions.NoSuchElementException):
-        print("Cannot find artist. Did you type it in with the exact spelling and capitalization?\n")
-        gui.DOWNLOADING = False
-        gui.progress_bar.stop()
-        print('Closing browser...')
-        driver.quit()
-        print('Browser closed.')
-        return
+    if bool(gui.mytabs_checkbox.get()):
+        try:
+            search_url = search_url + "Wilco" # force a login popup
+            driver.get(search_url)
+            # setting the window size seems to help some element obfuscation issues
+            driver.set_window_size(1100, 1200)
+            # click on artist from search results        
+        except (TypeError, selenium.common.exceptions.NoSuchElementException):
+            print("Cannot find My Tabs. Do you have any saved tabs?\n")
+            gui.DOWNLOADING = False
+            gui.progress_bar.stop()
+            print('Closing browser...')
+            driver.quit()
+            print('Browser closed.')
+            return
+    else:
+        try:
+            driver.get(search_url + artist)
+            # setting the window size seems to help some element obfuscation issues
+            driver.set_window_size(1100, 1000)
+            # click on artist from search results        
+            driver.find_element(By.LINK_TEXT, artist).click()
+        except (TypeError, selenium.common.exceptions.NoSuchElementException):
+            print("Cannot find artist. Did you type it in with the exact spelling and capitalization?\n")
+            gui.DOWNLOADING = False
+            gui.progress_bar.stop()
+            print('Closing browser...')
+            driver.quit()
+            print('Browser closed.')
+            return
     if driver.which_browser == 'Firefox':
         sleep(1)
 
+    print('Logging in...')
     Utils.login(driver, user, password)
-    download_count, failure_count, tab_links = 0, 0, []
+    download_count, failure_count, tab_links = 0, 0, {'download': [], 'text': []}
+
+    # because trying to visit 'my tabs' when logged out brings you to the forums
+    if bool(gui.mytabs_checkbox.get()):
+        print('Navigating to My Tabs...')
+        driver.get(Utils.my_tabs_url)
 
     if check_canceled(gui):
         return
-    print('Grabbing urls of requested files.')
-    tab_links = DLoader.link_handler(driver, tab_links, file_type_wanted)
+    print('Grabbing urls of requested files.\n')
+    tab_links = DLoader.link_handler(driver, tab_links,
+                                     file_type_wanted,
+                                     bool(gui.mytabs_checkbox.get()),
+                                     artist)
+    total_tabs = (len(tab_links['download'])+len(tab_links['text']))
 
-    print(f'Attempting {len(tab_links)} downloads.')
+    print(f'Attempting {total_tabs} downloads.')
     gui.progress_bar.stop()
     gui.progress_bar.set(0)
     gui.progress_bar.configure(mode="determinate")
-    gui.progress_bar["maximum"] = len(tab_links)
+    gui.progress_bar["maximum"] = total_tabs
     tabs_attempted = 0
     driver.wait_on_first_tab = True
-    for link in tab_links:
+    for link in tab_links['download']:
         # download interruptions
         if check_exiting(gui):
             return
@@ -469,7 +520,50 @@ def start_download(driver: webdriver, artist: str, user: str, password: str, gui
         tabs_attempted += 1
         download_count += results[0]
         failure_count += results[1]
-        gui.progress_bar.set(tabs_attempted / len(tab_links))
+        gui.progress_bar.set(tabs_attempted / 
+                             total_tabs)
+
+    for info in tab_links['text']:
+        # download interruptions
+        if check_exiting(gui):
+            return
+        if check_canceled(gui):
+            break
+
+        if 'artist' in info and info['artist'] != '':
+            artist = info['artist']
+            artist = Utils.sanitize_filename(artist)
+            DLoader.create_artist_folder(artist)
+
+        title = info['title']
+        type = info['type']
+        link = info['link']
+        artist_title_type = f'{artist} - {title} - {type}'
+
+        filename = f'{Utils.sanitize_filename(artist_title_type)}.txt'
+        fullpath = Utils.tab_download_path / artist
+        filename_fullpath = fullpath / filename
+
+        print(f'\n{artist_title_type}')
+
+        if filename_fullpath.is_file():
+            print(f'File already exists. Skipping.\n')
+        else:
+            tab_text_raw = DLoader.download_text(driver, link)
+            #print(tab_text_raw)
+
+            tab_text = Utils.process_tab_string(tab_text_raw)
+
+            # prepend artist_title to tab_text
+            tab_text = artist_title_type + '\n\n' + tab_text
+            print(f'Writing to file: {filename_fullpath} \n')
+            Utils.write_to_file(tab_text, filename_fullpath)
+
+        tabs_attempted += 1
+        download_count += 1
+        failure_count += 0 # TODO @steveandroulakis failure attempts for text
+        gui.progress_bar.set(tabs_attempted /
+                             total_tabs)
 
     # A wait here allows the browser to finish downloads before being closed.
     sleep(2)

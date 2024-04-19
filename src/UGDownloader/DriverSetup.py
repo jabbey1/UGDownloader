@@ -12,7 +12,11 @@ import Utils
 def start_browser(artist: str, headless: bool, which_browser: str, no_cookies: bool) -> (webdriver, int):
     """Builds the driver objects, depending on the browser selected. Provides driver with the download path,
     and options tailored to each browser. Sets the path of and installs the relevant driver."""
-    dl_path = DLoader.create_artist_folder(artist)
+    if artist:
+        dl_path = DLoader.create_artist_folder(artist)
+    else:
+        dl_path = DLoader.create_dl_folder()
+
     if which_browser == 'Firefox':
         firefox_options = set_firefox_options(str(dl_path), headless, no_cookies)
         print('Starting Firefox. Downloading Geckodriver.\n')

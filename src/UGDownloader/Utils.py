@@ -4,6 +4,7 @@ from selenium.common.exceptions import NoSuchElementException
 import sys
 from datetime import datetime
 from os import mkdir
+import os
 from pathlib import Path
 from time import sleep
 from selenium.webdriver.support import expected_conditions as ec
@@ -11,13 +12,28 @@ import requests
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 import configparser
+import re
+import pathlib
 
+if getattr(sys, 'frozen', False):
+    # If the application is run as a bundle, the pyInstaller bootloader
+    # extends the sys module by a flag frozen=True and sets the app 
+    # path into variable _MEIPASS'.
+    application_path = sys._MEIPASS
+else:
+    application_path = os.path.dirname(os.path.abspath(__file__))
 
 def read_config(file_path='_UGDownloaderFiles/config.ini'):
-    current_dir = Path(__file__).resolve().parent
-    file_path = current_dir / file_path
+    # current_dir = Path(__file__).resolve().parent
+    # file_path = current_dir / file_path
     config = configparser.ConfigParser()
+    # config.read(file_path)
+
+    file_path = os.path.join(application_path, '_UGDownloaderFiles', 'config.ini')
     config.read(file_path)
+
+    print("Config Location:")
+    print(file_path)
     return config
 
 
@@ -34,6 +50,7 @@ log_path = Path(program_data_path / 'myapp.log')
 github_api_url = config.get('Urls', 'github_api_url')
 github_releases = config.get('Urls', 'github_releases')
 search_url = config.get('Urls', 'search_url')
+my_tabs_url = config.get('Urls', 'my_tabs_url')
 LOGIN_BUTTON_SELECTOR = config.get('Selectors', 'LOGIN_BUTTON_SELECTOR')
 LOGIN_FORM_SELECTOR = config.get('Selectors', 'LOGIN_FORM_SELECTOR')
 LOGIN_USERNAME_SELECTOR = config.get('Selectors', 'LOGIN_USERNAME_SELECTOR')
@@ -131,12 +148,13 @@ def login(driver, user: str, password: str):
         password_textbox.send_keys(password)
         sleep(1)
         submit_button.click()
+        sleep(2)
 
         # Wait for popup to be clickable
-        popup_element = WebDriverWait(driver, 20).until(
-            ec.element_to_be_clickable((By.CSS_SELECTOR, LOGIN_POPUP_SELECTOR)))
-        popup_element.click()
-        sleep(.5)
+        # popup_element = WebDriverWait(driver, 20).until(
+        #     ec.element_to_be_clickable((By.CSS_SELECTOR, LOGIN_POPUP_SELECTOR)))
+        # popup_element.click()
+        sleep(1)
         print('Logged in')
 
     except NoSuchElementException:
@@ -151,3 +169,44 @@ def failure_log_failed_attempt(text: str):
     """This puts the url's of failed downloads in the failure log, so you could potentially go back and manually
     download files missed by the program."""
     logging.error('Failed download:' + text)
+
+def extract_data_preserve_whitespace(line):
+    # Regular expression to find and replace HTML tags
+    pattern = r'<[^>]+>'
+    cleaned_line = re.sub(pattern, '', line)
+    return cleaned_line
+
+def process_tab_string(tab_text_raw):
+    # Splitting the input string into lines
+    lines = tab_text_raw.split('\n')
+
+    # Processing each line and storing the results
+    processed_lines = [extract_data_preserve_whitespace(line) for line in lines]
+
+    # Joining the processed lines back into a single string
+    return '\n'.join(processed_lines)
+
+def write_to_file(data, filename):
+    filename_str = str(filename)
+    # print('writing ' + filename_str)
+    with open(filename, 'w', encoding='utf-8') as file:
+        file.write(data)
+
+def sanitize_filename(filename):
+    # Convert Path object to string if necessary
+    if isinstance(filename, pathlib.Path):
+        filename = str(filename)
+    # Remove invalid characters
+    return re.sub(r'[<>:"/\\|?*]', '', filename)
+
+def sanitize_directory(directory):
+    # Split the directory into parts
+    parts = pathlib.Path(directory).parts
+
+    # Sanitize each part of the directory
+    sanitized_parts = [re.sub(r'[<>:"|?*]', '', part) for part in parts]
+
+    # Reconstruct the path from sanitized parts
+    sanitized_path = pathlib.Path(*sanitized_parts)
+
+    return sanitized_path

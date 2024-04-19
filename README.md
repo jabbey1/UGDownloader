@@ -1,8 +1,14 @@
 # UGDownloader
 ## **Ultimate Guitar tab downloader**
 
-Enter the name of the artist, and this will download every available **Guitar Pro** file in a batch from ultimate-guitar.com. This will avoid the **'Official'** and **'Pro'**
+Enter the name of the artist, and this will download every available **Guitar Pro, Power Tab, or text tab** file in a batch from ultimate-guitar.com. This will avoid the **'Official'** and **'Pro'**
 versions of songs. Uses Firefox or Chrome with Selenium in Python.
+
+---
+### As of v2.6:
+
+- Can now download text tabs!
+- Can select 'My Tabs' to get your saved tabs
 
 ---
 ### As of v2.0:
