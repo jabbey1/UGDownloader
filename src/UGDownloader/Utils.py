@@ -151,9 +151,9 @@ def login(driver, user: str, password: str):
         sleep(2)
 
         # Wait for popup to be clickable
-        # popup_element = WebDriverWait(driver, 20).until(
-        #     ec.element_to_be_clickable((By.CSS_SELECTOR, LOGIN_POPUP_SELECTOR)))
-        # popup_element.click()
+        popup_element = WebDriverWait(driver, 5).until(
+            ec.element_to_be_clickable((By.CSS_SELECTOR, LOGIN_POPUP_SELECTOR)))
+        popup_element.click()
         sleep(1)
         print('Logged in')
 

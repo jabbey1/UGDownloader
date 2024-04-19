@@ -115,7 +115,7 @@ class App(customtkinter.CTk):
         self.todl_artist_entry.grid(row=0, column=0, sticky='ew', padx=(55, 10), columnspan=2)
 
         columns = '1'
-        self.todl_table = ttk.Treeview(self.right_frame, columns=columns, height=7, selectmode='browse',
+        self.todl_table = ttk.Treeview(self.right_frame, columns=columns, height=18, selectmode='browse',
                                        show='headings')
 
         self.todl_table.column("#1", anchor="c", minwidth=50, width=50)
