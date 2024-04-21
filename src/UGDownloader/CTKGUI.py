@@ -42,9 +42,9 @@ class App(customtkinter.CTk):
         self.grid_rowconfigure(2, weight=1)
 
         """left sidebar"""
-        self.sidebar_frame = customtkinter.CTkFrame(self, width=140, corner_radius=0)
-        self.sidebar_frame.grid(row=0, column=0, rowspan=11, sticky="nsew")
-        self.sidebar_frame.rowconfigure(8, weight=1)
+        self.sidebar_frame = customtkinter.CTkFrame(self, width=140, corner_radius=5)
+        self.sidebar_frame.grid(row=0, column=0, rowspan=12, sticky="nsew", pady=(0,7))
+        self.sidebar_frame.rowconfigure(7, weight=1)
 
         self.logo_label = customtkinter.CTkLabel(self.sidebar_frame, text='UGDownloader',
                                                  font=customtkinter.CTkFont(size=20, weight='bold'))
@@ -81,18 +81,10 @@ class App(customtkinter.CTk):
         self.appearance_mode_option_menu = customtkinter.CTkOptionMenu(self.sidebar_frame,
                                                                        values=["Light", "Dark", "System"],
                                                                        command=change_appearance_mode_event)
-        self.appearance_mode_option_menu.grid(row=8, column=0, sticky='s')
-        self.open_folder_button = customtkinter.CTkButton(self.sidebar_frame, text='Open Tab Folder',
-                                                          command=self.open_folder_button_event)
-        self.open_folder_button.grid(row=9, column=0, pady=(10, 0))
-        self.check_for_new_tabs_button = customtkinter.CTkButton(self.sidebar_frame, text='Check Artist Tab Count',
-                                                                 command=self.check_for_new_tabs_event)
-        self.check_for_new_tabs_button.grid(row=10, column=0, pady=(10, 0))
-        self.cancel_button = customtkinter.CTkButton(self.sidebar_frame, text='Cancel Download',
-                                                     command=self.cancel_button_event)
-        self.cancel_button.grid(row=11, column=0, pady=10)
+        self.appearance_mode_option_menu.grid(row=10, column=0, )
+
         self.exit_button = customtkinter.CTkButton(self.sidebar_frame, text='Exit', command=self.exit_button_event)
-        self.exit_button.grid(row=12, column=0, pady=(0, 20))
+        self.exit_button.grid(row=12, column=0, pady=(10, 8), sticky='s')
 
         """Middle"""
         self.console_output = customtkinter.CTkTextbox(self, width=350, border_color='white', border_width=1,
@@ -115,7 +107,7 @@ class App(customtkinter.CTk):
         self.todl_artist_entry.grid(row=0, column=0, sticky='ew', padx=(55, 10), columnspan=2)
 
         columns = '1'
-        self.todl_table = ttk.Treeview(self.right_frame, columns=columns, height=18, selectmode='browse',
+        self.todl_table = ttk.Treeview(self.right_frame, columns=columns, height=16, selectmode='browse',
                                        show='headings')
 
         self.todl_table.column("#1", anchor="c", minwidth=50, width=50)
@@ -149,7 +141,7 @@ class App(customtkinter.CTk):
         # table buttons
         self.copy_button = customtkinter.CTkButton(self.right_frame, width=130, text='Copy',
                                                    command=self.copy_button_event)
-        self.copy_button.grid(row=2, column=0, sticky='w', padx=10, pady=10, columnspan=2)
+        self.copy_button.grid(row=2, column=0, sticky='w', padx=10, pady=10)
         self.delete_button = customtkinter.CTkButton(self.right_frame, width=130, text='Delete',
                                                      command=self.delete_button_event)
         self.delete_button.grid(row=2, column=1, sticky='e', padx=10)
@@ -177,18 +169,35 @@ class App(customtkinter.CTk):
         self.note_3_text.grid(row=0, column=0, sticky='nsew')
 
         """bottom"""
-        self.artist_entry = customtkinter.CTkEntry(self, placeholder_text='Artist', width=300)
-        self.artist_entry.grid(row=10, column=1, columnspan=1, pady=(10, 20), padx=10, sticky='e')
-
         self.mytabs_checkbox = customtkinter.CTkCheckBox(self, onvalue=True, offvalue=False,
-                                                        text='Download "My Tabs"', command=self.on_mytabs_checkbox_toggle)
-        self.mytabs_checkbox.grid(row=10, column=2, pady=(10, 20), sticky='w')
-        self.filetype_drop_down = customtkinter.CTkOptionMenu(self, values=['Guitar Pro', 'Powertab', 'Text', 'All'])
-        self.filetype_drop_down.grid(row=10, column=3, pady=(10, 20))
-        self.download_button = customtkinter.CTkButton(self, text='Download', command=self.download_button_event)
-        self.download_button.grid(row=10, column=4, pady=(10, 20), padx=10)
-        self.progress_bar.set(0)
+                                                         text='Download "My Tabs"',
+                                                         command=self.on_mytabs_checkbox_toggle)
+        self.mytabs_checkbox.grid(row=11, column=2, pady=(0,10), padx=(0, 5))
 
+        self.artist_entry = customtkinter.CTkEntry(self, placeholder_text='Artist', width=330)
+        self.artist_entry.grid(row=10, column=2, pady=(5), padx=5, sticky='e')
+
+        self.filetype_drop_down = customtkinter.CTkOptionMenu(self, values=['Guitar Pro', 'Powertab', 'Text', 'All'])
+        self.filetype_drop_down.grid(row=11, column=2, pady=(0,10), padx=(0, 5), sticky='e')
+
+        self.download_button = customtkinter.CTkButton(self, text='Download', command=self.download_button_event)
+        self.download_button.grid(row=10, column=3, pady=5, padx=10)
+
+        self.cancel_button = customtkinter.CTkButton(self, text='Cancel Download',
+                                                     command=self.cancel_button_event)
+        self.cancel_button.grid(row=10, column=4, pady=5, padx=(5,15))
+
+        self.check_for_new_tabs_button = customtkinter.CTkButton(self, text='Check Artist Tab Count',
+                                                                 command=self.check_for_new_tabs_event)
+        self.check_for_new_tabs_button.grid(row=11, column=3, pady=(5,15))
+
+        self.open_folder_button = customtkinter.CTkButton(self, text='Open Tab Folder',
+                                                          command=self.open_folder_button_event)
+        self.open_folder_button.grid(row=11, column=4, pady=(5,15), padx=(5,15))
+
+
+
+        self.progress_bar.set(0)
         """GUI arrangement over"""
 
         # set default values
