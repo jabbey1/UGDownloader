@@ -43,7 +43,7 @@ class App(customtkinter.CTk):
 
         """left sidebar"""
         self.sidebar_frame = customtkinter.CTkFrame(self, width=140, corner_radius=5)
-        self.sidebar_frame.grid(row=0, column=0, rowspan=12, sticky="nsew", pady=(0,7))
+        self.sidebar_frame.grid(row=0, column=0, rowspan=12, sticky="nsew", pady=(0, 7))
         self.sidebar_frame.rowconfigure(7, weight=1)
 
         self.logo_label = customtkinter.CTkLabel(self.sidebar_frame, text='UGDownloader',
@@ -172,30 +172,28 @@ class App(customtkinter.CTk):
         self.mytabs_checkbox = customtkinter.CTkCheckBox(self, onvalue=True, offvalue=False,
                                                          text='Download "My Tabs"',
                                                          command=self.on_mytabs_checkbox_toggle)
-        self.mytabs_checkbox.grid(row=11, column=2, pady=(0,10), padx=(0, 5))
+        self.mytabs_checkbox.grid(row=11, column=2, pady=(0, 10), padx=(0, 5))
 
         self.artist_entry = customtkinter.CTkEntry(self, placeholder_text='Artist', width=330)
         self.artist_entry.grid(row=10, column=2, pady=(5), padx=5, sticky='e')
 
-        self.filetype_drop_down = customtkinter.CTkOptionMenu(self, values=['Guitar Pro', 'Powertab', 'Text', 'All'])
-        self.filetype_drop_down.grid(row=11, column=2, pady=(0,10), padx=(0, 5), sticky='e')
+        self.filetype_drop_down = customtkinter.CTkOptionMenu(self, values=['Guitar Pro', 'Powertab', 'Pro + Power', 'Text', 'All'])
+        self.filetype_drop_down.grid(row=11, column=2, pady=(0, 10), padx=(0, 5), sticky='e')
 
         self.download_button = customtkinter.CTkButton(self, text='Download', command=self.download_button_event)
         self.download_button.grid(row=10, column=3, pady=5, padx=10)
 
         self.cancel_button = customtkinter.CTkButton(self, text='Cancel Download',
                                                      command=self.cancel_button_event)
-        self.cancel_button.grid(row=10, column=4, pady=5, padx=(5,15))
+        self.cancel_button.grid(row=10, column=4, pady=5, padx=(5, 15))
 
         self.check_for_new_tabs_button = customtkinter.CTkButton(self, text='Check Artist Tab Count',
                                                                  command=self.check_for_new_tabs_event)
-        self.check_for_new_tabs_button.grid(row=11, column=3, pady=(5,15))
+        self.check_for_new_tabs_button.grid(row=11, column=3, pady=(5, 15))
 
         self.open_folder_button = customtkinter.CTkButton(self, text='Open Tab Folder',
                                                           command=self.open_folder_button_event)
-        self.open_folder_button.grid(row=11, column=4, pady=(5,15), padx=(5,15))
-
-
+        self.open_folder_button.grid(row=11, column=4, pady=(5, 15), padx=(5, 15))
 
         self.progress_bar.set(0)
         """GUI arrangement over"""
@@ -248,7 +246,8 @@ class App(customtkinter.CTk):
 
         driver = DriverSetup.start_browser(artist, headless, browser, cookies)
         try:
-            thread = threading.Thread(target=lambda: DLoader.new_tabs_checker(driver, artist, filetype, my_tabs_requested))
+            thread = threading.Thread(
+                target=lambda: DLoader.new_tabs_checker(driver, artist, filetype, my_tabs_requested))
             thread.start()
 
         except Exception as e:
@@ -345,7 +344,7 @@ class App(customtkinter.CTk):
         if not validate(artist, user, password, my_tabs_requested):
             return
 
-        if my_tabs_requested: # no artist if my tabs is selected
+        if my_tabs_requested:  # no artist if my tabs is selected
             artist = ''
 
         # set download state and prepare progress bar
@@ -367,8 +366,8 @@ class App(customtkinter.CTk):
             driver.quit()
             print('Browser closed.')
 
-
     def on_mytabs_checkbox_toggle(self):
+
         if self.mytabs_checkbox.get() == True:
             self.artist_entry.delete(0, 'end')  # Clear existing text
             self.artist_entry.insert(0, "Downloading your saved tabs...")  # Insert new text
@@ -376,7 +375,7 @@ class App(customtkinter.CTk):
 
         else:
             self.artist_entry.configure(state='normal')
-
+            self.artist_entry.delete(0, 'end')
 
     def cancel_button_event(self):
         """Cancels current download. Has to wait for the download thread to notice the new state."""
@@ -451,7 +450,7 @@ def start_download(driver: webdriver, artist: str, user: str, password: str, gui
     search_url = Utils.search_url
     if bool(gui.mytabs_checkbox.get()):
         try:
-            search_url = search_url + "Wilco" # force a login popup
+            search_url = search_url + "Wilco"  # force a login popup
             driver.get(search_url)
             # setting the window size seems to help some element obfuscation issues
             driver.set_window_size(1100, 1200)
@@ -498,7 +497,7 @@ def start_download(driver: webdriver, artist: str, user: str, password: str, gui
                                      file_type_wanted,
                                      bool(gui.mytabs_checkbox.get()),
                                      artist)
-    total_tabs = (len(tab_links['download'])+len(tab_links['text']))
+    total_tabs = (len(tab_links['download']) + len(tab_links['text']))
 
     print(f'Attempting {total_tabs} downloads.')
     gui.progress_bar.stop()
@@ -529,7 +528,7 @@ def start_download(driver: webdriver, artist: str, user: str, password: str, gui
         tabs_attempted += 1
         download_count += results[0]
         failure_count += results[1]
-        gui.progress_bar.set(tabs_attempted / 
+        gui.progress_bar.set(tabs_attempted /
                              total_tabs)
 
     for info in tab_links['text']:
@@ -559,7 +558,7 @@ def start_download(driver: webdriver, artist: str, user: str, password: str, gui
             print(f'File already exists. Skipping.\n')
         else:
             tab_text_raw = DLoader.download_text(driver, link)
-            #print(tab_text_raw)
+            # print(tab_text_raw)
 
             tab_text = Utils.process_tab_string(tab_text_raw)
 
@@ -570,7 +569,7 @@ def start_download(driver: webdriver, artist: str, user: str, password: str, gui
 
         tabs_attempted += 1
         download_count += 1
-        failure_count += 0 # TODO @steveandroulakis failure attempts for text
+        failure_count += 0  # TODO @steveandroulakis failure attempts for text
         gui.progress_bar.set(tabs_attempted /
                              total_tabs)
 
