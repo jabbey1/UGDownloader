@@ -73,9 +73,12 @@ class App(customtkinter.CTk):
         self.headless_checkbox = customtkinter.CTkCheckBox(self.sidebar_frame, onvalue=True, offvalue=False,
                                                            text='Run in background')
         self.headless_checkbox.grid(row=5, column=0, padx=20, sticky='w')
+        self.bypass_popup_checkbox = customtkinter.CTkCheckBox(self.sidebar_frame, onvalue=True, offvalue=False,
+                                                          text='Bypass Popup')
+        self.bypass_popup_checkbox.grid(row=6, column=0, padx=20, pady=(10, 0), sticky='w')
         self.cookies_checkbox = customtkinter.CTkCheckBox(self.sidebar_frame, onvalue=True, offvalue=False,
                                                           text='Bypass Cookies (E.U.)')
-        self.cookies_checkbox.grid(row=6, column=0, padx=20, pady=(10, 0), sticky='w')
+        self.cookies_checkbox.grid(row=7, column=0, padx=20, pady=(10, 0), sticky='wn')
 
         # Exiting/control buttons
         self.appearance_mode_option_menu = customtkinter.CTkOptionMenu(self.sidebar_frame,
@@ -201,6 +204,7 @@ class App(customtkinter.CTk):
         # set default values
         self.browser_button.set('Chrome')
         self.headless_checkbox.select()
+        self.bypass_popup_checkbox.select()
         self.filetype_drop_down.set('Guitar Pro')
         self.appearance_mode_option_menu.set('Dark')
         self.information_tabview.set('Notes')
@@ -218,8 +222,9 @@ class App(customtkinter.CTk):
                                        "work using Chrome and will not run in the background.")
         # Redirect console output
         sys.stdout = StdoutRedirector(self.console_output)
-        Utils.check_update()
+
         self.autofill_button_event(True)
+        Utils.check_update()
 
     """GUI button events"""
 
@@ -482,7 +487,7 @@ def start_download(driver: webdriver, artist: str, user: str, password: str, gui
         sleep(1)
 
     print('Logging in...')
-    Utils.login(driver, user, password)
+    Utils.login(driver, user, password, bool(gui.bypass_popup_checkbox.get()))
     download_count, failure_count, tab_links = 0, 0, {'download': [], 'text': []}
 
     # because trying to visit 'my tabs' when logged out brings you to the forums
@@ -492,7 +497,7 @@ def start_download(driver: webdriver, artist: str, user: str, password: str, gui
 
     if check_canceled(gui):
         return
-    print('Grabbing urls of requested files.\n')
+    print('Grabbing urls of requested files. (If stuck here, enable "Bypass popup")\n')
     tab_links = DLoader.link_handler(driver, tab_links,
                                      file_type_wanted,
                                      bool(gui.mytabs_checkbox.get()),

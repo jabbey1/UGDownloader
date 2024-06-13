@@ -1,6 +1,8 @@
 import logging
 import subprocess
-from selenium.common.exceptions import NoSuchElementException
+import webbrowser
+
+from selenium.common.exceptions import NoSuchElementException, TimeoutException
 import sys
 from datetime import datetime
 from os import mkdir
@@ -11,6 +13,7 @@ from selenium.webdriver.support import expected_conditions as ec
 import requests
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
+from packaging import version
 import configparser
 import re
 import pathlib
@@ -40,7 +43,7 @@ def read_config(file_path='_UGDownloaderFiles/config.ini'):
 # Load configuration from .ini
 config = read_config()
 
-VERSION = config.get('Version', 'version')
+CURRENT_VERSION = config.get('Version', 'version')
 tab_download_path = config.get('Paths', 'tab_download_path', fallback=Path.cwd() / 'Tabs')
 program_data_path = Path(config.get('Paths', 'program_data_path'))
 userinfo_path = Path(program_data_path / 'userinfo.txt')
@@ -74,29 +77,38 @@ def open_download_folder():
 
 
 def check_update():
-    """Uses the GitHub api to check my release page, and notifies and the newest release is different."""
-    # Make a request to the GitHub API to get the releases
+    """Checks GitHub for updates and provides user-friendly notification."""
 
-    print('Checking for updated .exe release.')
     try:
         response = requests.get(github_api_url)
-    except Exception as e:
-        print(f"Error occurred while checking for update: {e}")
+        response.raise_for_status()  # Raise an exception if the request failed
+    except requests.exceptions.RequestException as e:
+        print(f"Error connecting to GitHub: {e}")
         return
 
-    # Check if the request was successful
-    if response.status_code == 200:
-        releases = response.json()
-        # Get the latest release
-        latest_release_version = releases[0]["tag_name"]  # Assumes the API returns releases in descending order
-        if latest_release_version != str(VERSION):
-            print(f"A new release is available: {latest_release_version}. Current version: {VERSION}")
-            print(f"{github_releases}\n")
+    releases = response.json()
 
-        else:
-            print(f"No new release found. Current version: {VERSION}")
+    if not releases:
+        print("No releases found on GitHub.")
+        return
+
+    latest_release = releases[0]
+    latest_version = latest_release["tag_name"]
+
+    if version.parse(latest_version) > version.parse(CURRENT_VERSION):
+        print(f"\n** New version available! **")
+        print(f"Upgrade to v{latest_version}:")
+        print(f"Release: {latest_release['html_url']}")
+
+        # user_input = input("Do you want to open the release page? (y/n): ")
+        # if user_input.lower() == "y":
+        #     webbrowser.open(latest_release['html_url'])
     else:
-        print("Error occurred while checking for update.")
+        print(f"You're up to date with version {CURRENT_VERSION}")
+
+
+
+
 
 
 def fetch_resource(resource_path: Path) -> Path:
@@ -128,7 +140,7 @@ def folder_check():
             pass
 
 
-def login(driver, user: str, password: str):
+def login(driver, user: str, password: str, bypass_popup: bool):
     """logs in, but will be defeated if a captcha is present. Must be used when the driver is on
     a page where a login button exists. If you aren't already logged in, this will be most pages"""
 
@@ -151,9 +163,14 @@ def login(driver, user: str, password: str):
         sleep(2)
 
         # Wait for popup to be clickable
-        # popup_element = WebDriverWait(driver, 5).until(
-        #     ec.element_to_be_clickable((By.CSS_SELECTOR, LOGIN_POPUP_SELECTOR)))
-        # popup_element.click()
+        if bypass_popup:
+            try:
+                popup_element = WebDriverWait(driver, 5).until(
+                    ec.element_to_be_clickable((By.CSS_SELECTOR, LOGIN_POPUP_SELECTOR)))
+                popup_element.click()
+
+            except TimeoutException:
+                print('Try disabling "Bypass popup"')
         sleep(1)
         print('Logged in')
 
