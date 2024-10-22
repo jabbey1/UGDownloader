@@ -1,7 +1,5 @@
 import logging
 import subprocess
-import webbrowser
-
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
 import sys
 from datetime import datetime
@@ -45,6 +43,7 @@ config = read_config()
 
 CURRENT_VERSION = config.get('Version', 'version')
 tab_download_path = config.get('Paths', 'tab_download_path', fallback=Path.cwd() / 'Tabs')
+user_tab_folder_path = tab_download_path / '.User Folders'
 program_data_path = Path(config.get('Paths', 'program_data_path'))
 userinfo_path = Path(program_data_path / 'userinfo.txt')
 todownload_txt_path = Path(program_data_path / 'todownload.csv')
@@ -54,18 +53,19 @@ github_api_url = config.get('Urls', 'github_api_url')
 github_releases = config.get('Urls', 'github_releases')
 search_url = config.get('Urls', 'search_url')
 my_tabs_url = config.get('Urls', 'my_tabs_url')
+user_profile_url = config.get('Urls', 'user_profile_url')
 LOGIN_BUTTON_SELECTOR = config.get('Selectors', 'LOGIN_BUTTON_SELECTOR')
 LOGIN_FORM_SELECTOR = config.get('Selectors', 'LOGIN_FORM_SELECTOR')
 LOGIN_USERNAME_SELECTOR = config.get('Selectors', 'LOGIN_USERNAME_SELECTOR')
 LOGIN_PASSWORD_SELECTOR = config.get('Selectors', 'LOGIN_PASSWORD_SELECTOR')
 LOGIN_SUBMIT_SELECTOR = config.get('Selectors', 'LOGIN_SUBMIT_SELECTOR')
 LOGIN_POPUP_SELECTOR = config.get('Selectors', 'LOGIN_POPUP_SELECTOR')
+USER_TABS_PAGE_SELECTOR = config.get('Selectors', 'USER_TABS_PAGE_SELECTOR')
 
 
 def write_config_to_file(config: configparser.ConfigParser):
     with open(config_path, 'w') as configfile:
         config.write(configfile)
-    # todo test
 
 
 def open_download_folder():
@@ -77,8 +77,7 @@ def open_download_folder():
 
 
 def check_update():
-    """Checks GitHub for updates and provides user-friendly notification."""
-
+    """Checks GitHub for updates and provides notification."""
     try:
         response = requests.get(github_api_url)
         response.raise_for_status()  # Raise an exception if the request failed
@@ -99,16 +98,8 @@ def check_update():
         print(f"\n** New version available! **")
         print(f"Upgrade to v{latest_version}:")
         print(f"Release: {latest_release['html_url']}")
-
-        # user_input = input("Do you want to open the release page? (y/n): ")
-        # if user_input.lower() == "y":
-        #     webbrowser.open(latest_release['html_url'])
     else:
         print(f"You're up to date with version {CURRENT_VERSION}")
-
-
-
-
 
 
 def fetch_resource(resource_path: Path) -> Path:
@@ -127,6 +118,8 @@ def folder_check():
     """Checks for and creates the necessary files and directories."""
     if not tab_download_path.is_dir():
         mkdir(tab_download_path)
+    if not user_tab_folder_path.is_dir():
+        mkdir(user_tab_folder_path)
     if not program_data_path.is_dir():
         mkdir(program_data_path)
     if not userinfo_path.is_file():
@@ -139,8 +132,36 @@ def folder_check():
         with open(log_path, 'x'):
             pass
 
+def create_artist_folder(artist: str) -> Path:
+    """Build a path to the artist's folder, inside of Tabs where the files will be downloaded. First, builds path,
+    and then determines if there's a folder there already. If not, creates folder. Returns the path to the folder."""
+    dl_path = Path(tab_download_path / artist)
+    if dl_path.is_dir():
+        return dl_path
+    dl_path.mkdir(parents=True, exist_ok=True)
+    return dl_path  # return path so GUI can set download directory in browser
 
-def login(driver, user: str, password: str, bypass_popup: bool):
+def create_user_folder(user: str) -> Path:
+    """Creates a directory to store a User's tabs."""
+    dl_path = Path(user_tab_folder_path / user)
+    if dl_path.is_dir():
+        return dl_path
+    dl_path.mkdir(parents=True, exist_ok=True)
+    return dl_path  # return path so GUI can set download directory in browser
+
+def create_dl_folder() -> Path:
+    """Build a path to the general download folder, inside of Tabs where the files will be downloaded. First, builds
+    path, and then determines if there's a folder there already. If not, creates folder. Returns the path to the folder."""
+    dl_path = Path(tab_download_path)
+    if dl_path.is_dir():
+        print(f"Using folder at {dl_path}")
+        return dl_path
+    dl_path.mkdir(parents=True, exist_ok=True)
+    print(f"Folder created at {dl_path}")
+    return dl_path  # return path so GUI can set download directory in browser
+
+
+def login(driver, user: str, password: str, bypass_popup: bool) -> bool:
     """logs in, but will be defeated if a captcha is present. Must be used when the driver is on
     a page where a login button exists. If you aren't already logged in, this will be most pages"""
 
@@ -171,11 +192,14 @@ def login(driver, user: str, password: str, bypass_popup: bool):
 
             except TimeoutException:
                 print('Try disabling "Bypass popup"')
+                return False
         sleep(1)
         print('Logged in')
+        return True
 
     except NoSuchElementException:
         print('Error: Could not find one of the login elements.')
+        return False
 
 
 def failure_log_new_attempt():
@@ -227,3 +251,5 @@ def sanitize_directory(directory):
     sanitized_path = pathlib.Path(*sanitized_parts)
 
     return sanitized_path
+
+

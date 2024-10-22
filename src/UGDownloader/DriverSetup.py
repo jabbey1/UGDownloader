@@ -5,17 +5,20 @@ from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.firefox.service import Service as FirefoxService
 from subprocess import CREATE_NO_WINDOW
-import DLoader
 import Utils
 
 
-def start_browser(artist: str, headless: bool, which_browser: str, no_cookies: bool) -> (webdriver, int):
+def start_browser(search: str, search_type: str, headless: bool, which_browser: str, no_cookies: bool) -> (webdriver, Path):
     """Builds the driver objects, depending on the browser selected. Provides driver with the download path,
     and options tailored to each browser. Sets the path of and installs the relevant driver."""
-    if artist:
-        dl_path = DLoader.create_artist_folder(artist)
-    else:
-        dl_path = DLoader.create_dl_folder()
+    dl_path = Path()
+    if search_type == 'Artist':
+        dl_path = Utils.create_artist_folder(search)
+    elif search_type == 'User':
+        dl_path = Utils.create_user_folder(search)
+    elif search_type == 'My Tabs':
+        dl_path = Utils.create_dl_folder()
+
 
     if which_browser == 'Firefox':
         firefox_options = set_firefox_options(str(dl_path), headless, no_cookies)
@@ -31,7 +34,7 @@ def start_browser(artist: str, headless: bool, which_browser: str, no_cookies: b
         chrome_service.creation_flags = CREATE_NO_WINDOW
         driver = webdriver.Chrome(options=chrome_options, service=chrome_service)
     driver.which_browser = which_browser
-    return driver
+    return driver, dl_path
 
 
 def set_firefox_options(dl_path: str, headless: bool, no_cookies: bool) -> FirefoxOptions:
@@ -77,9 +80,12 @@ def set_chrome_options(dl_path: str, headless: bool, no_cookies: bool) -> Chrome
                    "profile.managed_default_content_settings.media_stream": 2}
     chrome_options.add_experimental_option('prefs', preferences)
     if no_cookies:
-        extension_path = Path(Utils.program_data_path / 'extension_3_4_6_0.crx')
+        extension_path = Path(Utils.program_data_path / 'extension_3_5_0_0.crx')
         chrome_options.add_extension(str(Utils.fetch_resource(extension_path)))
     if headless:
         chrome_options.add_argument("--headless=new")
+
+    # temp fix while Chrome headless is bugged: https://stackoverflow.com/questions/78996364/chrome-129-headless-shows-blank-window
+    chrome_options.add_argument("--window-position=-2400,-2400")
 
     return chrome_options
