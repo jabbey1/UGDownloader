@@ -497,6 +497,7 @@ def start_download(driver: webdriver, search: str, user: str, password: str, gui
     # This will position the driver in the correct spot for the type of download wanted,
     # while setting up for a login
     if not handle_search_type(driver, search_type, search):
+        Utils.delete_empty_directory(dl_path)
         stop_download(gui, driver)
         return
 
@@ -563,6 +564,7 @@ def start_download(driver: webdriver, search: str, user: str, password: str, gui
         failure_count += results[1]
         gui.progress_bar.set(tabs_attempted / total_tabs)
 
+    Utils.delete_empty_directory(dl_path)
     # A wait here allows the browser to finish downloads before being closed.
     sleep(2)
     print('Downloads Finished.')
@@ -614,7 +616,10 @@ def handle_search_type(driver, search_type, search) -> bool:
     return True
 
 def create_file_title(tab: Tab.Tab) -> str:
-    return f'{tab.artist} - {tab.song_name} - {tab.format} (V{tab.version}, {tab.rating_value}@{tab.rating_count})'
+    if tab.format in ('Guitar Pro', 'Power Tab'):
+        return f'{tab.artist} - {tab.song_name} (V{tab.version}, {tab.rating_value}@{tab.rating_count})'
+    else:
+        return f'{tab.artist} - {tab.song_name} - {tab.format} (V{tab.version}, {tab.rating_value}@{tab.rating_count})'
 
 
 def dl_text(driver, tab, tabs_attempted, search, search_type):
@@ -686,7 +691,17 @@ def get_last_filename_and_rename(save_folder: str, new_filename):
     files = glob.glob(os.path.join(save_folder, '*'))
     max_file = max(files, key=os.path.getctime)
     _, file_extension = os.path.splitext(max_file)
+    # if the program moves faster than Chrome can download, it won't have time to finish it's temporary file
+    tries = 0
+    while (file_extension == 'crdownload' or file_extension == 'tmp') and tries < 3:
+        sleep(2)
+        max_file = max(files, key=os.path.getctime)
+        _, file_extension = os.path.splitext(max_file)
+        tries += 1
     new_path = os.path.join(save_folder, f'{new_filename}{file_extension}')
+    # overwrite if file already exists
+    if os.path.exists(new_path):
+        os.remove(new_path)
     os.rename(max_file, new_path)
     return new_path
 

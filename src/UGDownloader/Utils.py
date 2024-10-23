@@ -1,5 +1,6 @@
 import logging
 import subprocess
+import send2trash
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
 import sys
 from datetime import datetime
@@ -160,6 +161,12 @@ def create_dl_folder() -> Path:
     print(f"Folder created at {dl_path}")
     return dl_path  # return path so GUI can set download directory in browser
 
+
+def delete_empty_directory(dl_path):
+    empty = [root for root, dirs, files, in os.walk(dl_path) if not len(dirs) and not len(files)]
+    for directory in empty:
+        print(f'Deleting empty folder {directory}')
+        send2trash.send2trash(directory)
 
 def login(driver, user: str, password: str, bypass_popup: bool) -> bool:
     """logs in, but will be defeated if a captcha is present. Must be used when the driver is on

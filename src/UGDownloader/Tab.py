@@ -50,7 +50,7 @@ class Tab(object):
         # Sometimes a tab will have an extra title label, like 'live' or 'acoustic',
         # but it will be separate from the title in the keywords list
         remaining = remaining.split(', ')
-        if remaining[1] != self.artist:
+        if remaining[1] != self.artist and remaining[1] not in ('Guitar Pro', 'Tab', 'Chords', 'Power Tab', 'Bass'):
             self.song_name += (' (' + remaining[1] + ')')
 
         # table above the tab player has lots of extra info
@@ -121,4 +121,8 @@ def start_test_driver() -> webdriver:
 
 
 if __name__ == "__main__":
+    driver = start_test_driver()
+    nt = Tab("")
+    nt.read_info(driver)
+    nt.print_attributes()
     pass
