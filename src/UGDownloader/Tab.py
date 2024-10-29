@@ -51,7 +51,8 @@ class Tab(object):
         # but it will be separate from the title in the keywords list
         remaining = remaining.split(', ')
         if remaining[1] != self.artist and remaining[1] not in ('Guitar Pro', 'Tab', 'Chords', 'Power Tab', 'Bass'):
-            self.song_name += (' (' + remaining[1] + ')')
+            part = remaining[1].lstrip()
+            self.song_name += (' (' + part + ')')
 
         # table above the tab player has lots of extra info
         # info_table = driver.find_element(By.CSS_SELECTOR, INFO_TABLE_SELECTOR)

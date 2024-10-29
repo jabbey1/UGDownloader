@@ -1,3 +1,4 @@
+from re import search
 from typing import List
 from time import sleep
 import selenium.common.exceptions
@@ -133,14 +134,20 @@ def link_handler(driver: webdriver, tab_list: list[Tab.Tab], file_type_wanted: s
     # Guitar Pro tabs
     if file_type_wanted in ('Guitar Pro', 'All', 'Pro + Power'):
         try:
-            driver.find_element(By.LINK_TEXT, 'Guitar Pro').click()
+            if my_tabs_wanted:
+                driver.find_element(By.XPATH, "//nav[@class='Do1zZ ydHr1']//div[@role='button' and text()='Pro']").click()
+            else:
+                driver.find_element(By.LINK_TEXT, 'Guitar Pro').click()
             tab_list.extend(collect_links_guitar_pro(driver, True, file_type_wanted))
         except (TypeError, selenium.common.exceptions.NoSuchElementException):
             print('There are no available Guitar Pro tabs for this artist.')
     # Powertabs
     if file_type_wanted in ('Powertab', 'All', 'Pro + Power'):
         try:
-            driver.find_element(By.LINK_TEXT, 'Power').click()
+            if my_tabs_wanted:
+                driver.find_element(By.XPATH, "//nav[@class='Do1zZ ydHr1']//div[@role='button' and text()='Power']").click()
+            else:
+                driver.find_element(By.LINK_TEXT, 'Power').click()
             tab_list.extend(collect_links_powertab(driver, True, file_type_wanted))
         except (TypeError, selenium.common.exceptions.NoSuchElementException):
             print('There are no available Powertabs for this artist.')
